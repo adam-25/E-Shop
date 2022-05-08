@@ -6,7 +6,7 @@
 // Importing necessary files.
 const app = require('./app');
 const dotenv = require('dotenv');
-const mongoConnection = require('./Config/connectDB');
+const mongoConnection = require('./Database/connectDB');
 
 // Configuration of env file.
 dotenv.config({path: "BackEnd/Config/config.env"});
