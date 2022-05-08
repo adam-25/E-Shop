@@ -7,6 +7,8 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json());
+
 // Importing all Routes
 const productRoute = require('./Routes/productRoute');
 
