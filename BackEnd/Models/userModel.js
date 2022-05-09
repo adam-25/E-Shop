@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema({
 // Hashing the password and store in DB.
 userSchema.pre("save", async function (next) {
 
-	if (!this.isModified("password")) {
+	if (!this.isModified("userPassword")) {
 		next();
 	}
 
@@ -52,9 +52,15 @@ userSchema.pre("save", async function (next) {
 
 // JWT Token We store it in Cookie so, we can know that this is the same user that has been logged in.
 userSchema.methods.getJWTToken = function () {
-	return this.sign({ id: this._id }, process.env.SECRET_KEY,
+	return jwt.sign({ id: this._id }, process.env.SECRET_KEY,
 		{ expiresIn: process.env.JWT_EXPIRE }
 	);
+};
+
+userSchema.methods.comparePassword = async function (plainPassword) {
+
+	return await bcrypt.compare(plainPassword, this.userPassword);
+
 };
 
 module.exports = new mongoose.model("userInfo", userSchema);
