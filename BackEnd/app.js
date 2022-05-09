@@ -12,9 +12,11 @@ app.use(express.json());
 
 // Importing all Routes
 const productRoute = require('./Routes/productRoute');
+const userRoute = require('./Routes/userRoutes');
 
 // Using Routes.
 app.use("/api/v1/", productRoute);
+app.use("/api/v1/", userRoute);
 
 // Using MiddleWare
 app.use(errorMiddleWare);
