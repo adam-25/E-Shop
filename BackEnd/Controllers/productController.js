@@ -8,6 +8,7 @@
 const productModel = require("../Models/productModel");
 const ErrorHandler = require("../Utils/errorHandler");
 const asyncCatch = require("../MiddleWare/catchAsyncError");
+const apiFeature = require("../Utils/features");
 
 // Creating a new Product in DB. -- ADMIN ONLY
 exports.createProduct = asyncCatch ( async(req, res, next) => {
@@ -50,7 +51,7 @@ exports.deleteProduct = asyncCatch ( async (req, res, next) => {
 
 // Getting particular product from DB by ID.
 exports.getOneProduct = asyncCatch ( async (req, res, next) => {
-	
+
 	const oneProduct = await productModel.findById(req.params.id);
 
 	if (!oneProduct)	{
@@ -64,7 +65,8 @@ exports.getOneProduct = asyncCatch ( async (req, res, next) => {
 // Extracting all the Products from the DB.
 exports.getAllProducts = asyncCatch ( async (req, res, next) => {
 
-	const allProducts = await productModel.find();
+	const apiFeatureObj = new apiFeature(productModel.find(), req.query).search();
+	const oneProduct = await apiFeatureObj.search().query;
 
-	res.status(200).json({ status: "Successfully retrieved all products", products: allProducts });
+	res.status(200).json({ status: "Successfully retrieved all products", products: oneProduct });
 });
