@@ -37,7 +37,7 @@ const server = app.listen(process.env.PORT, (err) => {
 
 // UnHandle Promise Rejection: Only one thing happens at promise time.
 process.on("unhandledRejection", (err) => {
-	console.log("There is an unhandled Error: " + err.message);
+	console.log("There is an unhandled Error: " + err.stack);
 
 	console.log("Shutting down the server due to an error: " + err.message);
 

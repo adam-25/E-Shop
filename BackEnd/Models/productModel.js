@@ -70,9 +70,14 @@ const productSchema = new mongoose.Schema({
 			}
 		}
 	],
+	userCreatedProduct: {
+		type: mongoose.Schema.ObjectId,
+		reference: "user",
+		required: true
+	},
 	CreatedTimeOfProduct: {
 		type: Date,
-		date: Date.now
+		date: Date.now()
 	}
 
 });

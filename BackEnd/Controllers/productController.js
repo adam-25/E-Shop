@@ -12,6 +12,9 @@ const apiFeature = require("../Utils/features");
 
 // Creating a new Product in DB. -- ADMIN ONLY
 exports.createProduct = asyncCatch(async (req, res, next) => {
+
+	req.body.userCreatedProduct = req.user.id;
+
 	const newProduct = await productModel.create(req.body);
 
 	res.status(200).json({ status: "Success", createdProduct: newProduct });

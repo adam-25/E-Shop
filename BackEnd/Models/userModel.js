@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const validate = require('validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const saltRounds = 10;
 
 
@@ -61,6 +62,17 @@ userSchema.methods.comparePassword = async function (plainPassword) {
 
 	return await bcrypt.compare(plainPassword, this.userPassword);
 
+};
+
+userSchema.methods.resetPassword = async function () {
+
+	const resetToken = crypto.randomBytes(20).toString("hex");
+
+	this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+
+	this.resetPasswordExpiredDate = Date.now() + 15 * 60 * 1000;
+
+	return resetToken;
 };
 
 module.exports = new mongoose.model("userInfo", userSchema);

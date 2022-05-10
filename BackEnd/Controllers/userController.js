@@ -8,28 +8,29 @@ const catchError = require('../MiddleWare/catchAsyncError');
 const userModel = require('../Models/userModel');
 const ErrorHandler = require('../Utils/errorHandler');
 const sendToken = require('../Utils/returnToken');
+const sendEmail = require('../Utils/sendResetPasswordEmail.js');
 
-exports.registerUser = catchError( async (req, res, next) => {
+exports.registerUser = catchError(async (req, res, next) => {
 
-	const {userFullName, userEmail, userPassword} = req.body;
+	const { userFullName, userEmail, userPassword } = req.body;
 
-	const user = await userModel.create({userFullName, userEmail, userPassword});
+	const user = await userModel.create({ userFullName, userEmail, userPassword });
 
 	sendToken(user, 201, res);
 });
 
 // Login User
-exports.loginUser = catchError( async (req, res, next) => {
+exports.loginUser = catchError(async (req, res, next) => {
 
-	const {userEmail, userPassword} = req.body;
+	const { userEmail, userPassword } = req.body;
 
 	if (!userEmail || !userPassword) {
 		return next(new ErrorHandler("Please Enter 	your email and password", 400));
 	};
 
-	const user = await userModel.findOne({userEmail: userEmail}).select("+userPassword");
+	const user = await userModel.findOne({ userEmail: userEmail }).select("+userPassword");
 
-	if (!user)	{
+	if (!user) {
 		next(new ErrorHandler("Invalid Email or password", 401));
 	}
 
@@ -43,10 +44,52 @@ exports.loginUser = catchError( async (req, res, next) => {
 });
 
 // Login User
-exports.logOutUser = catchError( async (req, res, next) => {
+exports.logOutUser = catchError(async (req, res, next) => {
 
-	res.cookie("Token",null, {httpOnly: true, expires: new Date(Date.now())});
+	res.cookie("Token", null, { httpOnly: true, expires: new Date(Date.now()) });
 
-	res.status(200).json({success: true, message: "LogOut"});
+	res.status(200).json({ success: true, message: "LogOut" });
+
+});
+
+exports.forgotPassword = catchError(async (req, res, next) => {
+
+	const user = await userModel.findOne({ userEmail: req.body.userEmail });
+
+	if (!user) {
+		return next(new ErrorHandler("Invalid Email ID to reset a password"), 404);
+	}
+
+	const resetPasswordToken = await user.resetPassword();
+
+	await user.save({ validateBeforeSave: false });
+
+	const URLToResetPassword = `${req.protocol}://${req.get("host")}/api/v1/password/reset/${resetPasswordToken}`;
+
+	const message = "Your Password reset Token has been generated." 
+	+ "Click the link below to reset your password. \n\n" + URLToResetPassword 
+	+ "\nThis Link will be expired in 15 minutes.\n"
+	+ "If you have not request for Reset Password, Please ignore this Email."
+
+	try {
+
+		await sendEmail ({
+			email: user.userEmail,
+			subject: "EShop Account Reset Password",
+			message: message
+		});
+
+		res.status(200).json({status: "Success", message: "Email sent to " + user.userEmail + " successfully"});
+
+	}
+	catch (err) {
+
+		user.resetPasswordToken = undefined;
+		user.resetPasswordExpiredDate = undefined;
+
+		user.save({ validateBeforeSave: false });
+
+		return next(new ErrorHandler(err.message, 500));
+	}
 
 });
