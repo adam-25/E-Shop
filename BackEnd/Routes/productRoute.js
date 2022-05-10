@@ -7,9 +7,10 @@
 const express = require('express');
 const router = express.Router();
 const product = require('../Controllers/productController');
+const { isAuthenticateUser } = require('../MiddleWare/Authentication');
 
 // Creating a route where all the products can be displayed.
-router.route("/products").get(product.getAllProducts);
+router.route("/products").get(isAuthenticateUser, product.getAllProducts);
 
 // Creating a route to create a new product.
 router.route("/products/newProduct").post(product.createProduct);
