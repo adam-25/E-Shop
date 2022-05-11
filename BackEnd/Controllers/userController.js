@@ -126,3 +126,56 @@ exports.newPassword = catchError( async (req, res, next) => {
 	sendToken(user, 200, res);
 
 });
+
+exports.getUserDetails = catchError(async function (req, res, next) {
+
+	const getUserById = await userModel.findById(req.user.id);
+
+	res.status(200).json({status: true, user: getUserById});
+
+});
+
+exports.updatePassword = catchError(async function (req, res, next) {
+
+	const user = await userModel.findById(req.user.id).select("+userPassword");
+
+	const passwordMatch = await user.comparePassword(req.body.oldPassword);
+
+	if (!passwordMatch) {
+		return next(new ErrorHandler("Old Password is not correct.", 400));
+	}
+
+	if (req.body.oldPassword === req.body.newPassword) {
+		return next(new ErrorHandler("New password is the same as old Password.", 400));
+	}
+
+	if (req.body.newPassword !== req.body.confirmPassword) {
+		return next(new ErrorHandler("New password does not match with the old password.", 400));
+	}
+
+	user.userPassword = req.body.newPassword;
+
+	await user.save();
+
+	sendToken(user, 200, res);
+
+});
+
+exports.updateDetails = catchError(async function (req, res, next) {
+
+	const user = await userModel.findById(req.user.id);
+
+	if (!req.body.newFullName)
+		req.body.newFullName = user.userFullName;
+	else 
+		user.userFullName = req.body.newFullName;
+	
+	if (!req.body.newEmail)
+		req.body.newEmail = user.userEmail;
+	else
+		user.userEmail = req.body.newEmail;
+
+	await user.save();
+
+	res.status(200).json({success: true, message: "User details updated successfully"});
+});

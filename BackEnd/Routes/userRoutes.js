@@ -8,6 +8,7 @@
 const express = require('express');
 const router = express.Router();
 const user = require('../Controllers/userController');
+const { isAuthenticateUser } = require('../MiddleWare/Authentication');
 
 // User routes.
 
@@ -25,5 +26,13 @@ router.route("/password/forgot").post(user.forgotPassword);
 
 // User set a new password.
 router.route("/password/reset/:resetToken").put(user.newPassword);
+
+router.route("/password/update").put(isAuthenticateUser, user.updatePassword);
+
+router.route("/details").get(isAuthenticateUser, user.getUserDetails);
+
+router.route("/details/updateProfile").put(isAuthenticateUser, user.updateDetails);
+
+router.route("/password/update").post(user.updatePassword);
 
 module.exports = router;
