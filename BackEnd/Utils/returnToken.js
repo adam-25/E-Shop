@@ -1,3 +1,9 @@
+/* 	
+	File: Save cookie of login.
+	Date: May 10, 2022.
+		* Save cookie of a login Token.
+*/
+
 const sendToken = (user, statusCode, res) => {
 
 	const token = user.getJWTToken();

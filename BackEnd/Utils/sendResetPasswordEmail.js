@@ -1,6 +1,15 @@
+/* 	
+	File: function that send an Email.
+	Date: May 10, 2022.
+		* Send an Email to the email provided by the user from the email stored in .env file.
+*/
+
+// Importing necessary files.
 const nodemailer = require('nodemailer');
 const catchAsyncError = require('../MiddleWare/catchAsyncError');
 
+
+// Send an email with this function.
 const sendEmail = catchAsyncError(async (emailOptions) => {
 
 	const transporter = nodemailer.createTransport({
@@ -30,4 +39,5 @@ const sendEmail = catchAsyncError(async (emailOptions) => {
 
 });
 
+// Exporting sendEmail function.
 module.exports = sendEmail;

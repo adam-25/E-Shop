@@ -2,6 +2,9 @@
 	File: User Information.
 	Date: May 8, 2022.
 		* Schema of the user Information when they create an Account.
+
+	Date: May 10, 2022.
+		* Added resetPassword method which returns the token that we want to send via email.
 */
 
 // Importing necessary files for route.
@@ -58,12 +61,14 @@ userSchema.methods.getJWTToken = function () {
 	);
 };
 
+// Compare the user Entered password and hashed password stored in the database.
 userSchema.methods.comparePassword = async function (plainPassword) {
 
 	return await bcrypt.compare(plainPassword, this.userPassword);
 
 };
 
+// Return reset Password Token from the database.
 userSchema.methods.resetPassword = async function () {
 
 	const resetToken = crypto.randomBytes(20).toString("hex");

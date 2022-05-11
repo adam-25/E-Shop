@@ -1,6 +1,12 @@
 /*
 	Date: May 8, 2022
 		* Controls user Registration, Login and Authenticate Users.
+	
+	Date: May 10, 2022
+		* Send email to reset the user password.
+
+	Date: May 11, 2022
+		* Save the new password that user has been entered.
 */
 
 // Importing necessary files.
@@ -9,6 +15,7 @@ const userModel = require('../Models/userModel');
 const ErrorHandler = require('../Utils/errorHandler');
 const sendToken = require('../Utils/returnToken');
 const sendEmail = require('../Utils/sendResetPasswordEmail.js');
+const crypto = require('crypto');
 
 exports.registerUser = catchError(async (req, res, next) => {
 
@@ -34,7 +41,7 @@ exports.loginUser = catchError(async (req, res, next) => {
 		next(new ErrorHandler("Invalid Email or password", 401));
 	}
 
-	const passwordMatch = user.comparePassword(userPassword);
+	const passwordMatch = await user.comparePassword(userPassword);
 
 	if (!passwordMatch) {
 		return next(new ErrorHandler("Invalid Email or Password", 400));
@@ -43,7 +50,7 @@ exports.loginUser = catchError(async (req, res, next) => {
 	sendToken(user, 200, res);
 });
 
-// Login User
+// Logout User by setting stored LogIn Cookie to null.
 exports.logOutUser = catchError(async (req, res, next) => {
 
 	res.cookie("Token", null, { httpOnly: true, expires: new Date(Date.now()) });
@@ -52,6 +59,7 @@ exports.logOutUser = catchError(async (req, res, next) => {
 
 });
 
+// If User forgot password and Enter correct Email ID then send a reset password link to the user.
 exports.forgotPassword = catchError(async (req, res, next) => {
 
 	const user = await userModel.findOne({ userEmail: req.body.userEmail });
@@ -91,5 +99,30 @@ exports.forgotPassword = catchError(async (req, res, next) => {
 
 		return next(new ErrorHandler(err.message, 500));
 	}
+
+});
+
+// Reset Password. Add new Password to Database.
+exports.newPassword = catchError( async (req, res, next) => {
+
+	const resetPasswordToken = crypto.createHash("sha256").update(req.params.resetToken).digest("hex");
+
+	const user = await userModel.findOne({resetPasswordToken, resetPasswordExpiredDate: {$gt: Date.now()}});
+
+	if (!user) {
+		return next(new ErrorHandler("Password Reset Token is invalid or expired"), 400);
+	}
+
+	if (req.body.newPassword !== req.body.confirmNewPassword) {
+		return next(new ErrorHandler("Password Does not Match"), 400);
+	}
+
+	user.userPassword = req.body.newPassword;
+	user.resetPasswordToken = undefined;
+	user.resetPasswordExpiredDate = undefined;
+
+	await user.save();
+
+	sendToken(user, 200, res);
 
 });
