@@ -21,4 +21,6 @@ router.route("/products/:id")
 .delete(isAuthenticateUser, isAdmin("admin"), product.deleteProduct)
 .get(product.getOneProduct);
 
+router.route("/products/addReview").post(isAuthenticateUser, product.addOrCreateReview);
+
 module.exports = router;

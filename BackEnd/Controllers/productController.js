@@ -83,3 +83,63 @@ exports.getAllProducts = asyncCatch(async (req, res, next) => {
 		totalProducts: totalProducts
 	});
 });
+
+exports.addOrCreateReview = asyncCatch (async (req, res, next) => {
+
+	const userID = req.user.id;
+	const userName = req.user.userFullName;
+
+	const rating = Number(req.body.rating);
+	const comment = req.body.comment;
+	const productID = req.body.productID;
+
+	const product = await productModel.findById(productID);
+
+	let isReviewed = false;
+
+	product.productReview.forEach( function (review) {
+		if (review.reviewerName === userName)
+		{
+			isReviewed = true;
+		}
+	});
+
+	console.log(isReviewed);
+
+	if (isReviewed)	{
+		product.productReview.forEach(async (review) => {
+			if (review.reviewerName === userName)
+			{
+				review.ratingOfTheProduct = rating;
+				review.commentOnProduct = comment;
+			}
+		});
+
+		product.productRating = updateOverallReview(product);
+		await product.save({validateBeforeSave: false});
+		res.status(200).json({status: true, message: "Review Updated successfully"});
+	}
+	else {
+		product.productReview.push({reviewerID: userID, reviewerName: userName, ratingOfTheProduct: rating, commentOnProduct: comment});
+
+		product.productNumOfReviews = product.productReview.length;
+		
+		product.productRating = updateOverallReview(product);
+		await product.save();
+		res.status(200).json({status: true, message: "Review Added successfully"});
+	}
+});
+
+function updateOverallReview(product) {
+
+	let avg = 0;
+	let totalRating = 0;
+
+	product.productReview.forEach((review) => {
+		totalRating += review.ratingOfTheProduct;
+	});
+
+	avg = totalRating / product.productReview.length;
+
+	return avg;
+}
