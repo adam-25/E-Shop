@@ -7,6 +7,8 @@
 
 	Date: May 11, 2022
 		* Save the new password that user has been entered.
+		* Delete, Update, user details by them.
+		* Delete, Update, Get users detail by admin.
 */
 
 // Importing necessary files.
@@ -127,6 +129,7 @@ exports.newPassword = catchError( async (req, res, next) => {
 
 });
 
+// Get all the details of the user by login id.
 exports.getUserDetails = catchError(async function (req, res, next) {
 
 	const getUserById = await userModel.findById(req.user.id);
@@ -135,6 +138,7 @@ exports.getUserDetails = catchError(async function (req, res, next) {
 
 });
 
+// Update password of the user while he is logged in.
 exports.updatePassword = catchError(async function (req, res, next) {
 
 	const user = await userModel.findById(req.user.id).select("+userPassword");
@@ -161,6 +165,7 @@ exports.updatePassword = catchError(async function (req, res, next) {
 
 });
 
+// Update user details while he is logged in.
 exports.updateDetails = catchError(async function (req, res, next) {
 
 	const user = await userModel.findById(req.user.id);
@@ -189,6 +194,7 @@ exports.getAllUsers = catchError (async (req, res, next) => {
 
 });
 
+// Get specific user -- ADMIN
 exports.getOneUser = catchError (async (req, res, next) => {
 
 	const user = await userModel.findById(req.params.id);
@@ -200,6 +206,7 @@ exports.getOneUser = catchError (async (req, res, next) => {
 
 });
 
+// Updating user role -- ADMIN
 exports.updateUserRole = catchError (async (req, res, next) => {
 
 	const user = await userModel.findById(req.params.id);
@@ -228,6 +235,7 @@ exports.updateUserRole = catchError (async (req, res, next) => {
 
 });
 
+// Delete user account while he is logged in.
 exports.deleteUser = catchError (async (req, res, next) => {
 
 	await userModel.deleteOne({_id: req.user.id});
@@ -235,6 +243,7 @@ exports.deleteUser = catchError (async (req, res, next) => {
 	res.status(200).send({success: true, message:"User has been deleted successfully."});
 });
 
+// Delete user -- ADMIN
 exports.deleteUserByAdmin = catchError (async (req, res, next) => {
 
 	const user = await userModel.findById(req.params.id);

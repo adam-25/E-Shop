@@ -28,22 +28,25 @@ router.route("/password/forgot").post(user.forgotPassword);
 // User set a new password.
 router.route("/password/reset/:resetToken").put(user.newPassword);
 
+// Update the password of the user route.
 router.route("/password/update").put(isAuthenticateUser, user.updatePassword);
 
+// Get user details while he logged in.
 router.route("/details").get(isAuthenticateUser, user.getUserDetails);
 
+// Update user detail by themselves.
 router.route("/details/updateProfile").put(isAuthenticateUser, user.updateDetails);
 
-router.route("/password/update").post(user.updatePassword);
-
+// Getting all users by ADMIN.
 router.route("/admin/allUsers").get(isAuthenticateUser, isAdmin("admin"), user.getAllUsers);
 
+// Getting details, delete or change details of single user.
 router.route("/admin/singleUser/:id")
 .get(isAuthenticateUser, isAdmin("admin"), user.getOneUser)
 .delete(isAuthenticateUser, isAdmin("admin"), user.deleteUserByAdmin)
 .put(isAuthenticateUser, isAdmin("admin"), user.updateUserRole);
 
-
+// Delete user by themselves.
 router.route("/deleteUser").delete(isAuthenticateUser, user.deleteUser);
 
 module.exports = router;

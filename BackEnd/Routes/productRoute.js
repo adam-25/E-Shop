@@ -1,6 +1,9 @@
 /*
 	Date: May 8, 2022
 		* All the routers relating to products.
+
+	Date: May 11, 2022
+		* Add, get or delete a review of a product.
 */
 
 // Importing necessary files.
@@ -21,6 +24,10 @@ router.route("/products/:id")
 .delete(isAuthenticateUser, isAdmin("admin"), product.deleteProduct)
 .get(product.getOneProduct);
 
-router.route("/products/addReview").post(isAuthenticateUser, product.addOrCreateReview);
+// Add Review of a product.
+router.route("/reviews/addReview").post(isAuthenticateUser, product.updateOrCreateReview);
+
+// Get add the reviews, delete a specific review.
+router.route("/reviews").get(product.getAllReviews).delete(product.deleteReview);
 
 module.exports = router;

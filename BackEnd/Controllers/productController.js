@@ -2,6 +2,10 @@
 	Date: May 8, 2022
 		* Controls the operation on Products.
 		* Get All Products, Create a new Product, Update a Product, Remove Product.
+	
+	Date: May 11, 2022
+		* Add Methods to create or update, delete a review, of a product.
+		* Get all Reviews of a product.
 */
 
 // Importing necessary files.
@@ -84,7 +88,8 @@ exports.getAllProducts = asyncCatch(async (req, res, next) => {
 	});
 });
 
-exports.addOrCreateReview = asyncCatch (async (req, res, next) => {
+// Create or update a review of a product.
+exports.updateOrCreateReview = asyncCatch (async (req, res, next) => {
 
 	const userID = req.user.id;
 	const userName = req.user.userFullName;
@@ -103,8 +108,6 @@ exports.addOrCreateReview = asyncCatch (async (req, res, next) => {
 			isReviewed = true;
 		}
 	});
-
-	console.log(isReviewed);
 
 	if (isReviewed)	{
 		product.productReview.forEach(async (review) => {
@@ -130,6 +133,51 @@ exports.addOrCreateReview = asyncCatch (async (req, res, next) => {
 	}
 });
 
+// Getting all the reviews of a product.
+exports.getAllReviews = asyncCatch (async (req, res, next) => {
+
+	const productID = req.query.id;
+
+	const product = await productModel.findById(productID);
+
+	if (!product) {
+		return next(new ErrorHandler("Product Not Found", 404));
+	};
+
+	res.status(200).json({status: true, message: product.productReview});
+});
+
+// Deleting specific review of a product.
+exports.deleteReview = asyncCatch (async (req, res, next) => {
+
+	const productID = req.query.productID;
+	const product = await productModel.findById(productID);
+
+	if (!product) {
+		return next(new ErrorHandler("Product Not Found", 404));
+	};
+
+	let index = 0;
+
+	for (let i = 0; i < product.productReview.length; i++)	{
+		if (req.query.id === product.productReview[i].id)
+		{
+			index = i;
+			break;
+		}
+	};
+
+	product.productReview.splice(index, 1);
+
+	product.productNumOfReviews = product.productReview.length;
+	product.productRating = updateOverallReview(product);
+	await product.save();
+
+	res.status(200).json({status: true, message: "Product Review has been deleted successfully."});
+
+});
+
+// return an average rating of a product.
 function updateOverallReview(product) {
 
 	let avg = 0;
