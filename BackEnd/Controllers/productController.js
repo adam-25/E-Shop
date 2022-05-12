@@ -4,8 +4,9 @@
 		* Get All Products, Create a new Product, Update a Product, Remove Product.
 	
 	Date: May 11, 2022
-		* Add Methods to create or update, delete a review, of a product.
+		* Add function to create or update, delete a review, of a product.
 		* Get all Reviews of a product.
+		* Add function to sort products in either ascending or descending.
 */
 
 // Importing necessary files.
@@ -175,6 +176,158 @@ exports.deleteReview = asyncCatch (async (req, res, next) => {
 
 	res.status(200).json({status: true, message: "Product Review has been deleted successfully."});
 
+});
+
+// Sort products ascending.
+exports.ascendingSort = asyncCatch (async (req, res, next) => {
+
+	const resultPerPage = 5;
+
+	const totalProducts = await productModel.countDocuments();
+
+	const apiFeatureObj = new apiFeature(productModel.find(), req.query)
+		.search()
+		.filter()
+		.productPerPage(resultPerPage);
+
+	const allProducts = await apiFeatureObj.query;
+
+	let sortedProducts = allProducts.sort((a, b) => {
+		if (a.productName < b.productName) {
+			return -1;
+		}
+
+		if (a.productName > b.productName) {
+			return 1;
+		}
+
+		return 0;
+	});
+
+	res.status(200).json({status: true, message: sortedProducts, totalProducts: totalProducts});
+
+});
+
+// Sort products descending.
+exports.descSort = asyncCatch (async (req, res, next) => {
+
+	const resultPerPage = 5;
+
+	const totalProducts = await productModel.countDocuments();
+
+	const apiFeatureObj = new apiFeature(productModel.find(), req.query)
+		.search()
+		.filter()
+		.productPerPage(resultPerPage);
+
+	const allProducts = await apiFeatureObj.query;
+
+	let sortedProductsDesc = allProducts.sort((a, b) => {
+		if (a.productName < b.productName) {
+			return -1;
+		}
+
+		if (a.productName > b.productName) {
+			return 1;
+		}
+
+		return 0;
+	});
+	
+	sortedProductsDesc = sortedProductsDesc.reverse();
+
+	res.status(200).json({status: true, message: sortedProductsDesc, totalProducts: totalProducts});
+
+});
+
+exports.sortProductsRating = asyncCatch (async (req, res, next) => {
+
+	const resultPerPage = 5;
+
+	const totalProducts = await productModel.countDocuments();
+
+	const apiFeatureObj = new apiFeature(productModel.find(), req.query)
+		.search()
+		.filter()
+		.productPerPage(resultPerPage);
+
+	const allProducts = await apiFeatureObj.query;
+
+	let sortedProductsRating = allProducts.sort((a, b) => {
+		if (a.productRating < b.productRating) {
+			return -1;
+		}
+
+		if (a.productRating > b.productRating) {
+			return 1;
+		}
+
+		return 0;
+	});
+
+	sortedProductsRating = sortedProductsRating.reverse();
+
+	res.status(200).json({status: true, message: sortedProductsRating, totalProducts: totalProducts});
+
+});
+
+exports.lowToHighPrice = asyncCatch (async (req, res, next) => {
+
+	const resultPerPage = 5;
+
+	const totalProducts = await productModel.countDocuments();
+
+	const apiFeatureObj = new apiFeature(productModel.find(), req.query)
+		.search()
+		.filter()
+		.productPerPage(resultPerPage);
+
+	const allProducts = await apiFeatureObj.query;
+
+	let sortedProductsPrice = allProducts.sort((a, b) => {
+		if (a.productPrice < b.productPrice) {
+			return -1;
+		}
+
+		if (a.productPrice > b.productPrice) {
+			return 1;
+		}
+
+		return 0;
+	});
+
+	res.status(200).json({status: true, message: sortedProductsPrice, totalProducts: totalProducts});
+});
+
+
+exports.highToLowPrice = asyncCatch (async (req, res, next) => {
+
+	const resultPerPage = 5;
+
+	const totalProducts = await productModel.countDocuments();
+
+	const apiFeatureObj = new apiFeature(productModel.find(), req.query)
+		.search()
+		.filter()
+		.productPerPage(resultPerPage);
+
+	const allProducts = await apiFeatureObj.query;
+
+	let sortedProductsPrice = allProducts.sort((a, b) => {
+		if (a.productPrice < b.productPrice) {
+			return -1;
+		}
+
+		if (a.productPrice > b.productPrice) {
+			return 1;
+		}
+
+		return 0;
+	});
+
+	sortedProductsPrice = sortedProductsPrice.reverse();
+
+	res.status(200).json({status: true, message: sortedProductsPrice, totalProducts: totalProducts});
 });
 
 // return an average rating of a product.
