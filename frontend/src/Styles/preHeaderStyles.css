@@ -6,20 +6,16 @@
 	position: 'fixed';
 	top: 0;
 	width: '100%';
-}
-
-.custom-navbar {
+	align-items: center;
+	z-index: 1000;
 	background-color: #0F1111;
 }
 
 .logo {
 	width: 100px;
 	height: 65px;
-	margin-left: 25px;
-}
-
-.top-right {
-	padding-right: 250px;
+	margin-left: 10px;
+	margin-right: 5px;
 }
 
 .search {
@@ -33,7 +29,7 @@
 	border-bottom-left-radius: 5px;
 	border: none;
 	padding: 19px;
-	width: 500px;
+	width: 415px;
 	height: 25px;
 }
 
@@ -63,7 +59,6 @@
 		width: 80%;
 		height: 25px;
 		margin: 25px 0 15px 0;
-
 	}
 
 	.search-btn {
@@ -77,7 +72,7 @@
 
 	.sign-in {
 		font-size: 20px;
-		margin-left: 50px;
+		margin-left: 40px;
 	}
 
 	.register {
@@ -86,7 +81,7 @@
 	}
 
 	.order {
-		padding-left: 36px;
+		padding-left: 45px;
 		padding-top: 1px;
 		padding-bottom: 1px;
 		font-size: 20px;
@@ -97,6 +92,10 @@
 		padding-top: 5px;
 		padding-bottom: 10px;
 		font-size: 20px;
+	}
+
+	.products {
+		margin-right: auto;
 	}
 }
 
@@ -111,20 +110,41 @@
 
 }
 
+.sign {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 .order {
-	margin: 12px 4px 8px 7px;
+	margin: 12px 2px 8px 2px;
 	font-size: 20px;
 	color: #d0d0d0;
 
 }
 
 .cart {
-	margin: 16px 3px 0 3px;
+	margin: 12px 4px 0 3px;
 	font-size: 20px;
 	color: #d0d0d0;
-	
+
 }
 
 .nav-item:hover {
 	border: 1px solid #d0d0d0;
+}
+
+.products {
+	font-size: 20px;
+	color: #d0d0d0;
+	text-decoration: none;
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-top: 18px;
+	padding-bottom: 20px;
+}
+
+.products:hover {
+	border: 1px solid #d0d0d0;
+	text-decoration: none;
+	color: #d0d0d0;
 }
