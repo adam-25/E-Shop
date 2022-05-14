@@ -4,7 +4,9 @@ import PreHeader from './PreHeader';
 
 const Header = () => {
 	return (
-		<PreHeader />
+		<div>
+			<PreHeader />
+		</div>
 	)
 }
 

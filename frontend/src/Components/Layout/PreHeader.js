@@ -5,7 +5,7 @@ import '../../Styles/preHeaderStyles.css';
 const PreHeader = () => {
 
 	return (
-		<div>
+		<section className="navBar">
 			<nav className="custom-navbar navbar navbar-expand-lg navbar-dark">
 				<a className="navbar-brand" href="/Home"><img className="logo" src={logo} alt="" /></a>
 				<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ const PreHeader = () => {
 					</ul>
 				</div>
 			</nav >
-		</div>
+		</section>
 	)
 }
 
