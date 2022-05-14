@@ -1,0 +1,52 @@
+
+#foo {
+	text-align: center;
+	padding: 30px 30px 50px 60px;
+	background-color: #0F1111;
+	margin-top: 100px;
+}
+
+#foo p {
+	word-spacing: 2px;
+	letter-spacing: 2px;
+}
+
+#foo h3 {
+	word-spacing: 2px;
+	letter-spacing: 2px;
+}
+
+.footer {
+	height: auto;
+	margin-top: 50px;
+	background-color: #0F1111;
+	color: #d0d0d0;
+}
+
+.ios {
+	width: 30%;
+	margin-top: 30px;
+}
+
+.android {
+	width: 30%;
+	margin-top: 30px;
+	margin-left: 10px;
+}
+
+.logo-footer {
+	margin-top: -30px;
+	width: 50%;
+	height: 1%;
+}
+
+.icon {
+	margin: 20px 10px 10px 5px;
+	color: #d0d0d0;
+}
+
+@media all and (max-width: 600px)	{
+	#foo {
+		padding: 30px 30px 50px 40px;
+	}
+}
