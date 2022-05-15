@@ -2,7 +2,7 @@ import React from 'react';
 import IOSApp from '../../../Images/appStoreDownload.png';
 import androidApp from '../../../Images/playStoreDownload.png';
 import logo from '../../../Images/logo.png';
-import '../../../Styles/FooterStyle/footerStyles.css';
+import './footerStyles.css';
 
 const Footer = () => {
 	return (

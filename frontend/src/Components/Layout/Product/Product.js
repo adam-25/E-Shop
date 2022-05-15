@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactStars from 'react-rating-stars-component';
-import '../../../Styles/HomeStyle/homeStyle.css';
+import './productStyle.css';
 
 const options = {
 	edit: false,
 	color: "#0F1111",
-	activeColor: "#ffd700",
-	size: window.innerWidth < 900 ? 18 : 20,
+	activeColor: "#FDCC0D",
+	size: window.innerWidth < 900 ? 13 : 20,
 	value: 4,
 	isHalf: true
 }
@@ -19,7 +19,7 @@ const Product = ({ featureProduct }) => {
 				<img src={featureProduct.image[0].url} alt={featureProduct.name} />
 				<p>{featureProduct.name}</p>
 				<div>
-					<ReactStars {...options} /> <span>(256 Review)</span>
+					<ReactStars {...options} /> <span className="reviews">(256)</span>
 				</div>
 				<span>{"$" + featureProduct.price}</span>
 			</Link>

@@ -1,19 +1,23 @@
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import '../../../Styles/HeaderStyle/headerCarousel.css';
+import './headerCarousel.css';
+
+const options = {
+	infiniteLoop: true,
+	autoPlay: true,
+	interval: 1800,
+	autoFocus: true,
+	useKeyboardArrows: true,
+	stopOnHover: true,
+	transitionTime: 700
+}
 
 const CarouselHeader = ({ products }) => {
 	return (
 
 		<section className="header-carousel">
-			<Carousel
-				infiniteLoop
-				autoPlay
-				interval={3000}
-				autoFocus
-				useKeyboardArrows
-				transitionTime={800}>
+			<Carousel {...options}>
 				{products.map((item, index) => (
 					<img
 						src={item}

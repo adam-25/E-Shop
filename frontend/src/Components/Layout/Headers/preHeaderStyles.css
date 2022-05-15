@@ -6,12 +6,13 @@
 	position: relative;
 	width: 100%;
 	margin-bottom: 91px;
+	letter-spacing: 1.2px;
 }
 
 .navbar {
 	position: fixed;
 	top: 0;
-	width: inherit;
+	width: 100%;
 	height: auto;
 	align-items: center;
 	z-index: 1000;
@@ -36,7 +37,7 @@
 	border-bottom-left-radius: 5px;
 	border: none;
 	padding: 19px;
-	width: 415px;
+	width: 400px;
 	height: 25px;
 }
 
@@ -103,6 +104,12 @@
 
 	.products-nav {
 		margin-right: auto;
+	}
+}
+
+@media (max-width: 504px) {
+	.products-nav {
+		padding-right: auto;
 	}
 }
 

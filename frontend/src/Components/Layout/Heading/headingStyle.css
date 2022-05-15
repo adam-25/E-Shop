@@ -1,0 +1,23 @@
+.heading-title {
+	text-align: center;
+	font-size: 2vmax;
+	border-bottom: 1px solid #0f1111;
+	width: 20vmax;
+	padding-bottom: 5px;
+	margin: auto;
+}
+
+@media all and (max-width: 800px) {
+	.heading-title {
+		font-size: 2.5vmax;
+		width: 25vmax;
+	}
+}
+
+
+@media all and (max-width: 800px) {
+	.heading-title {
+		font-size: 3.3vmax;
+		width: 30vmax;
+	}
+}
