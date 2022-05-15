@@ -1,6 +1,6 @@
 import React from 'react'
 import logo from '../../../Images/logo.png';
-import '../../../Styles/preHeaderStyles.css';
+import '../../../Styles/HeaderStyle/preHeaderStyles.css';
 
 const PreHeader = () => {
 
