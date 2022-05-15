@@ -35,12 +35,12 @@
 }
 
 .logo-footer {
-	margin-top: -30px;
+	margin-top: -20px;
 	width: 50%;
 	height: 1%;
 }
 
-.icon {
+.icon-footer {
 	margin: 20px 10px 10px 5px;
 	color: #d0d0d0;
 }
@@ -49,4 +49,12 @@
 	#foo {
 		padding: 30px 30px 50px 40px;
 	}
+
+	.footer-contact {
+		margin-top: -10px;
+	}
+}
+
+.footer-contact {
+	margin-top: 20px;
 }

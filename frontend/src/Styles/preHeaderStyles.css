@@ -12,18 +12,18 @@
 	background-color: #0F1111;
 }
 
-.logo {
+.logo-nav {
 	width: 100px;
 	height: 65px;
 	margin-left: 10px;
 	margin-right: 5px;
 }
 
-.search {
+.search-nav {
 	margin-left: 50px;
 }
 
-.search-field {
+.search-field-nav {
 	position: relative;
 	margin-right: 0;
 	border-top-left-radius: 5px;
@@ -34,7 +34,7 @@
 	height: 25px;
 }
 
-.search-btn {
+.search-btn-nav {
 	margin-left: -1px;
 	height: 38px;
 	margin-bottom: 5px;
@@ -49,7 +49,7 @@
 		width: '100%';
 	}
 
-	.search-field {
+	.search-field-nav {
 		position: relative;
 		border-top-left-radius: 5px;
 		border-bottom-left-radius: 5px;
@@ -62,7 +62,7 @@
 		margin: 25px 0 15px 0;
 	}
 
-	.search-btn {
+	.search-btn-nav {
 		margin-left: -1px;
 		height: 40px;
 		margin-bottom: 5px;
@@ -71,59 +71,59 @@
 		border-bottom-left-radius: 0;
 	}
 
-	.sign-in {
+	.sign-in-nav {
 		font-size: 20px;
 		margin-left: 40px;
 	}
 
-	.register {
+	.register-nav {
 		font-size: 15px;
 		margin-left: 50px;
 	}
 
-	.order {
+	.order-nav {
 		padding-left: 45px;
 		padding-top: 1px;
 		padding-bottom: 1px;
 		font-size: 20px;
 	}
 
-	.cart {
+	.cart-nav {
 		padding-left: 44px;
 		padding-top: 5px;
 		padding-bottom: 10px;
 		font-size: 20px;
 	}
 
-	.products {
+	.products-nav {
 		margin-right: auto;
 	}
 }
 
-.sign-in {
+.sign-in-nav {
 	font-size: 20px;
 	color: #d0d0d0;
 }
 
-.register {
+.register-nav {
 	font-size: 15px;
 	color: #d0d0d0;
 
 }
 
-.sign {
+.sign-nav {
 	padding-left: 10px;
 	padding-right: 10px;
 }
 
-.order {
+.order-nav {
 	margin: 12px 2px 8px 2px;
 	font-size: 20px;
 	color: #d0d0d0;
 
 }
 
-.cart {
+.cart-nav {
 	margin: 12px 4px 0 3px;
 	font-size: 20px;
 	color: #d0d0d0;
@@ -134,7 +134,7 @@
 	border: 1px solid #d0d0d0;
 }
 
-.products {
+.products-nav {
 	font-size: 20px;
 	color: #d0d0d0;
 	text-decoration: none;
@@ -144,7 +144,7 @@
 	padding-bottom: 20px;
 }
 
-.products:hover {
+.products-nav:hover {
 	border: 1px solid #d0d0d0;
 	text-decoration: none;
 	color: #d0d0d0;

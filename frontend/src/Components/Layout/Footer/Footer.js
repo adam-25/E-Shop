@@ -24,11 +24,11 @@ const Footer = () => {
 				</div>
 				<div className="col-lg-4 col-md-12">
 					<div className="footer">
-						<h3>CONTACT US</h3>
-						<a href="https://www.youtube.com/channel/UCqopxIRqpOAa0hpcXP7ngMA" target="_blank"><i class="fab fa-youtube fa-lg icon"></i></a>
-						<a href="https://www.instagram.com/adarsh_11_/" target="_blank"><i class="fab fa-instagram fa-lg icon"></i></a>
-						<a href="https://twitter.com/Adarsh_Dudhat" target="_blank"><i class="fab fa-twitter fa-lg icon"></i></a>
-						<a href="https://www.linkedin.com/in/adarsh-dudhat/" target="_blank"><i class="fab fa-linkedin fa-lg icon"></i></a>
+						<h3 className='footer-contact'>CONTACT US</h3>
+						<a href="https://www.youtube.com/channel/UCqopxIRqpOAa0hpcXP7ngMA" target="_blank"><i class="fab fa-youtube fa-lg icon-footer"></i></a>
+						<a href="https://www.instagram.com/adarsh_11_/" target="_blank"><i class="fab fa-instagram fa-lg icon-footer"></i></a>
+						<a href="https://twitter.com/Adarsh_Dudhat" target="_blank"><i class="fab fa-twitter fa-lg icon-footer"></i></a>
+						<a href="https://www.linkedin.com/in/adarsh-dudhat/" target="_blank"><i class="fab fa-linkedin fa-lg icon-footer"></i></a>
 					</div>
 				</div>
 			</div>
