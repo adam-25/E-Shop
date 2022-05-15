@@ -1,0 +1,13 @@
+.carousel .thumb {
+	display: none;
+}
+
+.header-carousel img {
+	height: 675px;
+}
+
+@media (max-width: 992px) {
+	.header-carousel img {
+		height: auto;
+	}
+}
