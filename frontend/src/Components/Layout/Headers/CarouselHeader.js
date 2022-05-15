@@ -6,21 +6,23 @@ import '../../../Styles/HeaderStyle/headerCarousel.css';
 const CarouselHeader = ({ products }) => {
 	return (
 
-		<Carousel className="header-carousel" 
-		infiniteLoop 
-		autoPlay 
-		interval={3000} 
-		autoFocus 
-		useKeyboardArrows 
-		transitionTime={800}>
-			{products.map((item, index) => (
-				<img
-					src={item}
-					alt={index}
-				/>
-			))}
+		<section className="header-carousel">
+			<Carousel
+				infiniteLoop
+				autoPlay
+				interval={3000}
+				autoFocus
+				useKeyboardArrows
+				transitionTime={800}>
+				{products.map((item, index) => (
+					<img
+						src={item}
+						alt={index}
+					/>
+				))}
 
-		</Carousel>
+			</Carousel>
+		</section>
 	)
 }
 

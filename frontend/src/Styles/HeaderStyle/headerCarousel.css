@@ -2,6 +2,10 @@
 	display: none;
 }
 
+.header-carousel {
+	position: static;
+}
+
 .header-carousel img {
 	height: 675px;
 }
