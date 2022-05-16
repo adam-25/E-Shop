@@ -70,8 +70,8 @@ exports.getOneProduct = asyncCatch(async (req, res, next) => {
 
 // Extracting all the Products from the DB.
 exports.getAllProducts = asyncCatch(async (req, res, next) => {
-
-	const resultPerPage = 5;
+	
+	const resultPerPage = 8;
 
 	const totalProducts = await productModel.countDocuments();
 

@@ -50,10 +50,17 @@
 	border-bottom-left-radius: 0;
 }
 
+@media all and (max-width: 1106px) {
+	.navBar {
+		margin-bottom: 113px;
+	}
+}
+
 @media all and (max-width: 991px) {
 	.navBar {
 		position: 'none';
 		width: '100%';
+		margin-bottom: 89px;
 	}
 
 	.search-field-nav {
@@ -107,9 +114,21 @@
 	}
 }
 
+@media all and (max-width: 810px) {
+	.navBar {
+		margin-bottom: 85px;
+	}
+}
+
 @media (max-width: 504px) {
 	.products-nav {
 		padding-right: auto;
+	}
+}
+
+@media all and (max-width: 350px) {
+	.navBar {
+		margin-bottom: 80px;
 	}
 }
 

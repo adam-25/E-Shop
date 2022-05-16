@@ -11,6 +11,7 @@ function App() {
 		<Router>
 			<Header />
 			<Route exact path="/" component={Home} />
+			{/* Need to create a Route for every product in database. */}
 			<Footer />
 		</Router>
 	);
