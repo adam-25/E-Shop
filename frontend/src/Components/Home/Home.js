@@ -3,7 +3,7 @@ import CarouselHeader from '../Layout/Headers/CarouselHeader';
 import Heading from '../Layout/Heading/Heading';
 import ProductCard from "../Layout/ProductCard/ProductCard.js";
 import MetaData from "../Layout/MetaData";
-import { getProduct } from "../../Actions/productAction";
+import { clearErrors, getProduct } from "../../Actions/productAction";
 import { useSelector, useDispatch } from 'react-redux';
 
 import laptop from "../../Images/laptop.jpeg";
@@ -27,7 +27,8 @@ const Home = () => {
 
 	useEffect(() => {
 		if (error) {
-			return toast("Error: " + error);
+			toast("Error: " + error);
+			dispatch(clearErrors);
 		}
 		dispatch(getProduct());
 	}, [dispatch, error]);

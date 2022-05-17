@@ -3,9 +3,12 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './specificProductStyle.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSpecificProduct } from '../../Actions/productAction';
-import ReactStars from 'react-rating-stars-component';
+import { clearErrors, getSpecificProduct } from '../../Actions/productAction';
+import Heading from "../Layout/Heading/Heading";
+import ReviewCard from './ReviewCard.js';
 
+
+import ReactStars from 'react-rating-stars-component';
 import { toast } from 'react-toastify';
 import MetaData from '../Layout/MetaData';
 import Loading from '../Loading/Loading';
@@ -31,11 +34,12 @@ const SpecificProduct = ({ match }) => {
 	useEffect(() => {
 
 		if (error) {
-			return toast("Error: " + error);
+			toast("Error: " + error);
+			dispatch(clearErrors);
 		}
 		dispatch(getSpecificProduct(match.params.id));
 
-	}, [dispatch, match.params.id, error]);
+	}, [dispatch, match.params.id, error, alert]);
 
 	const optionsReview = {
 		edit: false,
@@ -103,6 +107,21 @@ const SpecificProduct = ({ match }) => {
 					</div>
 				</Fragment>
 			}
+
+			<Heading props="Reviews" />
+
+			<div style={{marginTop: "62px"}}></div>
+
+			{oneProduct.productReview && oneProduct.productReview[0] ? (
+
+				<div className="product-all-review">
+					{
+						oneProduct.productReview && oneProduct.productReview.map( (review) => 
+						<ReviewCard review={review} /> )
+					}
+				</div>
+			) : <p className="product-no-review">No Review Yet</p>}
+
 		</Fragment>
 	)
 }
