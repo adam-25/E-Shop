@@ -1,0 +1,57 @@
+/* Review Card CSS */
+
+/* Review Card  */
+.review-card {
+	flex: none;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	margin: 1vmax;
+	margin-bottom: 2vmax;
+	padding: 3vmax;
+	padding-left: 9vmax;
+	padding-right: 9vmax;
+}
+
+.review-card img {
+	width: 5vmax;
+}
+
+.row-review {
+	width: 100%;
+	transition: all 0.5s;
+}
+
+.row-review:hover {
+	transform: scale(1.1);
+}
+
+.row-review > div:last-child {
+	width: 68%;
+}
+
+.column-review {
+	margin-left: 3vmax;
+}
+
+.column-review p {
+	margin-top: 0.3vmax;
+	margin-bottom: 0px;
+	font-family: 'Comic Neue';
+	font-weight: 700;
+}
+
+.column-review > span {
+	font-family: 'Comic Neue', cursive;
+	font-weight: 300;
+	padding-top: 20%;
+	word-wrap: break-word;
+}
+
+.product-no-review {
+	text-align: center;
+	font-family: 'Comic Neue', cursive;
+	font-weight: 700;
+	font-size: 1.7vmax;
+	color:rgb(104, 104, 104)
+}

@@ -1,0 +1,22 @@
+/* Arrange featured Items in Home Page. */
+.product-container {
+	display: flex;
+	width: 100%;
+	margin-top: 2%;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+@media all and (max-width: 975px) {
+
+	.product-container {
+		margin-top: 5%;
+	}
+}
+
+@media (max-width: 600px) {
+
+	.product-container {
+		margin-top: 8%;
+	}
+}

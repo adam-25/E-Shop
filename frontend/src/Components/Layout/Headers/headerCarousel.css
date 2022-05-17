@@ -1,15 +1,19 @@
+/* Small Images to hidden */
 .carousel .thumb {
 	display: none;
 }
 
+/* Not necessary */
 .header-carousel {
 	position: static;
 }
 
+/* Carousel height */
 .header-carousel img {
 	height: 675px;
 }
 
+/* Media height */
 @media (max-width: 992px) {
 	.header-carousel img {
 		height: auto;

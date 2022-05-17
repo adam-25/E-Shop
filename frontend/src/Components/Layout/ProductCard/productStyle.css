@@ -1,11 +1,4 @@
-.product-container {
-	display: flex;
-	width: 100%;
-	margin-top: 2%;
-	flex-wrap: wrap;
-	justify-content: center;
-}
-
+/* Product Card General Style */
 .productCard {
 	width: 18vmax;
 	display: flex;
@@ -19,6 +12,7 @@
 	border-radius: 15px;
 }
 
+/* Image Style */
 .productCard img {
 	width: 18vmax;
 	height: 22vmax;
@@ -27,12 +21,14 @@
 	border-top-right-radius: 15px;
 }
 
+/* Rating, Number of rating Style */
 .productCard > div {
 	margin: 0vmax 0.5vmax 0.2vmax 1vmax;
 	display: flex;
 	justify-content: flex-start;
 }
 
+/* Num of Review */
 .productCard > div > span {
 	font-size: 1.2vmax;
 	margin: auto;
@@ -40,6 +36,7 @@
 	font-weight: lighter;
 }
 
+/* Name Style */
 .productCard > p {
 	font-size: 2vmax;
 	margin-bottom: 0px;
@@ -49,6 +46,7 @@
 	font-weight: lighter;
 }
 
+/* Price Style */
 .productCard > span {
 	font-size: 2.3vmax;
 	margin-left: 1vmax;
@@ -59,10 +57,7 @@
 
 @media all and (max-width: 975px) {
 
-	.product-container {
-		margin-top: 5%;
-	}
-
+	/* Image */
 	.productCard img {
 		width: 19vmax;
 		height: 22vmax;
@@ -70,18 +65,21 @@
 		border-top-right-radius: 5px;
 	}
 
+	/* Rating, Number of Review */
 	.productCard > div {
 		margin-left: 2.5vmax;
 		display: block;
 		margin-block: 0px;
 	}
 
+	/* Number of Review */
 	.productCard > div > span {
 		font-size: 1.8vmax;
 		margin: auto;
 		margin-left: 0.1vmax;
 	}
 
+	/* Name */
 	.productCard > p {
 		font-size: 2.5vmax;
 		margin-left: 2.9vmax;
@@ -89,6 +87,7 @@
 		margin-bottom: 0.1vmax;
 	}
 
+	/* Price */
 	.productCard > span {
 		font-size: 2.8vmax;
 		margin-left: 2.5vmax;
@@ -117,10 +116,6 @@
 
 @media (max-width: 600px) {
 
-	.product-container {
-		margin-top: 8%;
-	}
-
 	.productCard {
 		width: 35vmax;
 		margin: 2.5vmax;
@@ -137,6 +132,7 @@
 	}
 }
 
+/* Hover on Card Style */
 .productCard:hover {
 	box-shadow: 0 0 5px #0F1111;
 	transform: translateY(-1vmax);

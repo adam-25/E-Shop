@@ -1,3 +1,4 @@
+/* Main Div to contain both carousel and Details */
 .specific-product {
 	width: 100%;
 	padding: 6vmax;
@@ -7,6 +8,7 @@
 	padding-bottom: 0vmax;
 }
 
+/* Both Divs */
 .specific-product>div {
 	width: 100%;
 	display: flex;
@@ -17,6 +19,30 @@
 	box-sizing: border-box;
 }
 
+/* First DIV */
+
+
+/* Carousel Width make 50% */
+.product-carousel-image {
+	width: 50%;
+	border-radius: 20px;
+}
+
+/* Not display small carousel images */
+.carousel .thumb {
+	display: none;
+}
+
+/* Details */
+
+/* Start everything from start. */
+.specific-product>div:last-child {
+	align-items: flex-start;
+	padding-top: 0px;
+	margin-top: -20px;
+}
+
+/* Name */
 .product-name h2 {
 	color: #5F7161;
 	font-size: 1.9vmax;
@@ -24,24 +50,20 @@
 	font-weight: lighter;
 }
 
+/* ID */
 .product-name p {
 	color: #5F7161;
 	font-size: 0.8vmax;
 	font-weight: lighter;
 }
 
-.specific-product>div:last-child {
-	align-items: flex-start;
-	padding-top: 0px;
-	margin-top: -20px;
-}
-
-
+/* Product Review Below Name */
 .specific-product-reviews {
 	display: flex;
 	justify-content: flex-start;
 }
 
+/* Number of Reviews */
 .specific-product-reviews>span {
 	font-size: 1.2vmax;
 	margin: auto;
@@ -50,6 +72,7 @@
 	font-weight: lighter;
 }
 
+/* Price */
 .price-quantity h1 {
 	font-size: 2.5vmax;
 	color: #5F7161;
@@ -57,6 +80,7 @@
 	margin-top: 0.5vmax;
 }
 
+/* Input */
 .specific-product-quantity>input {
 	border: none;
 	width: 3.5vmax;
@@ -68,11 +92,39 @@
 	color: rgb(211, 144, 26);
 }
 
+/* Both + and - buttons */
+.specific-product-quantity>button {
+	border: none;
+	background-color: rgb(53, 52, 52);
+	color: white;
+	height: 2.8vmax;
+	width: 2.5vmax;
+	transition: all 0.5s;
+}
+
+/* First - button */
+.specific-product-quantity>button:first-child {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+/* Second + button */
+.specific-product-quantity>button:last-child {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.specific-product-quantity>button:hover {
+	background-color: rgb(27, 27, 27);
+}
+
+/* Create Margin of Input and Add to Cart Buttons from Price */
 .product-add-to-cart {
 	display: flex;
 	margin-top: 1.3vmax;
 }
 
+/* Add to Cart Button */
 .product-add-to-cart>button:last-child {
 	background-color: rgb(255, 106, 0);
 	color: white;
@@ -89,44 +141,25 @@
 	background-color: rgb(204, 85, 0);
 }
 
-.specific-product-quantity>button {
-	border: none;
-	background-color: rgb(53, 52, 52);
-	color: white;
-	height: 2.8vmax;
-	width: 2.5vmax;
-	transition: all 0.5s;
-}
-
-.specific-product-quantity>button:first-child {
-	border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
-}
-
-.specific-product-quantity>button:last-child {
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
-}
-
-.specific-product-quantity>button:hover {
-	background-color: rgb(27, 27, 27);
-}
-
+/* Description Inline */
 .specific-product-description p {
 	display: inline;
 }
 
+/* Description */
 .specific-product-description p:first-child {
 	font-size: 1.3vmax;
 	color: #5F7161;
 }
 
+/* Product Description */
 .specific-product-description p:last-child {
 	font-size: 1.1vmax;
 	color: #858585;
 	font-weight: lighter;
 }
 
+/* Submit Review Button */
 .submit-specific-product-review {
 	background-color: rgb(255, 132, 44);
 	color: white;
@@ -154,106 +187,47 @@
 	font-weight: lighter;
 }
 
-
-.product-carousel-image {
-	width: 50%;
-	border-radius: 20px;
-}
-
-.carousel .thumb {
-	display: none;
-}
-
-
-/* Review Card CSS */
-
-.review-card {
-	flex: none;
-	width: 100%;
-	display: flex;
-	/* flex-direction: column; */
-	align-items: center;
-	margin: 1vmax;
-	margin-bottom: 2vmax;
-	padding: 3vmax;
-	padding-left: 9vmax;
-	padding-right: 9vmax;
-}
-
-.review-card img {
-	width: 5vmax;
-}
-
-.row-review {
-	width: 100%;
-	transition: all 0.5s;
-}
-
-.row-review:hover {
-	transform: scale(1.1);
-}
-
-.row-review > div:last-child {
-	width: 68%;
-}
-
-.column-review {
-	margin-left: 3vmax;
-}
-
-.column-review p {
-	margin-top: 0.3vmax;
-	margin-bottom: 0px;
-	font-family: 'Comic Neue';
-	font-weight: 700;
-}
-
-.column-review > span {
-	font-family: 'Comic Neue', cursive;
-	font-weight: 300;
-	padding-top: 20%;
-	word-wrap: break-word;
-}
-
-.product-no-review {
-	text-align: center;
-	font-family: 'Comic Neue', cursive;
-	font-weight: 700;
-	font-size: 1.7vmax;
-	color:rgb(104, 104, 104)
-}
-
 @media all and (max-width: 992px) {
+
+	/* Main Div to contain both carousel and Details */
+	/* Making Carousel and Details rows from flex */
 	.specific-product {
 		flex-direction: column;
 		padding: 4vmax;
 	}
 
+	/* Image Up */
 	.specific-product>div:first-child {
 		padding: 0px;
 	}
 
+	/* Aligning Details to Center */
 	.specific-product>div:last-child {
 		align-items: center;
 	}
 
+	/* Name Size */
 	.product-name h2 {
 		font-size: 3vmax;
 	}
 
+	/* ID Size */
 	.product-name p {
 		font-size: 1vmax;
 	}
 
+	/* Reviews in two rows */
 	.specific-product-reviews {
 		display: block;
 	}
-
+	
+	/* Number of reviews Size */
 	.specific-product-reviews > span {
 		font-size: 1.9vmax;
 		margin: auto;
 	}
 
+	/* Price */
 	.price-quantity h1 {
 		font-size: 3.5vmax;
 		margin-left: -15px;
@@ -261,42 +235,51 @@
 		text-align: center;
 	}
 
-	.product-add-to-cart {
-		display: flex;
-		margin-top: 3vmax;
-	}
-
+	/* Input Height and Width */
 	.specific-product-quantity > input {
 		width: 4vmax;
 		height: 3.9vmax;
 	}
 
+	/* Buttons Height and Width */
 	.specific-product-quantity>button {
 		height: 3.9vmax;
 		width: 3.5vmax;
 	}
 
+	/* Add to Cart Button */
 	.product-add-to-cart>button:last-child {
 		height: 3.9vmax;
 		margin-left: 3vmax;
 	}
 
+	/* Maintain margin from Price of Cart and + - buttons */
+	.product-add-to-cart {
+		display: flex;
+		margin-top: 3vmax;
+	}
+
+	/* Centering Description */
 	.specific-product-description {
 		display: inline;
 		text-align: center;
+		margin-top: 2vmax;
 		width: 70%;
 	}
 
+	/* Description */
 	.specific-product-description p:first-child {
 		font-size: 2vmax;
 		color: #5F7161;
 	}
 	
+	/* Product Description */
 	.specific-product-description p:last-child {
 		font-size: 1.9vmax;
 		word-wrap: break-word;
 	}
 
+	/* Submit Review Button */
 	.submit-specific-product-review {
 		background-color: rgb(255, 132, 44);
 		margin-top: 3vmax;

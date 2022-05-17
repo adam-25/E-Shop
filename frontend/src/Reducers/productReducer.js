@@ -1,3 +1,13 @@
+/*	
+	Date: May 16, 2022
+		* Creating Reducer for Store. 
+		* productReducer for all products.
+
+	Date: May 17, 2022
+		* SpecificProduct Reducer.
+*/
+
+// Importing Constants.
 import {
 	ALL_PRODUCTS_REQUEST,
 	ALL_PRODUCTS_SUCCESS,
@@ -8,6 +18,7 @@ import {
 	CLEAR_ERRORS
 } from '../Constants/productConstant';
 
+// All products Reducer.
 export const productReducer = (state = { products: [] }, action) => {
 
 	switch (action.type) {
@@ -37,6 +48,7 @@ export const productReducer = (state = { products: [] }, action) => {
 	}
 };
 
+// SpecificProduct Reducer.
 export const specificProductReducer = (state = { oneProduct: {} }, action) => {
 	switch (action.type) {
 		case PRODUCT_REQUEST:

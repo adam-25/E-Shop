@@ -1,19 +1,28 @@
+/*	
+	Date: May 17, 2022
+		* Creating Component for Specific Product page.
+*/
+
+
+// Importing modules, Actions and items to get Data from Store and to Store Data to Store.
 import React, { Fragment, useEffect } from 'react';
 import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import './specificProductStyle.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearErrors, getSpecificProduct } from '../../Actions/productAction';
-import Heading from "../Layout/Heading/Heading";
-import ReviewCard from './ReviewCard.js';
 
-
+// Review and Error PopUp
 import ReactStars from 'react-rating-stars-component';
 import { toast } from 'react-toastify';
+
+// Importing Components and CSS.
 import MetaData from '../Layout/MetaData';
 import Loading from '../Loading/Loading';
+import Heading from "../Layout/Heading/Heading";
+import ReviewCard from './ReviewCard.js';
+import './specificProductStyle.css';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-
+// Options for Carousel.
 const optionsCarousel = {
 	infiniteLoop: true,
 	autoPlay: true,
@@ -29,18 +38,25 @@ const SpecificProduct = ({ match }) => {
 
 	const dispatch = useDispatch();
 
+	// Getting Items from Store with useSelector.
 	const { oneProduct, loading, error } = useSelector(state => state.oneProduct)
 
+	// Give Items from backend to Store. Call the function in Actions.
 	useEffect(() => {
 
+		// Error PopUp
 		if (error) {
 			toast("Error: " + error);
 			dispatch(clearErrors);
 		}
+
+		// Dispatch getSpecificProduct() function with ID in URL.
+		// Getting ID in URL with match.params.id.
 		dispatch(getSpecificProduct(match.params.id));
 
 	}, [dispatch, match.params.id, error, alert]);
 
+	// Stars options.
 	const optionsReview = {
 		edit: false,
 		color: "#0F1111",
@@ -52,9 +68,12 @@ const SpecificProduct = ({ match }) => {
 
 	return (
 		<Fragment>
+			{/* Loading */}
 			{loading ? <Loading /> :
 				<Fragment>
+					{/* Setting name of the page to the productName */}
 					<MetaData title={oneProduct.productName && oneProduct.productName} />
+					{/* Image Carousel */}
 					<div className="specific-product">
 						<div>
 							<Carousel {...optionsCarousel}>
@@ -68,11 +87,14 @@ const SpecificProduct = ({ match }) => {
 
 							</Carousel>
 						</div>
+						{/* Product Details Div */}
 						<div className="specific-product-details">
+							{/* Name */}
 							<div className="product-name">
 								<h2>{oneProduct.productName}</h2>
 								<p>Product # {oneProduct._id}</p>
 							</div>
+							{/* Review, Number of Review */}
 							<div className="specific-product-reviews">
 								<ReactStars {...optionsReview} />
 								<span>
@@ -81,17 +103,21 @@ const SpecificProduct = ({ match }) => {
 										: <span>( {oneProduct.productNumOfReviews} Reviews )</span>}
 								</span>
 							</div>
+							{/* Price and Quantity */}
 							<div className="price-quantity">
 								<h1>{"$" + oneProduct.productPrice}</h1>
 								<div className="product-add-to-cart">
+									{/* Div for Items Count */}
 									<div className="specific-product-quantity">
 										<button>-</button>
 										<input type="number" value={1} />
 										<button>+</button>
 									</div>
+									{/* Add to Cart Button */}
 									<button>Add to Cart</button>
 								</div>
 
+								{/* InStock or not with colors and text */}
 								<p>
 									Status: {" "}
 									<b className={oneProduct.productStock < 1 ? "red-color" : "green-color"}>
@@ -99,19 +125,25 @@ const SpecificProduct = ({ match }) => {
 									</b>
 								</p>
 							</div>
+							{/* Product Description */}
 							<div className="specific-product-description">
 								<p> Description: </p> <p>{oneProduct.productDescription}</p>
 							</div>
+
+							{/* Submit Review Button */}
 							<button className="submit-specific-product-review">Submit Review</button>
 						</div>
 					</div>
 				</Fragment>
 			}
 
+			{/* Heading */}
 			<Heading props="Reviews" />
 
+			{/* Margin */}
 			<div style={{marginTop: "62px"}}></div>
 
+			{/* Product Reviews. */}
 			{oneProduct.productReview && oneProduct.productReview[0] ? (
 
 				<div className="product-all-review">

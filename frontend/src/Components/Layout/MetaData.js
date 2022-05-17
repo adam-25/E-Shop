@@ -1,3 +1,7 @@
+/*	
+	Date: May 16, 2022
+		* Set title for the page where it is called.
+*/
 import React from 'react';
 import Helmet from 'react-helmet';
 

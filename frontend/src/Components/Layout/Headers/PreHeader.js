@@ -1,3 +1,9 @@
+/*
+	Date: May 13, 2022
+		* PreHeader Component which is NavBar..
+*/
+
+// Importing Logo for NavBar and it's CSS file.
 import React from 'react'
 import logo from '../../../Images/logo.png';
 import './preHeaderStyles.css';
@@ -6,15 +12,15 @@ const PreHeader = () => {
 
 	return (
 		<section className="navBar">
+			{/* NavBar Logo and Search Items */}
 			<nav className="navbar navbar-expand-lg navbar-dark">
 				<a className="navbar-brand" href="/"><img className="logo-nav" src={logo} alt="Logo" /></a>
 				<a className="nav-link products-nav" href="/products"> Products </a>
 				<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span className="navbar-toggler-icon"></span>
 				</button>
-				
 
-
+				{/* NavBar three links */}
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 					<form className="navbar-brand search-nav" action="">
 						<input className="search-field-nav" type="text" placeholder="Search..." name="search" autoComplete='off' />

@@ -1,8 +1,15 @@
+/*
+	Date: May 15, 2022
+		* Add Carousel Header.
+*/
+
+// Importing CSS and Carousel.
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './headerCarousel.css';
 
+// Options for Carousel.
 const options = {
 	infiniteLoop: true,
 	autoPlay: true,
