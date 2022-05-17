@@ -1,0 +1,245 @@
+.specific-product {
+	width: 100%;
+	padding: 6vmax;
+	box-sizing: border-box;
+	display: flex;
+	background-color: rgb(241, 245, 246)
+}
+
+.specific-product>div {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 2vmax;
+	box-sizing: border-box;
+}
+
+.product-name h2 {
+	color: #5F7161;
+	font-size: 1.9vmax;
+	margin-bottom: 0;
+	font-weight: lighter;
+}
+
+.product-name p {
+	color: #5F7161;
+	font-size: 0.8vmax;
+	font-weight: lighter;
+}
+
+.specific-product>div:last-child {
+	align-items: flex-start;
+	padding-top: 0px;
+	margin-top: -20px;
+}
+
+
+.specific-product-reviews {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.specific-product-reviews>span {
+	font-size: 1.2vmax;
+	margin: auto;
+	margin-left: 1vmax;
+	color: #5F7161;
+	font-weight: lighter;
+}
+
+.price-quantity h1 {
+	font-size: 2.5vmax;
+	color: #5F7161;
+	font-weight: lighter;
+}
+
+.specific-product-quantity>input {
+	border: none;
+	width: 3.5vmax;
+	text-align: center;
+	padding: 0.5vmax;
+	outline: none;
+	cursor: pointer;
+	height: 2.8vmax;
+	color: rgb(211, 144, 26);
+}
+
+.product-add-to-cart {
+	display: flex;
+	margin-top: 1.3vmax;
+}
+
+.product-add-to-cart>button:last-child {
+	background-color: rgb(255, 106, 0);
+	color: white;
+	border: none;
+	border-radius: 50px;
+	transition: all 0.5s;
+	cursor: pointer;
+	padding: 0.5vmax 2vmax;
+	outline: none;
+	margin-left: 4vmax;
+}
+
+.product-add-to-cart>button:last-child:hover {
+	background-color: rgb(204, 85, 0);
+}
+
+.specific-product-quantity>button {
+	border: none;
+	background-color: rgb(53, 52, 52);
+	color: white;
+	height: 2.8vmax;
+	width: 2.5vmax;
+	transition: all 0.5s;
+}
+
+.specific-product-quantity>button:first-child {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.specific-product-quantity>button:last-child {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.specific-product-quantity>button:hover {
+	background-color: rgb(27, 27, 27);
+}
+
+.specific-product-description p {
+	display: inline;
+}
+
+.specific-product-description p:first-child {
+	font-size: 1.3vmax;
+	color: #5F7161;
+}
+
+.specific-product-description p:last-child {
+	font-size: 1.1vmax;
+	color: #858585;
+	font-weight: lighter;
+}
+
+.submit-specific-product-review {
+	background-color: rgb(255, 132, 44);
+	color: white;
+	border: none;
+	border-radius: 50px;
+	transition: all 0.5s;
+	cursor: pointer;
+	padding: 0.5vmax 1.5vmax;
+	outline: none;
+	margin-top: 2vmax;
+}
+
+.submit-specific-product-review:hover {
+	background-color: rgb(164, 68, 0);
+	transform: scale(1.1);
+}
+
+.green-color {
+	color: green;
+	font-weight: lighter;
+}
+
+.red-color {
+	color: red;
+	font-weight: lighter;
+}
+
+
+.product-carousel-image {
+	width: 50%;
+	border-radius: 20px;
+}
+
+.carousel .thumb {
+	display: none;
+}
+
+@media all and (max-width: 992px) {
+	.specific-product {
+		flex-direction: column;
+		padding: 4vmax;
+	}
+
+	.specific-product>div:first-child {
+		padding: 0px;
+	}
+
+	.specific-product>div:last-child {
+		align-items: center;
+	}
+
+	.product-name h2 {
+		font-size: 3vmax;
+	}
+
+	.product-name p {
+		font-size: 1vmax;
+	}
+
+	.specific-product-reviews {
+		display: block;
+	}
+
+	.specific-product-reviews > span {
+		font-size: 1.9vmax;
+		margin: auto;
+	}
+
+	.price-quantity h1 {
+		font-size: 3.5vmax;
+		margin-left: -15px;
+		margin-top: 10px;
+		text-align: center;
+	}
+
+	.product-add-to-cart {
+		display: flex;
+		margin-top: 3vmax;
+	}
+
+	.specific-product-quantity > input {
+		width: 4vmax;
+		height: 3.9vmax;
+	}
+
+	.specific-product-quantity>button {
+		height: 3.9vmax;
+		width: 3.5vmax;
+	}
+
+	.product-add-to-cart>button:last-child {
+		height: 3.9vmax;
+		margin-left: 3vmax;
+	}
+
+	.specific-product-description {
+		display: inline;
+		text-align: center;
+		width: 70%;
+	}
+
+	.specific-product-description p:first-child {
+		font-size: 2vmax;
+		color: #5F7161;
+	}
+	
+	.specific-product-description p:last-child {
+		font-size: 1.9vmax;
+		word-wrap: break-word;
+	}
+
+	.submit-specific-product-review {
+		background-color: rgb(255, 132, 44);
+		margin-top: 3vmax;
+		height: 3.9vmax;
+		margin-bottom: 0;
+	}
+}

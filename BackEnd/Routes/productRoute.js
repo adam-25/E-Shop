@@ -24,7 +24,7 @@ router.route("/descProductPrice").get(product.highToLowPrice);
 router.route("/products/newProduct").post(isAuthenticateUser, isAdmin("admin"), product.createProduct);
 
 // Update a existing product, delete a product or getOne product by ID.
-router.route("/products/:id")
+router.route("/product/:id")
 .put(isAuthenticateUser, isAdmin("admin"), product.updateProduct)
 .delete(isAuthenticateUser, isAdmin("admin"), product.deleteProduct)
 .get(product.getOneProduct);

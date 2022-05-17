@@ -20,7 +20,7 @@ const Footer = () => {
 				</div>
 				<div className="col-lg-4 col-md-6">
 					<div className="footer">
-						<a href="/Home"><img className="logo-footer" src={logo} alt="Web-site logo" /></a>
+						<a href="/"><img className="logo-footer" src={logo} alt="Web-site logo" /></a>
 						<p>Copyright 2022 &copy; E-Shop</p>
 					</div>
 				</div>
@@ -29,7 +29,6 @@ const Footer = () => {
 						<h3 className='footer-contact'>CONTACT US</h3>
 						{/* eslint-disable-next-line */}
 						<a href="https://www.youtube.com/channel/UCqopxIRqpOAa0hpcXP7ngMA" target="_blank"><i class="fab fa-youtube fa-lg icon-footer"></i></a>
-						{/* eslint-disable-next-line */}
 						{/* eslint-disable-next-line */}
 						<a href="https://www.instagram.com/adarsh_11_/" target="_blank"><i class="fab fa-instagram fa-lg icon-footer"></i></a>
 						{/* eslint-disable-next-line */}

@@ -63,14 +63,14 @@ exports.getOneProduct = asyncCatch(async (req, res, next) => {
 
 	if (!oneProduct) {
 		return next(new ErrorHandler("Product Not Found", 404));
-	} else {
-		res.status(200).json({ status: "True", message: oneProduct });
 	}
+
+	res.status(200).json({ status: true, oneProduct });
 });
 
 // Extracting all the Products from the DB.
 exports.getAllProducts = asyncCatch(async (req, res, next) => {
-	
+
 	const resultPerPage = 8;
 
 	const totalProducts = await productModel.countDocuments();
@@ -90,7 +90,7 @@ exports.getAllProducts = asyncCatch(async (req, res, next) => {
 });
 
 // Create or update a review of a product.
-exports.updateOrCreateReview = asyncCatch (async (req, res, next) => {
+exports.updateOrCreateReview = asyncCatch(async (req, res, next) => {
 
 	const userID = req.user.id;
 	const userName = req.user.userFullName;
@@ -103,39 +103,37 @@ exports.updateOrCreateReview = asyncCatch (async (req, res, next) => {
 
 	let isReviewed = false;
 
-	product.productReview.forEach( function (review) {
-		if (review.reviewerName === userName)
-		{
+	product.productReview.forEach(function (review) {
+		if (review.reviewerName === userName) {
 			isReviewed = true;
 		}
 	});
 
-	if (isReviewed)	{
+	if (isReviewed) {
 		product.productReview.forEach(async (review) => {
-			if (review.reviewerName === userName)
-			{
+			if (review.reviewerName === userName) {
 				review.ratingOfTheProduct = rating;
 				review.commentOnProduct = comment;
 			}
 		});
 
 		product.productRating = updateOverallReview(product);
-		await product.save({validateBeforeSave: false});
-		res.status(200).json({status: true, message: "Review Updated successfully"});
+		await product.save({ validateBeforeSave: false });
+		res.status(200).json({ status: true, message: "Review Updated successfully" });
 	}
 	else {
-		product.productReview.push({reviewerID: userID, reviewerName: userName, ratingOfTheProduct: rating, commentOnProduct: comment});
+		product.productReview.push({ reviewerID: userID, reviewerName: userName, ratingOfTheProduct: rating, commentOnProduct: comment });
 
 		product.productNumOfReviews = product.productReview.length;
-		
+
 		product.productRating = updateOverallReview(product);
 		await product.save();
-		res.status(200).json({status: true, message: "Review Added successfully"});
+		res.status(200).json({ status: true, message: "Review Added successfully" });
 	}
 });
 
 // Getting all the reviews of a product.
-exports.getAllReviews = asyncCatch (async (req, res, next) => {
+exports.getAllReviews = asyncCatch(async (req, res, next) => {
 
 	const productID = req.query.id;
 
@@ -145,11 +143,11 @@ exports.getAllReviews = asyncCatch (async (req, res, next) => {
 		return next(new ErrorHandler("Product Not Found", 404));
 	};
 
-	res.status(200).json({status: true, message: product.productReview});
+	res.status(200).json({ status: true, message: product.productReview });
 });
 
 // Deleting specific review of a product.
-exports.deleteReview = asyncCatch (async (req, res, next) => {
+exports.deleteReview = asyncCatch(async (req, res, next) => {
 
 	const productID = req.query.productID;
 	const product = await productModel.findById(productID);
@@ -160,9 +158,8 @@ exports.deleteReview = asyncCatch (async (req, res, next) => {
 
 	let index = 0;
 
-	for (let i = 0; i < product.productReview.length; i++)	{
-		if (req.query.id === product.productReview[i].id)
-		{
+	for (let i = 0; i < product.productReview.length; i++) {
+		if (req.query.id === product.productReview[i].id) {
 			index = i;
 			break;
 		}
@@ -174,12 +171,12 @@ exports.deleteReview = asyncCatch (async (req, res, next) => {
 	product.productRating = updateOverallReview(product);
 	await product.save();
 
-	res.status(200).json({status: true, message: "Product Review has been deleted successfully."});
+	res.status(200).json({ status: true, message: "Product Review has been deleted successfully." });
 
 });
 
 // Sort products ascending.
-exports.ascendingSort = asyncCatch (async (req, res, next) => {
+exports.ascendingSort = asyncCatch(async (req, res, next) => {
 
 	const resultPerPage = 5;
 
@@ -204,12 +201,12 @@ exports.ascendingSort = asyncCatch (async (req, res, next) => {
 		return 0;
 	});
 
-	res.status(200).json({status: true, message: sortedProducts, totalProducts: totalProducts});
+	res.status(200).json({ status: true, message: sortedProducts, totalProducts: totalProducts });
 
 });
 
 // Sort products descending.
-exports.descSort = asyncCatch (async (req, res, next) => {
+exports.descSort = asyncCatch(async (req, res, next) => {
 
 	const resultPerPage = 5;
 
@@ -233,14 +230,14 @@ exports.descSort = asyncCatch (async (req, res, next) => {
 
 		return 0;
 	});
-	
+
 	sortedProductsDesc = sortedProductsDesc.reverse();
 
-	res.status(200).json({status: true, message: sortedProductsDesc, totalProducts: totalProducts});
+	res.status(200).json({ status: true, message: sortedProductsDesc, totalProducts: totalProducts });
 
 });
 
-exports.sortProductsRating = asyncCatch (async (req, res, next) => {
+exports.sortProductsRating = asyncCatch(async (req, res, next) => {
 
 	const resultPerPage = 5;
 
@@ -267,11 +264,11 @@ exports.sortProductsRating = asyncCatch (async (req, res, next) => {
 
 	sortedProductsRating = sortedProductsRating.reverse();
 
-	res.status(200).json({status: true, message: sortedProductsRating, totalProducts: totalProducts});
+	res.status(200).json({ status: true, message: sortedProductsRating, totalProducts: totalProducts });
 
 });
 
-exports.lowToHighPrice = asyncCatch (async (req, res, next) => {
+exports.lowToHighPrice = asyncCatch(async (req, res, next) => {
 
 	const resultPerPage = 5;
 
@@ -296,11 +293,11 @@ exports.lowToHighPrice = asyncCatch (async (req, res, next) => {
 		return 0;
 	});
 
-	res.status(200).json({status: true, message: sortedProductsPrice, totalProducts: totalProducts});
+	res.status(200).json({ status: true, message: sortedProductsPrice, totalProducts: totalProducts });
 });
 
 
-exports.highToLowPrice = asyncCatch (async (req, res, next) => {
+exports.highToLowPrice = asyncCatch(async (req, res, next) => {
 
 	const resultPerPage = 5;
 
@@ -327,7 +324,7 @@ exports.highToLowPrice = asyncCatch (async (req, res, next) => {
 
 	sortedProductsPrice = sortedProductsPrice.reverse();
 
-	res.status(200).json({status: true, message: sortedProductsPrice, totalProducts: totalProducts});
+	res.status(200).json({ status: true, message: sortedProductsPrice, totalProducts: totalProducts });
 });
 
 // return an average rating of a product.

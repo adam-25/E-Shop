@@ -16,7 +16,7 @@ const options = {
 const CarouselHeader = ({ products }) => {
 	return (
 
-		<section className="header-carousel">
+		<div className="header-carousel">
 			<Carousel {...options}>
 				{products.map((item, index) => (
 					<img
@@ -26,7 +26,7 @@ const CarouselHeader = ({ products }) => {
 				))}
 
 			</Carousel>
-		</section>
+		</div>
 	)
 }
 
