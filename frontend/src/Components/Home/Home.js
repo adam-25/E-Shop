@@ -5,7 +5,6 @@
 
 	Date: May 16, 2022
 		* Add Loading and fetched products from backend.
-		* Get Products from Store.
 */
 
 // Importing necessary modules for getting items from backend.
@@ -39,7 +38,7 @@ const Home = () => {
 
 	// Getting Items from Store with useSelector.
 	const dispatch = useDispatch();
-	const { loading, error, products, productsCount } = useSelector(
+	const { loading, error, products } = useSelector(
 		(state) => state.products);
 
 	// Give Items from backend to Store. Call the function in Actions.

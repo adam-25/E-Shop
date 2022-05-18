@@ -36,19 +36,6 @@ class Features {
 		return this;
 	}
 
-	// Search the product from the database according to the query.
-	searchDescription() {
-		const keyword = this.queryStr.keyword ? {
-			productDescription: {
-				$regex: this.queryStr.keyword,
-				$options: "i"
-			}
-		} : {}
-
-		this.query = this.query.find({ ...keyword });
-		return this;
-	}
-
 	filter() {
 		const queryCopy = { ...this.queryStr };
 

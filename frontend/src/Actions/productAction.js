@@ -5,6 +5,9 @@
 
 	Date: May 17, 2022
 		* Getting specific products from BackEnd with getSpecificProduct() function.
+
+	Date: May 18, 2022
+		* Add Filters to products.
 */
 
 // axios to Communicate with backend.
@@ -22,24 +25,41 @@ import {
 } from '../Constants/productConstant';
 
 // Getting all the products from backend and give to store.
-export const getProduct = (searchWords = "", currentPage = 1) => async (dispatch) => {
+export const getProduct = (searchWords = "", currentPage = 1, price=[0, 10000], category="") => async (dispatch) => {
 	try {
 		dispatch({ type: ALL_PRODUCTS_REQUEST });
 
 		// API of backend.
-		const { data } = await axios.get("/api/v1/products?keyword=" + searchWords +"&page=" + currentPage);
+
+		let link = "/api/v1/products?keyword=" + searchWords
+		+ "&page=" + currentPage
+		+ "&productPrice[gte]=" + price[0]
+		+ "&productPrice[lte]=" + price[1];
+
+		if (category) {
+
+			link = "/api/v1/products?keyword=" + searchWords
+				+ "&page=" + currentPage
+				+ "&productPrice[gte]=" + price[0]
+				+ "&productPrice[lte]=" + price[1]
+				+ "&productCategory=" + category;
+		}
+
+		console.log(link);
+
+		let { data } = await axios.get(link);
 
 		dispatch({
-			type: ALL_PRODUCTS_SUCCESS,
-			payload: data
-		})
-	}
+		type: ALL_PRODUCTS_SUCCESS,
+		payload: data
+	})
+}
 	catch (error) {
-		dispatch({
-			type: ALL_PRODUCTS_FAIL,
-			payload: error.message
-		})
-	}
+	dispatch({
+		type: ALL_PRODUCTS_FAIL,
+		payload: error.message
+	})
+}
 }
 
 // Get SpecificProduct depending on ID provided by Components with match.params.id

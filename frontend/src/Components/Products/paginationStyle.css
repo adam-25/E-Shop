@@ -1,5 +1,10 @@
 /* Pagination Style */
 
+.all-products {
+	padding-left: 13vmax;
+	padding-right: 13vmax;
+}
+
 .paginationBox {
 	display: flex;
 	justify-content: center;
@@ -58,13 +63,72 @@
 	margin-top: 10%;
 }
 
-@media screen and (max-width: 900px) {
+
+/* Filter CSS. */
+.filters {
+	font-family: 'Comic Neue', cursive;
+	width: 13vmax;
+	position: absolute;
+	top: 25vmax;
+	left: 4vmax;
+}
+
+.category {
+	padding: 0%;
+	list-style: none;
+}
+
+.category li {
+	color:rgb(163, 163, 163);
+	margin: 0.7vmax;
+	cursor: pointer;
+	transition: 0.3s;
+	
+}
+
+.category li:hover {
+	color:rgb(226, 137, 69)
+}
+
+@media all and (max-width: 1062px) {
+
 	.page-link {
 		font-size: 3.2vmax;
 	}
+
+	.space {
+		margin-top: 13%;
+	}
+
+	.all-products {
+		margin: auto;
+	}
 }
 
-@media screen and (max-width: 900px) {
+@media all and (max-width: 992px) {
+	.filters {
+		position: static;
+		width: 30vmax;
+		margin: auto;
+	}
+
+	.category li {
+		margin: 1.5vmax;
+	}
+
+	.all-products {
+		padding-left: 0vmax;
+		padding-right: 0vmax;
+	}
+}
+
+@media all and (max-width: 800px) {
+	.space {
+		margin-top: 20%;
+	}
+}
+
+@media all and (max-width: 570px) {
 	.space {
 		margin-top: 28%;
 	}

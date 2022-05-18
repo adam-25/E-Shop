@@ -54,7 +54,7 @@ const SpecificProduct = ({ match }) => {
 		// Getting ID in URL with match.params.id.
 		dispatch(getSpecificProduct(match.params.id));
 
-	}, [dispatch, match.params.id, error, alert]);
+	}, [dispatch, match.params.id, error]);
 
 	// Stars options.
 	const optionsReview = {
@@ -81,7 +81,7 @@ const SpecificProduct = ({ match }) => {
 									<img
 										className="product-carousel-image"
 										src={item.imageURL}
-										alt="Image is not Available"
+										alt="Not Available"
 									/>
 								))}
 

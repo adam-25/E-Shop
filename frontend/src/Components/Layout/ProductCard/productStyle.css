@@ -3,7 +3,7 @@
 	width: 18vmax;
 	display: flex;
 	flex-direction: column;
-	text-decoration: none!important;
+	text-decoration: none !important;
 	margin: 1.5vmax;
 	margin-bottom: 2.5vmax;
 	transition: all 0.5s;
@@ -22,14 +22,14 @@
 }
 
 /* Rating, Number of rating Style */
-.productCard > div {
+.productCard>div {
 	margin: 0vmax 0.5vmax 0.2vmax 1vmax;
 	display: flex;
 	justify-content: flex-start;
 }
 
 /* Num of Review */
-.productCard > div > span {
+.productCard>div>span {
 	font-size: 1.2vmax;
 	margin: auto;
 	color: #5F7161;
@@ -37,7 +37,7 @@
 }
 
 /* Name Style */
-.productCard > p {
+.productCard>p {
 	font-size: 2vmax;
 	margin-bottom: 0px;
 	margin-left: 1.1vmax;
@@ -47,7 +47,7 @@
 }
 
 /* Price Style */
-.productCard > span {
+.productCard>span {
 	font-size: 2.3vmax;
 	margin-left: 1vmax;
 	margin-top: 0;
@@ -57,30 +57,35 @@
 
 @media all and (max-width: 975px) {
 
+	.productCard {
+		width: 20vmax;
+		margin-bottom: 5vmax;
+	}
+
 	/* Image */
 	.productCard img {
-		width: 19vmax;
+		width: 20vmax;
 		height: 22vmax;
 		border-top-left-radius: 5px;
 		border-top-right-radius: 5px;
 	}
 
 	/* Rating, Number of Review */
-	.productCard > div {
+	.productCard>div {
 		margin-left: 2.5vmax;
 		display: block;
 		margin-block: 0px;
 	}
 
 	/* Number of Review */
-	.productCard > div > span {
+	.productCard>div>span {
 		font-size: 1.8vmax;
 		margin: auto;
 		margin-left: 0.1vmax;
 	}
 
 	/* Name */
-	.productCard > p {
+	.productCard>p {
 		font-size: 2.5vmax;
 		margin-left: 2.9vmax;
 		margin-right: 2.9vmax;
@@ -88,7 +93,7 @@
 	}
 
 	/* Price */
-	.productCard > span {
+	.productCard>span {
 		font-size: 2.8vmax;
 		margin-left: 2.5vmax;
 	}
@@ -96,21 +101,34 @@
 
 @media (max-width: 800px) {
 	.productCard {
-		width: 25vmax;
-		margin: 1.8vmax;
+		width: 28vmax;
 		margin-bottom: 2.5vmax;
 		border-radius: 10px;
 	}
 
 	.productCard img {
-		width: 25vmax;
-		height: 28vmax;
+		width: 28vmax;
+		height: 30vmax;
 		border-top-left-radius: 10px;
 		border-top-right-radius: 10px;
 	}
 
-	.productCard > p {
+	.productCard>p {
 		font-size: 3vmax;
+	}
+
+	/* Name */
+	.productCard>p {
+		font-size: 2.3vmax;
+		margin-left: 2.9vmax;
+		margin-right: 2.9vmax;
+		margin-bottom: 0.1vmax;
+	}
+
+	/* Price */
+	.productCard>span {
+		font-size: 2.8vmax;
+		margin-left: 2.5vmax;
 	}
 }
 
@@ -127,8 +145,22 @@
 		height: 38vmax;
 	}
 
-	.productCard > p {
+	.productCard>p {
 		font-size: 3.5vmax;
+	}
+
+	/* Name */
+	.productCard>p {
+		font-size: 2.6vmax;
+		margin-left: 2.9vmax;
+		margin-right: 2.9vmax;
+		margin-bottom: 0.1vmax;
+	}
+
+	/* Price */
+	.productCard>span {
+		font-size: 3.5vmax;
+		margin-left: 2.5vmax;
 	}
 }
 

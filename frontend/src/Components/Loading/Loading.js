@@ -3,11 +3,13 @@
 		* Loading Component.
 */
 import React from 'react'
+import MetaData from '../Layout/MetaData'
 import './loading.css'
 
 const Loading = () => {
 	return (
 		<div className="loading">
+			<MetaData title="Loading..." />
 			<div class="preloader">
 				<div class="box">
 					<div class="box__inner">
