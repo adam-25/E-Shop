@@ -15,6 +15,8 @@ const ErrorHandler = require("../Utils/errorHandler");
 const asyncCatch = require("../MiddleWare/catchAsyncError");
 const apiFeature = require("../Utils/features");
 
+const resultsPerPage = 10;
+
 // Creating a new Product in DB. -- ADMIN ONLY
 exports.createProduct = asyncCatch(async (req, res, next) => {
 
@@ -71,21 +73,27 @@ exports.getOneProduct = asyncCatch(async (req, res, next) => {
 // Extracting all the Products from the DB.
 exports.getAllProducts = asyncCatch(async (req, res, next) => {
 
-	const resultPerPage = 8;
-
 	const totalProducts = await productModel.countDocuments();
+
+	const apiFeatureForSearchProductCount = new apiFeature(productModel.find(), req.query).search();
 
 	const apiFeatureObj = new apiFeature(productModel.find(), req.query)
 		.search()
 		.filter()
-		.productPerPage(resultPerPage);
+		.productPerPage(resultsPerPage);
 
 	const allProducts = await apiFeatureObj.query;
+
+	const searchProductsCount = await apiFeatureForSearchProductCount.query;
+
+	const totalSearchProducts = searchProductsCount.length;
 
 	res.status(200).json({
 		status: "Successfully retrieved all products",
 		products: allProducts,
-		totalProducts: totalProducts
+		totalProducts: totalProducts,
+		resultsPerPage: resultsPerPage,
+		totalSearchProducts: totalSearchProducts	
 	});
 });
 
@@ -178,14 +186,14 @@ exports.deleteReview = asyncCatch(async (req, res, next) => {
 // Sort products ascending.
 exports.ascendingSort = asyncCatch(async (req, res, next) => {
 
-	const resultPerPage = 5;
-
 	const totalProducts = await productModel.countDocuments();
+
+	const apiFeatureForSearchProductCount = new apiFeature(productModel.find(), req.query).search();
 
 	const apiFeatureObj = new apiFeature(productModel.find(), req.query)
 		.search()
 		.filter()
-		.productPerPage(resultPerPage);
+		.productPerPage(resultsPerPage);
 
 	const allProducts = await apiFeatureObj.query;
 
@@ -201,21 +209,31 @@ exports.ascendingSort = asyncCatch(async (req, res, next) => {
 		return 0;
 	});
 
-	res.status(200).json({ status: true, message: sortedProducts, totalProducts: totalProducts });
+	const searchProductsCount = await apiFeatureForSearchProductCount.query;
+
+	const totalSearchProducts = searchProductsCount.length;
+
+	res.status(200).json({ 
+		status: true, 
+		ascSorted: sortedProducts, 
+		totalProducts: totalProducts,
+		resultsPerPage: resultsPerPage,
+		totalSearchProducts: totalSearchProducts
+	});
 
 });
 
 // Sort products descending.
 exports.descSort = asyncCatch(async (req, res, next) => {
 
-	const resultPerPage = 5;
-
 	const totalProducts = await productModel.countDocuments();
+
+	const apiFeatureForSearchProductCount = new apiFeature(productModel.find(), req.query).search();
 
 	const apiFeatureObj = new apiFeature(productModel.find(), req.query)
 		.search()
 		.filter()
-		.productPerPage(resultPerPage);
+		.productPerPage(resultsPerPage);
 
 	const allProducts = await apiFeatureObj.query;
 
@@ -233,20 +251,30 @@ exports.descSort = asyncCatch(async (req, res, next) => {
 
 	sortedProductsDesc = sortedProductsDesc.reverse();
 
-	res.status(200).json({ status: true, message: sortedProductsDesc, totalProducts: totalProducts });
+	const searchProductsCount = await apiFeatureForSearchProductCount.query;
+
+	const totalSearchProducts = searchProductsCount.length;
+
+	res.status(200).json({ 
+		status: true, 
+		descSorted: sortedProductsDesc, 
+		totalProducts: totalProducts,
+		resultsPerPage: resultsPerPage,
+		totalSearchProducts: totalSearchProducts
+	});
 
 });
 
 exports.sortProductsRating = asyncCatch(async (req, res, next) => {
 
-	const resultPerPage = 5;
-
 	const totalProducts = await productModel.countDocuments();
+
+	const apiFeatureForSearchProductCount = new apiFeature(productModel.find(), req.query).search();
 
 	const apiFeatureObj = new apiFeature(productModel.find(), req.query)
 		.search()
 		.filter()
-		.productPerPage(resultPerPage);
+		.productPerPage(resultsPerPage);
 
 	const allProducts = await apiFeatureObj.query;
 
@@ -264,20 +292,30 @@ exports.sortProductsRating = asyncCatch(async (req, res, next) => {
 
 	sortedProductsRating = sortedProductsRating.reverse();
 
-	res.status(200).json({ status: true, message: sortedProductsRating, totalProducts: totalProducts });
+	const searchProductsCount = await apiFeatureForSearchProductCount.query;
+
+	const totalSearchProducts = searchProductsCount.length;
+
+	res.status(200).json({ 
+		status: true, 
+		RatingSorted: sortedProductsRating, 
+		totalProducts: totalProducts,
+		resultsPerPage: resultsPerPage,
+		totalSearchProducts: totalSearchProducts
+	});
 
 });
 
 exports.lowToHighPrice = asyncCatch(async (req, res, next) => {
 
-	const resultPerPage = 5;
-
 	const totalProducts = await productModel.countDocuments();
+
+	const apiFeatureForSearchProductCount = new apiFeature(productModel.find(), req.query).search();
 
 	const apiFeatureObj = new apiFeature(productModel.find(), req.query)
 		.search()
 		.filter()
-		.productPerPage(resultPerPage);
+		.productPerPage(resultsPerPage);
 
 	const allProducts = await apiFeatureObj.query;
 
@@ -293,20 +331,30 @@ exports.lowToHighPrice = asyncCatch(async (req, res, next) => {
 		return 0;
 	});
 
-	res.status(200).json({ status: true, message: sortedProductsPrice, totalProducts: totalProducts });
+	const searchProductsCount = await apiFeatureForSearchProductCount.query;
+
+	const totalSearchProducts = searchProductsCount.length;
+
+	res.status(200).json({ 
+		status: true, 
+		priceLowToHigh: sortedProductsPrice, 
+		totalProducts: totalProducts,
+		resultsPerPage: resultsPerPage,
+		totalSearchProducts: totalSearchProducts
+	});
 });
 
 
 exports.highToLowPrice = asyncCatch(async (req, res, next) => {
 
-	const resultPerPage = 5;
-
 	const totalProducts = await productModel.countDocuments();
+
+	const apiFeatureForSearchProductCount = new apiFeature(productModel.find(), req.query).search();
 
 	const apiFeatureObj = new apiFeature(productModel.find(), req.query)
 		.search()
 		.filter()
-		.productPerPage(resultPerPage);
+		.productPerPage(resultsPerPage);
 
 	const allProducts = await apiFeatureObj.query;
 
@@ -324,7 +372,17 @@ exports.highToLowPrice = asyncCatch(async (req, res, next) => {
 
 	sortedProductsPrice = sortedProductsPrice.reverse();
 
-	res.status(200).json({ status: true, message: sortedProductsPrice, totalProducts: totalProducts });
+	const searchProductsCount = await apiFeatureForSearchProductCount.query;
+
+	const totalSearchProducts = searchProductsCount.length;
+
+	res.status(200).json({ 
+		status: true, 
+		priceHighToLow: sortedProductsPrice, 
+		totalProducts: totalProducts,
+		resultsPerPage: resultsPerPage,
+		totalSearchProducts: totalSearchProducts
+	});
 });
 
 // return an average rating of a product.

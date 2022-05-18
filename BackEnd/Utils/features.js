@@ -1,6 +1,9 @@
 /*
 	Date: May 8, 2022
 		* Different features that can be performed when getting all the products.
+
+	Date: May 17, 2022
+		* Update Search method so, it can search by name or description.
 */
 
 // Creating class with with params query and it's string.
@@ -13,18 +16,41 @@ class Features {
 	// Search the product from the database according to the query.
 	search() {
 		const keyword = this.queryStr.keyword ? {
-			productName: {
+			$or: [
+				{
+					"productName": {
+						$regex: this.queryStr.keyword,
+						$options: "i"
+					}
+				},
+				{
+					"productDescription": {
+						$regex: this.queryStr.keyword,
+						$options: "i"
+					}
+				},
+			]
+		} : {}
+
+		this.query = this.query.find({ ...keyword });
+		return this;
+	}
+
+	// Search the product from the database according to the query.
+	searchDescription() {
+		const keyword = this.queryStr.keyword ? {
+			productDescription: {
 				$regex: this.queryStr.keyword,
 				$options: "i"
 			}
 		} : {}
 
-		this.query = this.query.find({...keyword});
+		this.query = this.query.find({ ...keyword });
 		return this;
 	}
 
 	filter() {
-		const queryCopy = {...this.queryStr};
+		const queryCopy = { ...this.queryStr };
 
 		let newObj = {};
 

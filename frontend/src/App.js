@@ -8,6 +8,7 @@
 
 	Date: May 17, 2022
 		* Created SpecificProduct and All Products Route.
+		* Add Route to show products When it's is searched
 */
 
 // Importing CSS and Router, doms.
@@ -31,6 +32,7 @@ function App() {
 			<Route exact path="/" component={Home} />
 			<Route exact path="/product/:id" component={SpecificProduct} />
 			<Route exact path="/products" component={Products} />
+			<Route path="/products/:searchWords" component={Products} />
 
 			{/* Footer of the website. */}
 			<Footer />

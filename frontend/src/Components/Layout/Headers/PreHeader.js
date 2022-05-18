@@ -4,11 +4,30 @@
 */
 
 // Importing Logo for NavBar and it's CSS file.
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../../../Images/logo.png';
 import './preHeaderStyles.css';
 
+// Importing to redirect for searching items.
+import { useHistory } from "react-router-dom";
+
 const PreHeader = () => {
+
+	let history = useHistory();
+
+	const [searchWords, setSearchWords] = useState("");
+
+	const searchSubmitHandler = (event) => {
+		event.preventDefault();
+
+		console.log(searchWords);
+
+		if (searchWords.trim()) {
+			history.push("/products/" + searchWords.trim());
+		}
+		else
+			history.push("/products/");
+	}
 
 	return (
 		<section className="navBar">
@@ -22,8 +41,11 @@ const PreHeader = () => {
 
 				{/* NavBar three links */}
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
-					<form className="navbar-brand search-nav" action="">
-						<input className="search-field-nav" type="text" placeholder="Search..." name="search" autoComplete='off' />
+					<form className="navbar-brand search-nav" onSubmit={searchSubmitHandler}>
+						<input 
+						className="search-field-nav" type="text" placeholder="Search..." autoComplete='off'
+						name="search"
+						onChange={(event) => setSearchWords(event.target.value)} />
 						<button className="btn btn-warning search-btn-nav" type="submit"><i className="fa fa-search"></i></button>
 					</form>
 					<ul className="navbar-nav ml-auto">

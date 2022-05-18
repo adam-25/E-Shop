@@ -22,12 +22,12 @@ import {
 } from '../Constants/productConstant';
 
 // Getting all the products from backend and give to store.
-export const getProduct = () => async (dispatch) => {
+export const getProduct = (searchWords = "", currentPage = 1) => async (dispatch) => {
 	try {
 		dispatch({ type: ALL_PRODUCTS_REQUEST });
 
 		// API of backend.
-		const { data } = await axios.get("/api/v1/products");
+		const { data } = await axios.get("/api/v1/products?keyword=" + searchWords +"&page=" + currentPage);
 
 		dispatch({
 			type: ALL_PRODUCTS_SUCCESS,
