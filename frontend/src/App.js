@@ -21,6 +21,7 @@ import Footer from './Components/Layout/Footer/Footer.js';
 import Home from './Components/Home/Home';
 import SpecificProduct from './Components/SpecificProduct/SpecificProduct';
 import Products from "./Components/Products/Products";
+import LoginRegister from './Components/User/LoginRegister';
 
 function App() {
 	return (
@@ -33,6 +34,8 @@ function App() {
 			<Route exact path="/product/:id" component={SpecificProduct} />
 			<Route exact path="/products" component={Products} />
 			<Route path="/products/:searchWords" component={Products} />
+
+			<Route path="/login" component={LoginRegister} />
 
 			{/* Footer of the website. */}
 			<Footer />
