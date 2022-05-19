@@ -2,12 +2,16 @@
 	Date: May 8, 2022
 		* Main Server of the project.
 		* Handle Errors like uncaughtException and unhandledRejection.
+
+	Date: May 19, 2022
+		* Adding Cloudinary to store images.
 */
 
 // Importing necessary files.
 const app = require('./app');
 const dotenv = require('dotenv');
 const mongoConnection = require('./Database/connectDB');
+const cloudinary = require('cloudinary');
 
 // Handling uncaught exceptions. Handle errors when you use undefined variables.
 process.on('uncaughtException', (err) => {
@@ -21,6 +25,13 @@ process.on('uncaughtException', (err) => {
 
 // Configuration of env file.
 dotenv.config({ path: "BackEnd/Config/config.env" });
+
+// Connect to Cloudinary
+cloudinary.config({
+	cloud_name: process.env.CLOUDINARY_NAME,
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_SECRET_KEY
+})
 
 // Connecting to database
 mongoConnection();
