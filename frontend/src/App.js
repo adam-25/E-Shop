@@ -14,16 +14,26 @@
 // Importing CSS and Router, doms.
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 // Importing Components.
+import { useEffect } from 'react';
 import Header from './Components/Layout/Headers/Header.js';
 import Footer from './Components/Layout/Footer/Footer.js';
 import Home from './Components/Home/Home';
 import SpecificProduct from './Components/SpecificProduct/SpecificProduct';
 import Products from "./Components/Products/Products";
 import LoginRegister from './Components/User/LoginRegister';
+import { loadUser } from './Actions/userAction';
 
 function App() {
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(loadUser());
+	}, [dispatch]);
+
 	return (
 		<Router>
 			{/* Navbar Header */}
@@ -34,7 +44,6 @@ function App() {
 			<Route exact path="/product/:id" component={SpecificProduct} />
 			<Route exact path="/products" component={Products} />
 			<Route path="/products/:searchWords" component={Products} />
-
 			<Route path="/login" component={LoginRegister} />
 
 			{/* Footer of the website. */}

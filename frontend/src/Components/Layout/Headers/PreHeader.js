@@ -4,15 +4,31 @@
 */
 
 // Importing Logo for NavBar and it's CSS file.
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import logo from '../../../Images/logo.png';
 import './preHeaderStyles.css';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // Importing to redirect for searching items.
 import { useHistory } from "react-router-dom";
 
 const PreHeader = () => {
+
+	const { user, isAuthenticateUser } = useSelector(state => state.user);
+
+	useEffect(() => {
+		if (isAuthenticateUser)
+			setLabel(`<span> <span> Hello <span>${user.userFirstName}</span>  </span> <br /> <span> & Account </spam> </span>`)
+		else {
+			setLabel(`<span> <span> Sign-In </span>  <br /> <span> & Register </span> </span>`)
+		}
+	}, [isAuthenticateUser]);
+
+
+	const [label, setLabel] = useState(
+		'<span> <span> Sign-In </span> <br /> <span> & Register </span> </span>'
+	);
 
 	let history = useHistory();
 
@@ -43,15 +59,15 @@ const PreHeader = () => {
 				{/* NavBar three links */}
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 					<form className="navbar-brand search-nav" onSubmit={searchSubmitHandler}>
-						<input 
-						className="search-field-nav" type="text" placeholder="Search..." autoComplete='off'
-						name="search"
-						onChange={(event) => setSearchWords(event.target.value)} />
+						<input
+							className="search-field-nav" type="text" placeholder="Search..." autoComplete='off'
+							name="search"
+							onChange={(event) => setSearchWords(event.target.value)} />
 						<button className="btn btn-warning search-btn-nav" type="submit"><i className="fa fa-search"></i></button>
 					</form>
 					<ul className="navbar-nav ml-auto">
 						<li className="nav-item sign-nav">
-							<Link className="nav-link" to="/login"><span className="sign-in-nav"> Sign-In & </span><br /> <span className="register-nav"> Register </span></Link>
+							<Link className="nav-link sign-in-nav" to="/login" dangerouslySetInnerHTML={{ __html: label }}></Link>
 						</li>
 						<li className="nav-item">
 							<a className="nav-link order-nav" href="/myOrders"><span className='order-nav'><i class="fas fa-shopping-bag"></i>  Orders</span></a>

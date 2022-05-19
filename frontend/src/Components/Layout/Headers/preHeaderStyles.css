@@ -39,7 +39,7 @@
 	border-bottom-left-radius: 5px;
 	border: none;
 	padding: 19px;
-	width: 400px;
+	width: 395px;
 	height: 25px;
 }
 
@@ -138,8 +138,16 @@
 
 /* NavBar three button styles. */
 .sign-in-nav {
-	font-size: 20px;
+	font-size: 18px;
 	color: #d0d0d0;
+}
+
+.sign-in-nav > span {
+	color: #d0d0d0;
+}
+
+.sign-in-nav > span > span > span {
+	font-size: 15px;
 }
 
 .register-nav {

@@ -23,7 +23,10 @@ exports.registerUser = catchError(async (req, res, next) => {
 
 	const { userFullName, userEmail, userPassword } = req.body;
 
-	const user = await userModel.create({ userFullName, userEmail, userPassword });
+	const userFirstName = userFullName.trim().split(" ")[0];
+	const userLastName = userFullName.trim().split(" ")[1];
+
+	const user = await userModel.create({ userFullName, userFirstName, userLastName, userEmail, userPassword });
 
 	sendToken(user, 201, res);
 });
