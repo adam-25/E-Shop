@@ -7,7 +7,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { loginUser, clearErrors } from '../../Actions/userAction';
+import { loginUser, clearErrors, registerUser } from '../../Actions/userAction';
 
 const LoginRegister = () => {
 
@@ -19,11 +19,9 @@ const LoginRegister = () => {
 	const [loginEmail, setLoginEmail] = useState("");
 	const [loginPassword, setLoginPassword] = useState("");
 
-	const [userDetail, setUserDetail] = useState({
-		name: "",
-		email: "",
-		password: ""
-	});
+	const [registerName, setRegisterName] = useState("");
+	const [registerEmail, setRegisterEmail] = useState("");
+	const [registerPassword, setRegisterPassword] = useState("");
 
 	useEffect(() => {
 		if (error) {
@@ -32,7 +30,7 @@ const LoginRegister = () => {
 		}
 
 		if (isAuthenticateUser) {
-			toast("LogIn Successfully");
+			toast("LogIn / Register Successfully");
 			history.push("/account");
 		}
 
@@ -46,18 +44,9 @@ const LoginRegister = () => {
 
 	const registerSubmit = (e) => {
 		e.preventDefault();
-
-		const registerForm = new FormData();
-
-		registerForm.set("name", userDetail.name);
-		registerForm.set("Email", userDetail.email);
-		registerForm.set("password", userDetail.password);
+		dispatch(registerUser(registerName, registerEmail, registerPassword));
 
 		console.log('Register Form Submitted');
-	}
-
-	const changeUserDetail = (e) => {
-		setUserDetail({ ...userDetail, [e.target.name]: e.target.value });
 	}
 
 	return (
@@ -113,8 +102,8 @@ const LoginRegister = () => {
 													placeholder="Enter your name"
 													required
 													name='name'
-													value={userDetail.name}
-													onChange={changeUserDetail} />
+													value={registerName}
+													onChange={(e) => setRegisterName(e.target.value)} />
 											</div>
 											<div class="input-box">
 												<i class="fas fa-envelope"></i>
@@ -122,8 +111,8 @@ const LoginRegister = () => {
 													placeholder="Enter your email"
 													required
 													name='email'
-													value={userDetail.email}
-													onChange={changeUserDetail} />
+													value={registerEmail}
+													onChange={(e) => setRegisterEmail(e.target.value)} />
 											</div>
 											<div class="input-box">
 												<i class="fas fa-lock"></i>
@@ -131,8 +120,8 @@ const LoginRegister = () => {
 													placeholder="Enter your password"
 													required
 													name='password'
-													value={userDetail.password}
-													onChange={changeUserDetail}
+													value={registerPassword}
+													onChange={(e) => setRegisterPassword(e.target.value)}
 												/>
 											</div>
 											<div class="button input-box">

@@ -10,7 +10,7 @@ const sendToken = (user, statusCode, res) => {
 
 	res.status(statusCode).cookie("Token", token, {
 		expires: new Date(Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000)
-	}).json({ success: true, user: user, token: token});
+	}).json({ success: true, user: user});
 };
 
 module.exports = sendToken;
