@@ -5,6 +5,10 @@
 	right: 5vmax;
 }
 
+.space-below-heading {
+	margin-top: 3%;
+}
+
 .all-products {
 	padding-left: 13vmax;
 	padding-right: 13vmax;
@@ -110,7 +114,7 @@
 	}
 }
 
-@media all and (max-width: 992px) {
+@media all and (max-width: 991px) {
 	.filters {
 		position: static;
 		width: 30vmax;
@@ -125,6 +129,10 @@
 		padding-left: 0vmax;
 		padding-right: 0vmax;
 	}
+	
+	.space-below-heading {
+		margin-top: 15%;
+	}
 }
 
 @media all and (max-width: 800px) {
@@ -136,5 +144,18 @@
 @media all and (max-width: 570px) {
 	.space {
 		margin-top: 28%;
+	}
+
+	.space-below-heading {
+		margin-top: 21%;
+	}
+
+	.products-heading-title {
+		margin-left: 2.5vmax;
+		width: 50%;
+	}
+
+	.drop-down {
+		right: 1.5vmax;
 	}
 }

@@ -66,7 +66,9 @@ const Products = ({ match }) => {
 				{products.length === 0 ? <Fragment>
 					<div className="space"></div>
 					<div>
-						<Heading props="No Results..." />
+						<div className="products-heading-title">
+							<Heading props="No Results..." />
+						</div>
 						<MetaData title="No Results..." />
 					</div>
 				</Fragment> :
@@ -88,14 +90,18 @@ const Products = ({ match }) => {
 							<div className="space"></div>
 
 							{!category ? <Fragment>
-								<Heading props="All Products" />
+								<div className="products-heading-title">
+									<Heading props="All Products" />
+								</div>
 								<MetaData title="All Products" />
 							</Fragment>
 								: <Fragment>
-									<Heading props={category} />
+									<div className="products-heading-title">
+										<Heading props={category} />
+									</div>
 									<MetaData title={category + " category"} />
 								</Fragment>}
-							<div style={{ marginTop: "3%" }}></div>
+							<div className="space-below-heading"></div>
 
 							<div className="product-container all-products">
 								{products && products.map(product => (
@@ -143,9 +149,11 @@ const Products = ({ match }) => {
 							// Return Searched Products.
 							<Fragment>
 								<div className="space" ></div>
-								<Heading props={"Results for \"" + searchWords.charAt(0).toUpperCase() + searchWords.slice(1) + "\" Search"} />
+								<div className="products-heading-title">
+									<Heading props={"Results for \"" + searchWords.charAt(0).toUpperCase() + searchWords.slice(1) + "\" Search"} />
+								</div>
 								<MetaData title={"\"" + searchWords.charAt(0).toUpperCase() + searchWords.slice(1) + "\" Search..."} />
-								<div style={{ marginTop: "3%" }}></div>
+								<div className="space-below-heading"></div>
 
 								<div className="product-container all-products">
 									{products && products.map(product => (
