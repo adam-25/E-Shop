@@ -56,6 +56,14 @@ class Features {
 
 	// Get Product with a particular limit on a page.
 	productPerPage(productPerPage) {
+
+		if (this.queryStr.lowHigh)
+			this.query = this.query.sort( { productPrice: 0 } )
+		else if (this.queryStr.highLow)
+			this.query = this.query.sort( { productPrice: -1 } )
+		else if (this.queryStr.ratingSort)
+			this.query = this.query.sort( { productRating: -1 } )
+
 		const currentPage = Number(this.queryStr.page) || 1;
 
 		const skipProducts = (currentPage - 1) * productPerPage;

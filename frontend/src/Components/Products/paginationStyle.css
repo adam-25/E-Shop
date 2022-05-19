@@ -1,5 +1,10 @@
 /* Pagination Style */
 
+.drop-down {
+	position: absolute;
+	right: 5vmax;
+}
+
 .all-products {
 	padding-left: 13vmax;
 	padding-right: 13vmax;

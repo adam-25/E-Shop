@@ -25,7 +25,7 @@ import {
 } from '../Constants/productConstant';
 
 // Getting all the products from backend and give to store.
-export const getProduct = (searchWords = "", currentPage = 1, price=[0, 10000], category="") => async (dispatch) => {
+export const getProduct = (searchWords = "", currentPage = 1, price=[0, 10000], category="", sort="") => async (dispatch) => {
 	try {
 		dispatch({ type: ALL_PRODUCTS_REQUEST });
 
@@ -36,17 +36,30 @@ export const getProduct = (searchWords = "", currentPage = 1, price=[0, 10000], 
 		+ "&productPrice[gte]=" + price[0]
 		+ "&productPrice[lte]=" + price[1];
 
-		if (category) {
+		if (category && sort) {
 
 			link = "/api/v1/products?keyword=" + searchWords
 				+ "&page=" + currentPage
 				+ "&productPrice[gte]=" + price[0]
 				+ "&productPrice[lte]=" + price[1]
-				+ "&productCategory=" + category;
+				+ "&productCategory=" + category
+				+ "&" + sort + "=true";
 		}
-
-		console.log(link);
-
+		else if (category && !sort) {
+			link = "/api/v1/products?keyword=" + searchWords
+			+ "&page=" + currentPage
+			+ "&productPrice[gte]=" + price[0]
+			+ "&productPrice[lte]=" + price[1]
+			+ "&productCategory=" + category;
+		}
+		else if (!category && sort) {
+			link = "/api/v1/products?keyword=" + searchWords
+			+ "&page=" + currentPage
+			+ "&productPrice[gte]=" + price[0]
+			+ "&productPrice[lte]=" + price[1]
+			+ "&" + sort + "=true";
+		}
+		
 		let { data } = await axios.get(link);
 
 		dispatch({

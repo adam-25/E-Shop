@@ -33,6 +33,7 @@ const Products = ({ match }) => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [price, setPrice] = useState([0, 10000]);
 	const [category, setCategory] = useState("");
+	const [sort, setSort] = useState("");
 
 	const setCurrentPageNo = (event) => {
 		setCurrentPage(event);
@@ -55,8 +56,8 @@ const Products = ({ match }) => {
 			dispatch(clearErrors);
 		}
 
-		dispatch(getProduct(searchWords, currentPage, price, category));
-	}, [dispatch, searchWords, error, currentPage, price, category]);
+		dispatch(getProduct(searchWords, currentPage, price, category, sort));
+	}, [dispatch, searchWords, error, currentPage, price, category, sort]);
 
 	return (
 		<Fragment>
@@ -69,68 +70,31 @@ const Products = ({ match }) => {
 						<MetaData title="No Results..." />
 					</div>
 				</Fragment> :
+
 					// All Products. Nothing is Searched
-					<Fragment>{!searchWords ? <Fragment>
-						<div className="space"></div>
+					<Fragment>
+						<div className="drop-down">
+							<div className="dropdown">
+								<button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Sort Products... <span>   </span>
+								</button>
+								<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<li className="dropdown-item" onClick={() => setSort("lowHigh")}>Low to High Price</li>
+									<li className="dropdown-item" onClick={() => setSort("highLow")}>High to Low Price</li>
+									<li className="dropdown-item" onClick={() => setSort("ratingSort")}>By Ratings</li>
+								</div>
+							</div>
+						</div>{!searchWords ? <Fragment>
+							<div className="space"></div>
 
-						{!category ? <Fragment>
-							<Heading props="All Products" />
-							<MetaData title="All Products" />
-						</Fragment>
-							: <Fragment>
-								<Heading props={category} />
-								<MetaData title={category + " category"} />
-							</Fragment>}
-						<div style={{ marginTop: "3%" }}></div>
-
-						<div className="product-container all-products">
-							{products && products.map(product => (
-								<ProductCard product={product} />
-							))}
-						</div>
-						<div className="filters">
-							<h5>Price</h5>
-							<Slider
-								value={price}
-								onChange={priceChangeHandler}
-								valueLabelDisplay="auto"
-								aria-labelledby="continuos-slider"
-								min={0}
-								max={10000}
-							/>
-							<h5>Category</h5>
-							<ul className="category">
-								{categories && categories.map(category => (
-									<li
-										onClick={() => setCategory(category)}
-									>
-										{category}
-									</li>
-								))}
-							</ul>
-						</div>
-						<div className="paginationBox">
-							<Pagination
-								activePage={currentPage}
-								itemsCountPerPage={resultsPerPage}
-								totalItemsCount={totalSearchProducts}
-								onChange={setCurrentPageNo}
-								nextPageText="Next"
-								prevPageText="Prev"
-								firstPageText="<<"
-								lastPageText=">>"
-								itemClass='page-item'
-								linkClass='page-link'
-								activeClass='pageItemActive'
-								activeLinkClass='pageLinkActive'
-							/>
-						</div>
-					</Fragment> :
-						// Return Searched Products.
-						<Fragment>
-							<div className="space" ></div>
-							<Heading props={"Results for \"" + searchWords.charAt(0).toUpperCase() + searchWords.slice(1) + "\" Search"} />
-							<MetaData title={"\"" + searchWords.charAt(0).toUpperCase() + searchWords.slice(1) + "\" Search..."} />
+							{!category ? <Fragment>
+								<Heading props="All Products" />
+								<MetaData title="All Products" />
+							</Fragment>
+								: <Fragment>
+									<Heading props={category} />
+									<MetaData title={category + " category"} />
+								</Fragment>}
 							<div style={{ marginTop: "3%" }}></div>
 
 							<div className="product-container all-products">
@@ -138,27 +102,13 @@ const Products = ({ match }) => {
 									<ProductCard product={product} />
 								))}
 							</div>
-
 							<div className="filters">
 								<h5>Price</h5>
-								{(function () {
-									("#slider-range").slider({
-										range: true,
-										min: 0,
-										max: 500,
-										values: [75, 300],
-										slide: function (event, ui) {
-											("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-										}
-									});
-									("#amount").val("$" + ("#slider-range").slider("values", 0) +
-										" - $" + ("#slider-range").slider("values", 1));
-								})}
 								<Slider
 									value={price}
 									onChange={priceChangeHandler}
 									valueLabelDisplay="auto"
-									ariaLabelledby="slider"
+									aria-labelledby="continuos-slider"
 									min={0}
 									max={10000}
 								/>
@@ -173,7 +123,6 @@ const Products = ({ match }) => {
 									))}
 								</ul>
 							</div>
-
 							<div className="paginationBox">
 								<Pagination
 									activePage={currentPage}
@@ -190,7 +139,72 @@ const Products = ({ match }) => {
 									activeLinkClass='pageLinkActive'
 								/>
 							</div>
-						</Fragment>}
+						</Fragment> :
+							// Return Searched Products.
+							<Fragment>
+								<div className="space" ></div>
+								<Heading props={"Results for \"" + searchWords.charAt(0).toUpperCase() + searchWords.slice(1) + "\" Search"} />
+								<MetaData title={"\"" + searchWords.charAt(0).toUpperCase() + searchWords.slice(1) + "\" Search..."} />
+								<div style={{ marginTop: "3%" }}></div>
+
+								<div className="product-container all-products">
+									{products && products.map(product => (
+										<ProductCard product={product} />
+									))}
+								</div>
+
+								<div className="filters">
+									<h5>Price</h5>
+									{(function () {
+										("#slider-range").slider({
+											range: true,
+											min: 0,
+											max: 500,
+											values: [75, 300],
+											slide: function (event, ui) {
+												("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+											}
+										});
+										("#amount").val("$" + ("#slider-range").slider("values", 0) +
+											" - $" + ("#slider-range").slider("values", 1));
+									})}
+									<Slider
+										value={price}
+										onChange={priceChangeHandler}
+										valueLabelDisplay="auto"
+										ariaLabelledby="slider"
+										min={0}
+										max={10000}
+									/>
+									<h5>Category</h5>
+									<ul className="category">
+										{categories && categories.map(category => (
+											<li
+												onClick={() => setCategory(category)}
+											>
+												{category}
+											</li>
+										))}
+									</ul>
+								</div>
+
+								<div className="paginationBox">
+									<Pagination
+										activePage={currentPage}
+										itemsCountPerPage={resultsPerPage}
+										totalItemsCount={totalSearchProducts}
+										onChange={setCurrentPageNo}
+										nextPageText="Next"
+										prevPageText="Prev"
+										firstPageText="<<"
+										lastPageText=">>"
+										itemClass='page-item'
+										linkClass='page-link'
+										activeClass='pageItemActive'
+										activeLinkClass='pageLinkActive'
+									/>
+								</div>
+							</Fragment>}
 					</Fragment>}
 			</Fragment>}
 		</Fragment>
