@@ -17,7 +17,10 @@ const options = {
 	autoFocus: true,
 	useKeyboardArrows: true,
 	stopOnHover: true,
-	transitionTime: 700
+	transitionTime: 700,
+	showStatus: false,
+	showIndicators: false,
+	showThumbs: false
 }
 
 const CarouselHeader = ({ products }) => {

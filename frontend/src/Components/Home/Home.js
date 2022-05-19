@@ -66,6 +66,7 @@ const Home = () => {
 					<CarouselHeader products={carouselProducts} />
 
 					{/* Heading */}
+					<div style={{marginTop: "5%"}}></div>
 					<Heading props={"Featured Products"} />
 
 					{/* ProductCards */}

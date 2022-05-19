@@ -17,7 +17,7 @@ const { isAuthenticateUser, isAdmin } = require('../MiddleWare/Authentication');
 router.route("/Register").post(user.registerUser);
 
 // Login the user.
-router.route("/Login").get(user.loginUser);
+router.route("/Login").post(user.loginUser);
 
 // Logout the user.
 router.route("/logout").get(user.logOutUser);

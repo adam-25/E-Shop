@@ -7,6 +7,7 @@
 import React, { useState } from 'react'
 import logo from '../../../Images/logo.png';
 import './preHeaderStyles.css';
+import { Link } from 'react-router-dom';
 
 // Importing to redirect for searching items.
 import { useHistory } from "react-router-dom";
@@ -50,7 +51,7 @@ const PreHeader = () => {
 					</form>
 					<ul className="navbar-nav ml-auto">
 						<li className="nav-item sign-nav">
-							<a className="nav-link" href="/login"><span className="sign-in-nav"> Sign-In & </span><br /> <span className="register-nav"> Register </span></a>
+							<Link className="nav-link" to="/login"><span className="sign-in-nav"> Sign-In & </span><br /> <span className="register-nav"> Register </span></Link>
 						</li>
 						<li className="nav-item">
 							<a className="nav-link order-nav" href="/myOrders"><span className='order-nav'><i class="fas fa-shopping-bag"></i>  Orders</span></a>

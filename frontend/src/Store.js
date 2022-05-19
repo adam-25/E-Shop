@@ -15,11 +15,13 @@ import thunk from "redux-thunk";
 // Connect with Redux Web Extension.
 import { composeWithDevTools } from "redux-devtools-extension";
 import { productReducer, specificProductReducer,  } from './Reducers/productReducer';
+import { userReducer } from "./Reducers/userReducer";
 
 // Combining Reducers.
 const reducer = combineReducers({
 	products: productReducer,
-	oneProduct: specificProductReducer
+	oneProduct: specificProductReducer,
+	user: userReducer
 });
 
 let initialState = {};
