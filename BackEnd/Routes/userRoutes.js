@@ -35,7 +35,9 @@ router.route("/password/update").put(isAuthenticateUser, user.updatePassword);
 router.route("/details").get(isAuthenticateUser, user.getUserDetails);
 
 // Update user detail by themselves.
-router.route("/details/updateProfile").put(isAuthenticateUser, user.updateDetails);
+router.route("/details/updateName").put(isAuthenticateUser, user.updateName);
+
+router.route("/details/updateEmail").put(isAuthenticateUser, user.updateEmail);
 
 // Getting all users by ADMIN.
 router.route("/admin/allUsers").get(isAuthenticateUser, isAdmin("admin"), user.getAllUsers);

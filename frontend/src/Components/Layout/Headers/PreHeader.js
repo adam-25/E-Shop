@@ -7,7 +7,6 @@
 import React, { useState, useEffect } from 'react'
 import logo from '../../../Images/logo.png';
 import './preHeaderStyles.css';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 // Importing to redirect for searching items.
@@ -65,7 +64,7 @@ const PreHeader = () => {
 					</form>
 					<ul className="navbar-nav ml-auto">
 						<li className="nav-item sign-nav">
-							<Link className="nav-link sign-in-nav" to="/login" dangerouslySetInnerHTML={{ __html: label }}></Link>
+							<a className="nav-link sign-in-nav" href="/login" dangerouslySetInnerHTML={{ __html: label }}></a>
 						</li>
 						<li className="nav-item">
 							<a className="nav-link order-nav" href="/myOrders"><span className='order-nav'><i class="fas fa-shopping-bag"></i>  Orders</span></a>

@@ -79,20 +79,20 @@ exports.forgotPassword = catchError(async (req, res, next) => {
 
 	const URLToResetPassword = `${req.protocol}://${req.get("host")}/api/v1/password/reset/${resetPasswordToken}`;
 
-	const message = "Your Password reset Token has been generated." 
-	+ "Click the link below to reset your password. \n\n" + URLToResetPassword 
-	+ "\nThis Link will be expired in 15 minutes.\n"
-	+ "If you have not request for Reset Password, Please ignore this Email."
+	const message = "Your Password reset Token has been generated."
+		+ "Click the link below to reset your password. \n\n" + URLToResetPassword
+		+ "\nThis Link will be expired in 15 minutes.\n"
+		+ "If you have not request for Reset Password, Please ignore this Email."
 
 	try {
 
-		await sendEmail ({
+		await sendEmail({
 			email: user.userEmail,
 			subject: "EShop Account Reset Password",
 			message: message
 		});
 
-		res.status(200).json({status: "Success", message: "Email sent to " + user.userEmail + " successfully"});
+		res.status(200).json({ status: "Success", message: "Email sent to " + user.userEmail + " successfully" });
 
 	}
 	catch (err) {
@@ -108,11 +108,11 @@ exports.forgotPassword = catchError(async (req, res, next) => {
 });
 
 // Reset Password. Add new Password to Database.
-exports.newPassword = catchError( async (req, res, next) => {
+exports.newPassword = catchError(async (req, res, next) => {
 
 	const resetPasswordToken = crypto.createHash("sha256").update(req.params.resetToken).digest("hex");
 
-	const user = await userModel.findOne({resetPasswordToken, resetPasswordExpiredDate: {$gt: Date.now()}});
+	const user = await userModel.findOne({ resetPasswordToken, resetPasswordExpiredDate: { $gt: Date.now() } });
 
 	if (!user) {
 		return next(new ErrorHandler("Password Reset Token is invalid or expired"), 400);
@@ -137,7 +137,7 @@ exports.getUserDetails = catchError(async function (req, res, next) {
 
 	const getUserById = await userModel.findById(req.user.id);
 
-	res.status(200).json({status: true, user: getUserById});
+	res.status(200).json({ status: true, user: getUserById });
 
 });
 
@@ -168,49 +168,53 @@ exports.updatePassword = catchError(async function (req, res, next) {
 
 });
 
-// Update user details while he is logged in.
-exports.updateDetails = catchError(async function (req, res, next) {
+// Update user name while he is logged in.
+exports.updateName = catchError(async function (req, res, next) {
 
 	const user = await userModel.findById(req.user.id);
 
-	if (!req.body.newFullName)
-		req.body.newFullName = user.userFullName;
-	else 
-		user.userFullName = req.body.newFullName;
-	
-	if (!req.body.newEmail)
-		req.body.newEmail = user.userEmail;
-	else
-		user.userEmail = req.body.newEmail;
+	user.userFullName = req.body.newFullName;
 
 	await user.save();
 
-	res.status(200).json({success: true, message: "User details updated successfully"});
+	res.status(200).json({ success: true, message: "User Name updated successfully" });
+});
+
+// Update user email while he is logged in.
+exports.updateEmail = catchError(async function (req, res, next) {
+
+	const user = await userModel.findById(req.user.id);
+
+	user.userEmail = req.body.newEmail;
+
+	await user.save();
+
+	res.status(200).json({ success: true, message: "User Email updated successfully" });
 });
 
 // Get all the users -- ADMIN
-exports.getAllUsers = catchError (async (req, res, next) => {
+exports.getAllUsers = catchError(async (req, res, next) => {
 
 	const users = await userModel.find();
 
-	res.status(200).json({success: true, users: users});
+	res.status(200).json({ success: true, users: users });
 
 });
 
 // Get specific user -- ADMIN
-exports.getOneUser = catchError (async (req, res, next) => {
+exports.getOneUser = catchError(async (req, res, next) => {
 
 	const user = await userModel.findById(req.params.id);
 
 	if (!user)
 		return next(new ErrorHandler("User not exist with id " + req.params.id));
 
-	res.status(200).json({success: true, user: user});
+	res.status(200).json({ success: true, user: user });
 
 });
 
 // Updating user role -- ADMIN
-exports.updateUserRole = catchError (async (req, res, next) => {
+exports.updateUserRole = catchError(async (req, res, next) => {
 
 	const user = await userModel.findById(req.params.id);
 
@@ -221,7 +225,7 @@ exports.updateUserRole = catchError (async (req, res, next) => {
 		req.body.newFullName = user.userFullName;
 	else
 		user.userFullName = req.body.newFullName;
-	
+
 	if (!req.body.newEmail)
 		req.body.newEmail = user.userEmail;
 	else
@@ -234,20 +238,20 @@ exports.updateUserRole = catchError (async (req, res, next) => {
 
 	await user.save();
 
-	res.status(200).json({status: true, message: "User details has been updated successfully"});
+	res.status(200).json({ status: true, message: "User details has been updated successfully" });
 
 });
 
 // Delete user account while he is logged in.
-exports.deleteUser = catchError (async (req, res, next) => {
+exports.deleteUser = catchError(async (req, res, next) => {
 
-	await userModel.deleteOne({_id: req.user.id});
+	await userModel.deleteOne({ _id: req.user.id });
 
-	res.status(200).send({success: true, message:"User has been deleted successfully."});
+	res.status(200).send({ success: true, message: "User has been deleted successfully." });
 });
 
 // Delete user -- ADMIN
-exports.deleteUserByAdmin = catchError (async (req, res, next) => {
+exports.deleteUserByAdmin = catchError(async (req, res, next) => {
 
 	const user = await userModel.findById(req.params.id);
 
@@ -255,8 +259,8 @@ exports.deleteUserByAdmin = catchError (async (req, res, next) => {
 		return next(new ErrorHandler("User not exist with id " + req.params.id));
 	}
 
-	await userModel.deleteOne({_id: req.params.id});
+	await userModel.deleteOne({ _id: req.params.id });
 
-	res.status(200).send({success: true, message:"User has been deleted successfully."});
+	res.status(200).send({ success: true, message: "User has been deleted successfully." });
 
 });

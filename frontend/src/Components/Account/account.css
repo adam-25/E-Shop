@@ -1,0 +1,106 @@
+.user-information {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	padding: 3vmax;
+}
+
+.user-information-container {
+	width: 70%;
+	padding-top: 50px;
+	padding-left: 15vmax;
+	align-items: flex-start;
+}
+
+.info {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.info>div {
+	width: 100%;
+	word-wrap: break-word;
+}
+
+.info > div:first-child p {
+	color:rgb(122, 122, 122)
+}
+
+strong {
+	color:rgb(122, 122, 122)
+}
+
+.edit {
+	padding-left: 70px;
+	padding-top: 1vmax;
+}
+
+.button {
+	border: none;
+	font-family: 'Comic Neue', cursive;
+	color: white;
+	background-color: rgb(180, 101, 45);
+	width: 30%;
+	text-align: center;
+	padding: 0.5vmax;
+	text-decoration: none;
+	border-radius: 5px;
+	transition: all 0.3s;
+}
+
+.button:hover {
+	color: white;
+	text-decoration: none;
+	background-color: rgb(144, 70, 0);
+}
+
+.other-button {
+	border: none;
+	font-family: 'Comic Neue', cursive;
+	color: white;
+	background-color: rgb(0, 17, 18);
+	width: 30%;
+	text-align: center;
+	padding: 1vmax;
+	text-decoration: none;
+	border-radius: 5px;
+	transition: all 0.3s;
+	font-size: 1vmax;
+}
+
+.user-information-container > div:last-child {
+	text-align: center;
+	padding-right: 15vmax;
+	padding-top: 3vmax;
+}
+
+.other-button:hover {
+	text-decoration: none;
+	background-color: rgb(57, 57, 57);
+	color: white;
+}
+
+@media all and (max-width: 1000px) {
+	.other-button {
+		padding: 2vmax;
+		font-size: 1.5vmax;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.user-information-container {
+		padding-left: 1vmax;
+	}
+
+	.user-information-container > div:last-child {
+		padding-right: 0vmax;
+		padding-top: 3vmax;
+	}
+
+	.other-button {
+		padding: 2vmax;
+		font-size: 2.4vmax;
+	}
+}

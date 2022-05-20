@@ -65,7 +65,7 @@ export const logoutUser = () => async (dispatch) => {
 	}
 	catch (error) {
 		dispatch({
-			type: REGISTER_FAIL,
+			type: LOGOUT_FAIL,
 			payload: error.response.data.message,
 		});
 	}

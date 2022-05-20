@@ -13,7 +13,7 @@
 
 // Importing CSS and Router, doms.
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
@@ -26,14 +26,20 @@ import Products from "./Components/Products/Products";
 import LoginRegister from './Components/User/LoginRegister';
 import UserOptions from "./Components/Layout/UserOptions/UserOptions";
 import { loadUser } from './Actions/userAction';
+import Account from './Components/Account/Account';
+import Logout from './Components/Logout/Logout.js';
+import Loading from './Components/Loading/Loading';
 
 function App() {
 
+	// let history = useHistory();
+
 	const dispatch = useDispatch();
-	const { isAuthenticateUser } = useSelector(state => state.user);
+	const { isAuthenticateUser, loading } = useSelector(state => state.user);
 
 	useEffect(() => {
 		dispatch(loadUser());
+
 	}, [dispatch]);
 
 	return (
@@ -42,6 +48,8 @@ function App() {
 			<Header />
 
 			{(window.location.pathname !== "/" && isAuthenticateUser) ? <UserOptions /> : <div></div>}
+			{(!isAuthenticateUser && window.location.pathname === "/account") ? <Redirect to='/logout' /> : <div></div>}
+
 
 			{/* Path for different pages */}
 			<Route exact path="/" component={Home} />
@@ -49,6 +57,8 @@ function App() {
 			<Route exact path="/products" component={Products} />
 			<Route path="/products/:searchWords" component={Products} />
 			<Route path="/login" component={LoginRegister} />
+			<Route path="/account" component={Account} />
+			<Route path="/logout" component={Logout} />
 
 			{/* Footer of the website. */}
 			<Footer />
