@@ -14,21 +14,23 @@
 // Importing CSS and Router, doms.
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 // Importing Components.
-import { useEffect } from 'react';
 import Header from './Components/Layout/Headers/Header.js';
 import Footer from './Components/Layout/Footer/Footer.js';
 import Home from './Components/Home/Home';
 import SpecificProduct from './Components/SpecificProduct/SpecificProduct';
 import Products from "./Components/Products/Products";
 import LoginRegister from './Components/User/LoginRegister';
+import UserOptions from "./Components/Layout/UserOptions/UserOptions";
 import { loadUser } from './Actions/userAction';
 
 function App() {
 
 	const dispatch = useDispatch();
+	const { isAuthenticateUser } = useSelector(state => state.user);
 
 	useEffect(() => {
 		dispatch(loadUser());
@@ -38,6 +40,8 @@ function App() {
 		<Router>
 			{/* Navbar Header */}
 			<Header />
+
+			{(window.location.pathname !== "/" && isAuthenticateUser) ? <UserOptions /> : <div></div>}
 
 			{/* Path for different pages */}
 			<Route exact path="/" component={Home} />

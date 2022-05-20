@@ -37,8 +37,6 @@ const PreHeader = () => {
 	const searchSubmitHandler = (event) => {
 		event.preventDefault();
 
-		console.log(searchWords);
-
 		if (searchWords.trim()) {
 			history.push("/products/" + searchWords.trim());
 		}

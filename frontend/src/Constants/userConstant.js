@@ -11,4 +11,7 @@ export const LOADING_REQUEST = "LOADING_REQUEST";
 export const LOADING_SUCCESS = "LOADING_SUCCESS";
 export const LOADING_FAIL = "LOADING_FAIL";
 
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+export const LOGOUT_FAIL = "LOGOUT_FAIL";
+
 export const CLEAR_ERRORS = "CLEAR_ERRORS";

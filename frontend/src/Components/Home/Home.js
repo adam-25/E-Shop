@@ -21,6 +21,7 @@ import CarouselHeader from '../Layout/Headers/CarouselHeader';
 import Heading from '../Layout/Heading/Heading';
 import ProductCard from "../Layout/ProductCard/ProductCard.js";
 import MetaData from "../Layout/MetaData";
+import UserOptions from "../Layout/UserOptions/UserOptions";
 
 // Carousel Images.
 import laptop from "../../Images/laptop.jpeg";
@@ -38,6 +39,8 @@ const Home = () => {
 
 	// Getting Items from Store with useSelector.
 	const dispatch = useDispatch();
+	const { isAuthenticateUser } = useSelector(state => state.user);
+
 	const { loading, error, products } = useSelector(
 		(state) => state.products);
 
@@ -65,8 +68,10 @@ const Home = () => {
 					{/* Carousel of the product */}
 					<CarouselHeader products={carouselProducts} />
 
+					{isAuthenticateUser && <UserOptions />}
+
 					{/* Heading */}
-					<div style={{marginTop: "5%"}}></div>
+					<div style={{ marginTop: "5%" }}></div>
 					<Heading props={"Featured Products"} />
 
 					{/* ProductCards */}

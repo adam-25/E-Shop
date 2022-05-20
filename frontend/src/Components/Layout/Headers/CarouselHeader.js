@@ -30,6 +30,7 @@ const CarouselHeader = ({ products }) => {
 			<Carousel {...options}>
 				{products.map((item, index) => (
 					<img
+						key={index}
 						src={item}
 						alt={index}
 					/>

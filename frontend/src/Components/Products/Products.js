@@ -35,6 +35,8 @@ const Products = ({ match }) => {
 	const [category, setCategory] = useState("");
 	const [sort, setSort] = useState("");
 
+	const { isAuthenticateUser } = useSelector(state => state.user);
+
 	const setCurrentPageNo = (event) => {
 		setCurrentPage(event);
 	}
@@ -64,7 +66,7 @@ const Products = ({ match }) => {
 			{loading ? <Loading /> : <Fragment>
 				{/* See Product is found or not. */}
 				{products.length === 0 ? <Fragment>
-					<div className="space"></div>
+					{!isAuthenticateUser && <div className="space"></div>}
 					<div>
 						<div className="products-heading-title">
 							<Heading props="No Results..." />
@@ -87,7 +89,7 @@ const Products = ({ match }) => {
 								</div>
 							</div>
 						</div>{!searchWords ? <Fragment>
-							<div className="space"></div>
+							{!isAuthenticateUser && <div className="space"></div>}
 
 							{!category ? <Fragment>
 								<div className="products-heading-title">
@@ -148,7 +150,7 @@ const Products = ({ match }) => {
 						</Fragment> :
 							// Return Searched Products.
 							<Fragment>
-								<div className="space" ></div>
+								{!isAuthenticateUser && <div className="space"></div>}
 								<div className="products-heading-title">
 									<Heading props={"Results for \"" + searchWords.charAt(0).toUpperCase() + searchWords.slice(1) + "\" Search"} />
 								</div>

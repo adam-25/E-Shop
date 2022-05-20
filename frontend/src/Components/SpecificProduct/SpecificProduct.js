@@ -82,6 +82,7 @@ const SpecificProduct = ({ match }) => {
 										className="product-carousel-image"
 										src={item.imageURL}
 										alt="Not Available"
+										key={index}
 									/>
 								))}
 
