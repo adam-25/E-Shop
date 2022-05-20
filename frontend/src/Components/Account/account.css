@@ -37,7 +37,7 @@ strong {
 	padding-top: 1vmax;
 }
 
-.button {
+.info-edit-button {
 	border: none;
 	font-family: 'Comic Neue', cursive;
 	color: white;
@@ -50,7 +50,7 @@ strong {
 	transition: all 0.3s;
 }
 
-.button:hover {
+.info-edit-button:hover {
 	color: white;
 	text-decoration: none;
 	background-color: rgb(144, 70, 0);

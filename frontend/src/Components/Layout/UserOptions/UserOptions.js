@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
@@ -8,7 +8,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -31,7 +31,7 @@ const UserOptions = () => {
 	const dispatch = useDispatch();
 	let history = useHistory();
 
-	const { error, loading, user } = useSelector(state => state.user);
+	const { error, user } = useSelector(state => state.user);
 
 	const actions = [
 		{ icon: <AccountCircleIcon />, name: 'Account', func: account },

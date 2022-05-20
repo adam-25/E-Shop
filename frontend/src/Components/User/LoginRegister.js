@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import './LoginRegister.css';
 import front from "../../Images/login-front.jpeg";
 import Loading from "../Loading/Loading";
+import MetaData from '../Layout/MetaData';
 import { Link, useHistory } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
@@ -53,6 +54,7 @@ const LoginRegister = () => {
 		<Fragment>
 			{loading ? <Loading /> :
 				<div className="login-register">
+					<MetaData title="Login..." />
 					<div class="container">
 						<input type="checkbox" id="flip" />
 						<div class="cover">

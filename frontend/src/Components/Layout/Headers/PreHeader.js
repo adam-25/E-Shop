@@ -64,7 +64,7 @@ const PreHeader = () => {
 					</form>
 					<ul className="navbar-nav ml-auto">
 						<li className="nav-item sign-nav">
-							<a className="nav-link sign-in-nav" href="/login" dangerouslySetInnerHTML={{ __html: label }}></a>
+							<a className="nav-link sign-in-nav" href="/account" dangerouslySetInnerHTML={{ __html: label }}></a>
 						</li>
 						<li className="nav-item">
 							<a className="nav-link order-nav" href="/myOrders"><span className='order-nav'><i class="fas fa-shopping-bag"></i>  Orders</span></a>

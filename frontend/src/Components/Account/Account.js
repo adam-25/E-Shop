@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import MetaData from '../Layout/MetaData';
 import Heading from '../Layout/Heading/Heading';
@@ -9,11 +9,20 @@ import './account.css';
 
 const Account = () => {
 
+	let history = useHistory();
+
 	const { user, loading, isAuthenticateUser } = useSelector(state => state.user);
+
+	useEffect(() => {
+
+		if (isAuthenticateUser === false) {
+			history.push("/login");
+		}
+	}, [isAuthenticateUser, history]);
 
 	return (
 		<Fragment>
-			{loading ? <Loading /> : (!isAuthenticateUser ? <Redirect to='/logout' /> :
+			{loading ? <Loading /> : ( isAuthenticateUser &&
 				<Fragment>
 					{user && <MetaData title={user.userFirstName + "'s Account..."} />}
 					<Heading props="Your Information" />
@@ -25,7 +34,7 @@ const Account = () => {
 									<p>{user.userFullName}</p>
 								</div>
 								<div className="edit">
-									<a href="/detail/updateName" className='button'>Edit</a>
+									<a href="/updateName" className='info-edit-button'>Edit</a>
 								</div>
 							</div>
 							<div className="info">
@@ -34,7 +43,7 @@ const Account = () => {
 									<p>{user.userEmail}</p>
 								</div>
 								<div className="edit">
-									<a href="/detail/updateName" className='button'>Edit</a>
+									<a href="/updateEmail" className='info-edit-button'>Edit</a>
 								</div>
 							</div>
 							<div>
@@ -43,17 +52,16 @@ const Account = () => {
 							</div>
 							<div>
 								<div>
-									<a href="/myOrders" className='other-button'>My Orders</a> <br /> <br/> <br/>
+									<a href="/myOrders" className='other-button'>My Orders</a> <br /> <br /> <br />
 								</div>
 								<div>
 									<a href="/password/update" className="other-button">Change Password</a>
 								</div>
+							</div>
 						</div>
 					</div>
-				</div>
 				</Fragment>
-	)
-}
+			)}
 		</Fragment >
 	)
 }
