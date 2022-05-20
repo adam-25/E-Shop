@@ -1,0 +1,17 @@
+.above-logout {
+	margin-top: 14vmax;
+}
+
+.above-thank-you {
+	margin-top: 8vmax;
+}
+
+@media all and (max-width: 800px) {
+	.above-logout {
+		margin-top: 30vmax;
+	}
+
+	.below-thank-you {
+		margin-bottom: 20vmax;
+	}
+}

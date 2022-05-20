@@ -27,6 +27,9 @@ import LoginRegister from './Components/User/LoginRegister';
 import UserOptions from "./Components/Layout/UserOptions/UserOptions";
 import { loadUser } from './Actions/userAction';
 import Account from './Components/Account/Account';
+import UpdateName from './Components/UpdateDetails/UpdateName';
+import UpdateEmail from './Components/UpdateDetails/UpdateEmail';
+import Logout from './Components/Logout/Logout';
 
 function App() {
 
@@ -46,14 +49,18 @@ function App() {
 			<Header />
 
 			{(window.location.pathname !== "/" && isAuthenticateUser) ? <UserOptions /> : <div></div>}
+			{(window.location.pathname == "/logout" && !isAuthenticateUser) ? <Redirect to="/login" /> : <div></div>}
 
 			{/* Path for different pages */}
 			<Route exact path="/" component={Home} />
 			<Route exact path="/product/:id" component={SpecificProduct} />
 			<Route exact path="/products" component={Products} />
 			<Route path="/products/:searchWords" component={Products} />
-			<Route path="/login" component={LoginRegister} />
-			<Route path="/account" component={Account} />
+			<Route exact path="/login" component={LoginRegister} />
+			<Route exact path="/account" component={Account} />
+			<Route exact path="/updateName" component={UpdateName} />
+			<Route exact path="/updateEmail" component={UpdateEmail} />
+			<Route exact path="/logout" component={Logout} />
 
 			{/* Footer of the website. */}
 			<Footer />
