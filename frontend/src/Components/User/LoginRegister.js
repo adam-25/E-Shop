@@ -3,7 +3,7 @@ import './LoginRegister.css';
 import front from "../../Images/login-front.jpeg";
 import Loading from "../Loading/Loading";
 import MetaData from '../Layout/MetaData';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 
@@ -85,7 +85,7 @@ const LoginRegister = () => {
 													onChange={(e) => setLoginPassword(e.target.value)} />
 											</div>
 											<div class="text">
-												<a to="/password/forgotPassword">Forgot password?</a>
+												<a href="/password/forgotPassword">Forgot password?</a>
 											</div>
 											<div class="button input-box">
 												<input type="submit" value="Log In" />

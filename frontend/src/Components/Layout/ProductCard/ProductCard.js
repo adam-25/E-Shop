@@ -6,7 +6,6 @@
 
 // Importing CSS and Link so we don't have to use anchor tags.'
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './productStyle.css';
 
 // ReactStarts for Review star of the product.

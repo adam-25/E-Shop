@@ -49,7 +49,7 @@ function App() {
 			<Header />
 
 			{(window.location.pathname !== "/" && isAuthenticateUser) ? <UserOptions /> : <div></div>}
-			{(window.location.pathname == "/logout" && !isAuthenticateUser) ? <Redirect to="/login" /> : <div></div>}
+			{(window.location.pathname === "/logout" && !isAuthenticateUser) ? <Redirect to="/login" /> : <div></div>}
 
 			{/* Path for different pages */}
 			<Route exact path="/" component={Home} />

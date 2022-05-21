@@ -48,7 +48,7 @@ const UpdateName = () => {
 		}
 
 
-	}, [loading, history, isAuthenticateUser, isUpdate]);
+	}, [loading, history, isAuthenticateUser, isUpdate, dispatch, error]);
 	return (
 		<Fragment>
 			{loading ? <Loading /> : <Fragment>
