@@ -47,7 +47,7 @@ const SpecificProduct = ({ match }) => {
 		// Error PopUp
 		if (error) {
 			toast("Error: " + error);
-			dispatch(clearErrors);
+			dispatch(clearErrors());
 		}
 
 		// Dispatch getSpecificProduct() function with ID in URL.

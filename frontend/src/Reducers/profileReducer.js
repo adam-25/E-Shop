@@ -1,4 +1,4 @@
-import { UPDATE_EMAIL_RESET, UPDATE_NAME_RESET } from "../Constants/profileConstants";
+ import { UPDATE_EMAIL_RESET, UPDATE_NAME_RESET } from "../Constants/profileConstants";
 import {
 	UPDATE_NAME_REQUEST,
 	UPDATE_NAME_SUCCESS,
@@ -7,29 +7,29 @@ import {
 	UPDATE_EMAIL_SUCCESS,
 	UPDATE_EMAIL_FAIL,
 	CLEAR_ERRORS
-} from "../Constants/userConstant";
+} from "../Constants/profileConstants";
 
-export const userReducer = (state = {}, action) => {
+export const profileReducer = (state = {}, action) => {
 
 	switch (action.type) {
 		case UPDATE_NAME_REQUEST:
 		case UPDATE_EMAIL_REQUEST:
 			return {
 				...state,
-				loading: true,
+				loadingProfile: true,
 			}
 		case UPDATE_NAME_SUCCESS:
 		case UPDATE_EMAIL_SUCCESS:
 			return {
 				...state,
-				loading: false,
-				isUpdate: action.payload.message
+				loadingProfile: false,
+				isUpdate: action.payload.success
 			}
 		case UPDATE_NAME_FAIL:
 		case UPDATE_EMAIL_FAIL:
 			return {
 				...state,
-				loading: false,
+				loadingProfile: false,
 				error: action.payload,
 			}
 		case UPDATE_NAME_RESET:

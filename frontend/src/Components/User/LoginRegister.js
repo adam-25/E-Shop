@@ -27,7 +27,7 @@ const LoginRegister = () => {
 	useEffect(() => {
 		if (error) {
 			toast("Error: " + error);
-			dispatch(clearErrors);
+			dispatch(clearErrors());
 		}
 
 		if (isAuthenticateUser) {
@@ -85,7 +85,7 @@ const LoginRegister = () => {
 													onChange={(e) => setLoginPassword(e.target.value)} />
 											</div>
 											<div class="text">
-												<Link to="/password/forgotPassword">Forgot password?</Link>
+												<a to="/password/forgotPassword">Forgot password?</a>
 											</div>
 											<div class="button input-box">
 												<input type="submit" value="Log In" />

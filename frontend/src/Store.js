@@ -16,12 +16,14 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { productReducer, specificProductReducer,  } from './Reducers/productReducer';
 import { userReducer } from "./Reducers/userReducer";
+import { profileReducer } from "./Reducers/profileReducer";
 
 // Combining Reducers.
 const reducer = combineReducers({
 	products: productReducer,
 	oneProduct: specificProductReducer,
-	user: userReducer
+	user: userReducer,
+	profile: profileReducer
 });
 
 let initialState = {};

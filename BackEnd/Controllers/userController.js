@@ -175,6 +175,9 @@ exports.updateName = catchError(async function (req, res, next) {
 
 	user.userFullName = req.body.newFullName;
 
+	user.userFirstName = req.body.newFullName.split(" ")[0];
+	user.userLastName = req.body.newFullName.split(" ")[1];
+
 	await user.save();
 
 	res.status(200).json({ success: true, message: "User Name updated successfully" });

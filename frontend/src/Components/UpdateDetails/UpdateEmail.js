@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './UpdateName.css';
 
 
@@ -7,11 +7,25 @@ import './UpdateName.css';
 import Loading from '../Loading/Loading';
 import MetaData from '../Layout/MetaData';
 import { useHistory } from 'react-router-dom';
+import { clearErrors, updateEmail } from '../../Actions/profileActions';
+import { toast } from 'react-toastify';
+import { loadUser } from '../../Actions/userAction';
+import { UPDATE_EMAIL_RESET } from '../../Constants/profileConstants';
 
 const UpdateEmail = () => {
 
+	const dispatch = useDispatch();
 	const history = useHistory();
-	const { loading, isAuthenticateUser } = useSelector((state) => state.user);
+
+	const { loading, isAuthenticateUser } = useSelector(state => state.user);
+	const { isUpdate, error } = useSelector((state) => state.profile);
+
+	const [newEmail, setEmail] = useState("");
+
+	const changeEmailSubmit = (e) => {
+		e.preventDefault();
+		dispatch(updateEmail(newEmail));
+	}
 
 	useEffect(() => {
 		if (!loading) {
@@ -20,7 +34,21 @@ const UpdateEmail = () => {
 			}
 		}
 
-	}, [history, isAuthenticateUser, loading]);
+		if (error) {
+			toast("Error: " + error);
+			dispatch(clearErrors());
+		}
+
+		if (isUpdate) {
+			toast("Email Updated Successfully");
+			dispatch(loadUser());
+			history.push("/account");
+
+			dispatch({ type: UPDATE_EMAIL_RESET });
+		}
+
+
+	}, [loading, history, isAuthenticateUser, isUpdate]);
 	return (
 		<Fragment>
 			{loading ? <Loading /> : <Fragment>
@@ -35,10 +63,10 @@ const UpdateEmail = () => {
 								you may do so below. Be sure to click the Save Changes button when you are done.</p>
 							<h5>New Email</h5>
 
-							<div className="name-change-button">
-								<input type="email" className='new-name-input' />
-								<button type='button'>Save Changes</button>
-							</div>
+							<form className="name-change-button" onSubmit={changeEmailSubmit}>
+								<input type="email" className='new-name-input' onChange={(e) => setEmail(e.target.value)}/>
+								<button type='submit'>Save Changes</button>
+							</form>
 						</div>
 					</div>
 				</div>

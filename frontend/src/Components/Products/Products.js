@@ -55,7 +55,7 @@ const Products = ({ match }) => {
 	useEffect(() => {
 		if (error) {
 			toast("Error: " + error);
-			dispatch(clearErrors);
+			dispatch(clearErrors());
 		}
 
 		dispatch(getProduct(searchWords, currentPage, price, category, sort));

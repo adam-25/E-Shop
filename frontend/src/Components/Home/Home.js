@@ -49,7 +49,7 @@ const Home = () => {
 		// Error PopUp
 		if (error) {
 			toast("Error: " + error);
-			dispatch(clearErrors);
+			dispatch(clearErrors());
 		}
 
 		// getProduct() function in Actions.

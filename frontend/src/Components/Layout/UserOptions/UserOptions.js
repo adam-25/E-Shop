@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import { logoutUser } from '../../../Actions/userAction';
+import { logoutUser, clearErrors } from '../../../Actions/userAction';
 
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
 	position: 'absolute',
@@ -57,7 +57,10 @@ const UserOptions = () => {
 	function logout() {
 		dispatch(logoutUser());
 		if (error)
+		{
 			toast("Error", error);
+			dispatch(clearErrors());
+		}
 		
 		toast("Log out Successfully");
 	}
