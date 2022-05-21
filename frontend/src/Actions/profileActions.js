@@ -8,6 +8,10 @@ import {
 	UPDATE_EMAIL_SUCCESS,
 	UPDATE_EMAIL_FAIL,
 
+	UPDATE_PASSWORD_REQUEST,
+	UPDATE_PASSWORD_SUCCESS,
+	UPDATE_PASSWORD_FAIL,
+
 	CLEAR_ERRORS
 
 } from "../Constants/profileConstants";
@@ -46,6 +50,28 @@ export const updateEmail = (newEmail) => async (dispatch) => {
 			payload: error.response.data.message
 		})
 	}
+}
+
+export const updatePassword = (oldPassword, newPassword, confirmPassword) => async (dispatch) => {
+
+	try {
+		dispatch({ type: UPDATE_PASSWORD_REQUEST });
+
+		const config = { headers: { "Content-Type": "application/json" } };
+
+		const { data } = await axios.put("/api/v1/password/update", { oldPassword: oldPassword, 
+			newPassword: newPassword, 
+			confirmPassword: confirmPassword }, config);
+
+		dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data });
+	}
+	catch (error) {
+		dispatch({
+			type: UPDATE_PASSWORD_FAIL,
+			payload: error.response.data.message
+		})
+	}
+
 }
 
 // Clearing all the errors.

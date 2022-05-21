@@ -29,6 +29,7 @@ import { loadUser } from './Actions/userAction';
 import Account from './Components/Account/Account';
 import UpdateName from './Components/UpdateDetails/UpdateName';
 import UpdateEmail from './Components/UpdateDetails/UpdateEmail';
+import UpdatePassword from './Components/UpdateDetails/UpdatePassword.js';
 import Logout from './Components/Logout/Logout';
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
 			<Route exact path="/updateName" component={UpdateName} />
 			<Route exact path="/updateEmail" component={UpdateEmail} />
 			<Route exact path="/logout" component={Logout} />
+			<Route exact path="/password/update" component={UpdatePassword} />
 
 			{/* Footer of the website. */}
 			<Footer />
