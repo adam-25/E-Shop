@@ -30,6 +30,7 @@ import Account from './Components/Account/Account';
 import UpdateName from './Components/UpdateDetails/UpdateName';
 import UpdateEmail from './Components/UpdateDetails/UpdateEmail';
 import UpdatePassword from './Components/UpdateDetails/UpdatePassword.js';
+import ForgotPassword from './Components/UpdateDetails/ForgotPassword.js';
 import Logout from './Components/Logout/Logout';
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
 			<Route exact path="/updateEmail" component={UpdateEmail} />
 			<Route exact path="/logout" component={Logout} />
 			<Route exact path="/password/update" component={UpdatePassword} />
+			<Route exact path="/password/forgotPassword" component={ForgotPassword} />
 
 			{/* Footer of the website. */}
 			<Footer />

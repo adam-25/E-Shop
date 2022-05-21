@@ -1,13 +1,13 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './UpdateName.css';
+import './Update.css';
 
 
 // Importing Components.
 import Loading from '../Loading/Loading';
 import MetaData from '../Layout/MetaData';
 import { useHistory } from 'react-router-dom';
-import { clearErrors, updateName, updatePassword } from '../../Actions/profileActions';
+import { clearErrors, updatePassword } from '../../Actions/profileActions';
 import { toast } from 'react-toastify';
 import { loadUser } from '../../Actions/userAction';
 import { UPDATE_PASSWORD_RESET } from '../../Constants/profileConstants';

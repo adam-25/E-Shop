@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './UpdateName.css';
+import './Update.css';
 
 
 // Importing Components.

@@ -81,7 +81,7 @@ exports.forgotPassword = catchError(async (req, res, next) => {
 
 	const message = "Your Password reset Token has been generated."
 		+ "Click the link below to reset your password. \n\n" + URLToResetPassword
-		+ "\nThis Link will be expired in 15 minutes.\n"
+		+ "\n\nThis Link will be expired in 15 minutes.\n"
 		+ "If you have not request for Reset Password, Please ignore this Email."
 
 	try {

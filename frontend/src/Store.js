@@ -17,13 +17,15 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { productReducer, specificProductReducer,  } from './Reducers/productReducer';
 import { userReducer } from "./Reducers/userReducer";
 import { profileReducer } from "./Reducers/profileReducer";
+import { forgotPasswordReducer } from "./Reducers/forgotPasswordReducer";
 
 // Combining Reducers.
 const reducer = combineReducers({
 	products: productReducer,
 	oneProduct: specificProductReducer,
 	user: userReducer,
-	profile: profileReducer
+	profile: profileReducer,
+	forgotPassword: forgotPasswordReducer
 });
 
 let initialState = {};

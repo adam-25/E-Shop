@@ -71,7 +71,6 @@ export const updatePassword = (oldPassword, newPassword, confirmPassword) => asy
 			payload: error.response.data.message
 		})
 	}
-
 }
 
 // Clearing all the errors.
