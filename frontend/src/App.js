@@ -31,6 +31,7 @@ import UpdateName from './Components/UpdateDetails/UpdateName';
 import UpdateEmail from './Components/UpdateDetails/UpdateEmail';
 import UpdatePassword from './Components/UpdateDetails/UpdatePassword.js';
 import ForgotPassword from './Components/UpdateDetails/ForgotPassword.js';
+import ResetPassword from './Components/UpdateDetails/ResetPassword.js'
 import Logout from './Components/Logout/Logout';
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
 			<Route exact path="/logout" component={Logout} />
 			<Route exact path="/password/update" component={UpdatePassword} />
 			<Route exact path="/password/forgotPassword" component={ForgotPassword} />
+			<Route exact path="/password/reset/:resetToken" component={ResetPassword} />
 
 			{/* Footer of the website. */}
 			<Footer />

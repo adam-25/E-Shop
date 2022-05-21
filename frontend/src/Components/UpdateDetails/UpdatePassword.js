@@ -54,7 +54,7 @@ const UpdatePassword = () => {
 	return (
 		<Fragment>
 			{loading ? <Loading /> : <Fragment>
-				<MetaData title="Edit name" />
+				<MetaData title="Edit Password" />
 				<div className="name-change-container">
 					<div className="name-info-container">
 						<div>

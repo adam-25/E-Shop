@@ -111,7 +111,7 @@ const SpecificProduct = ({ match }) => {
 									{/* Div for Items Count */}
 									<div className="specific-product-quantity">
 										<button>-</button>
-										<input type="number" value={1} />
+										<input type="number" defaultValue={1} />
 										<button>+</button>
 									</div>
 									{/* Add to Cart Button */}
