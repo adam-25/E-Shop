@@ -25,9 +25,7 @@ const PreHeader = () => {
 	}, [isAuthenticateUser]);
 
 
-	const [label, setLabel] = useState(
-		'<span> <span> Sign-In </span> <br /> <span> & Register </span> </span>'
-	);
+	const [label, setLabel] = useState("");
 
 	let history = useHistory();
 

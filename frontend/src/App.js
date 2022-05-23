@@ -44,7 +44,7 @@ function App() {
 	useEffect(() => {
 		dispatch(loadUser());
 
-	}, [dispatch]);
+	}, [dispatch, isAuthenticateUser]);
 
 	return (
 		<Router>

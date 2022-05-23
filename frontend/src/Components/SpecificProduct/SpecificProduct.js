@@ -21,8 +21,6 @@ import ReviewCard from './ReviewCard.js';
 import './specificProductStyle.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { toast } from 'react-toastify';
-import { useHistory } from 'react-router-dom';
-
 // Options for Carousel.
 const optionsCarousel = {
 	infiniteLoop: true,
@@ -38,9 +36,7 @@ const optionsCarousel = {
 const SpecificProduct = ({ match }) => {
 
 	const dispatch = useDispatch();
-	let history = useHistory();
 
-	const { isAuthenticateUser } = useSelector(state => state.user)
 	const [quantity, setQuantity] = useState(0);
 
 	// Getting Items from Store with useSelector.
@@ -142,7 +138,7 @@ const SpecificProduct = ({ match }) => {
 									</div>
 									{/* Add to Cart Button */}
 
-									<button disabled={oneProduct.productStock <= 0 || quantity <= 0} onClick={addToCartHandler}>Add to Cart</button>
+									<button disabled={oneProduct.productStock <= 0 || quantity <= 0}>Add to Cart</button>
 								</div>
 
 								{/* InStock or not with colors and text */}
