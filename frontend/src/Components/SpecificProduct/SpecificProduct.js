@@ -5,14 +5,13 @@
 
 
 // Importing modules, Actions and items to get Data from Store and to Store Data to Store.
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearErrors, getSpecificProduct } from '../../Actions/productAction';
 
 // Review and Error PopUp
 import ReactStars from 'react-rating-stars-component';
-import { toast } from 'react-toastify';
 
 // Importing Components and CSS.
 import MetaData from '../Layout/MetaData';
@@ -21,6 +20,8 @@ import Heading from "../Layout/Heading/Heading";
 import ReviewCard from './ReviewCard.js';
 import './specificProductStyle.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 
 // Options for Carousel.
 const optionsCarousel = {
@@ -37,9 +38,14 @@ const optionsCarousel = {
 const SpecificProduct = ({ match }) => {
 
 	const dispatch = useDispatch();
+	let history = useHistory();
+
+	const { isAuthenticateUser } = useSelector(state => state.user)
+	const [quantity, setQuantity] = useState(0);
 
 	// Getting Items from Store with useSelector.
-	const { oneProduct, loading, error } = useSelector(state => state.oneProduct)
+	const { oneProduct, loading, error } = useSelector(state => state.oneProduct);
+
 
 	// Give Items from backend to Store. Call the function in Actions.
 	useEffect(() => {
@@ -64,6 +70,26 @@ const SpecificProduct = ({ match }) => {
 		size: window.innerWidth < 992 ? 17 : 20,
 		value: oneProduct.productRating,
 		isHalf: true
+	}
+
+	function reduceQuantity() {
+		if (quantity === 0) {
+			setQuantity(quantity);
+		}
+		else {
+			const temp = quantity - 1;
+			setQuantity(temp);
+		}
+	}
+
+	function addQuantity() {
+		if (oneProduct.productStock <= quantity) {
+			setQuantity(quantity);
+		}
+		else {
+			const temp = quantity + 1;
+			setQuantity(temp);
+		}
 	}
 
 	return (
@@ -110,12 +136,13 @@ const SpecificProduct = ({ match }) => {
 								<div className="product-add-to-cart">
 									{/* Div for Items Count */}
 									<div className="specific-product-quantity">
-										<button>-</button>
-										<input type="number" defaultValue={1} />
-										<button>+</button>
+										<button onClick={reduceQuantity}>-</button>
+										<input type="number" value={quantity} readOnly />
+										<button onClick={addQuantity}>+</button>
 									</div>
 									{/* Add to Cart Button */}
-									<button>Add to Cart</button>
+
+									<button disabled={oneProduct.productStock <= 0 || quantity <= 0} onClick={addToCartHandler}>Add to Cart</button>
 								</div>
 
 								{/* InStock or not with colors and text */}
@@ -142,15 +169,15 @@ const SpecificProduct = ({ match }) => {
 			<Heading props="Reviews" />
 
 			{/* Margin */}
-			<div style={{marginTop: "62px"}}></div>
+			<div style={{ marginTop: "62px" }}></div>
 
 			{/* Product Reviews. */}
 			{oneProduct.productReview && oneProduct.productReview[0] ? (
 
 				<div className="product-all-review">
 					{
-						oneProduct.productReview && oneProduct.productReview.map( (review) => 
-						<ReviewCard review={review} /> )
+						oneProduct.productReview && oneProduct.productReview.map((review) =>
+							<ReviewCard review={review} />)
 					}
 				</div>
 			) : <p className="product-no-review">No Review Yet</p>}

@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './Update.css';
+import { useHistory } from 'react-router-dom';
 
 
 // Importing Components.
@@ -11,19 +12,19 @@ import { toast } from 'react-toastify';
 
 const ResetPassword = ( {match} ) => {
 
-
+	let history = useHistory();
 	const dispatch = useDispatch();
 
-	const { message, error, loadingProfile } = useSelector((state) => state.forgotPassword);
+	const { success, error, loadingProfile } = useSelector((state) => state.forgotPassword);
 
 	const [newPassword, setNewPassword] = useState("");
 	const [confirmNewPassword, setConfirmPassword] = useState("");
 
-	const token = match.params.resetToken;
-
+	const resetToken = match.params.resetToken;
+	
 	const passwordReset = (e) => {
 		e.preventDefault();
-		dispatch(resetPassword(token, newPassword, confirmNewPassword));
+		dispatch(resetPassword(resetToken, newPassword, confirmNewPassword));
 	}
 
 	useEffect(() => {
@@ -32,15 +33,17 @@ const ResetPassword = ( {match} ) => {
 			dispatch(clearErrors());
 		}
 
-		if (message) {
-			toast(message);
+		if (success) {
+			toast("Password Successfully Updated");
+
+			history.push("/login");
 		}
 
 
-	}, [dispatch, message, error]); 
+	}, [dispatch, success, error, loadingProfile, history]); 
 	return (
 		<Fragment>
-			<Fragment>
+			{loadingProfile ? <Loading /> : <Fragment>
 				<MetaData title="Reset Password" />
 				<div className="name-change-container">
 					<div className="name-info-container">
@@ -61,7 +64,7 @@ const ResetPassword = ( {match} ) => {
 						</div>
 					</div>
 				</div>
-			</Fragment>
+			</Fragment>}
 		</Fragment>
 	)
 }

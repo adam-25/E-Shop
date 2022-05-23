@@ -141,6 +141,11 @@
 	background-color: rgb(204, 85, 0);
 }
 
+.product-add-to-cart>button:last-child:disabled {
+	background-color:rgb(190, 113, 59);
+	cursor: no-drop;
+}
+
 /* Description Inline */
 .specific-product-description p {
 	display: inline;
