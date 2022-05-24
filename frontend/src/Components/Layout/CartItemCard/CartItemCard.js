@@ -1,13 +1,18 @@
 import React, { Fragment, useState } from 'react'
 import './cartItemCard.css';
-import { addToCart } from '../../../Actions/cartActions';
+import { addToCart, removeItemCart } from '../../../Actions/cartActions';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 
 const CartItemCard = ({ item }) => {
 
 	const dispatch = useDispatch();
-	const [quantity, setQuantity] = useState(item.quantity);
+	const [quantity, setQuantity] = useState(item.orderQuantity);
+
+	const removeItem = () => {
+		dispatch(removeItemCart(item.productID));
+		toast(item.productName + " has been Removed from Cart.")
+	}
 
 	function reduceQuantity() {
 		if (quantity === 1) {
@@ -16,7 +21,7 @@ const CartItemCard = ({ item }) => {
 		else {
 			const temp = quantity - 1;
 			setQuantity(temp);
-			dispatch(addToCart(item.id, quantity));
+			dispatch(addToCart(item.productID, temp));
 			toast(item.productName + " Quantity Updated In Cart.")
 		}
 	}
@@ -29,7 +34,7 @@ const CartItemCard = ({ item }) => {
 		else {
 			const temp = quantity + 1;
 			setQuantity(temp);
-			dispatch(addToCart(item.id, quantity));
+			dispatch(addToCart(item.productID, temp));
 			toast(item.productName + " Quantity Updated In Cart.")
 		}
 	}
@@ -37,16 +42,16 @@ const CartItemCard = ({ item }) => {
 	return (
 		<Fragment>
 			<div className="cart-item-card-container">
-				<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png" alt="Product In Cart" />
+				<img src={item.productImages} alt={item.productName} />
 				<div className='cart-item-card-info'>
-					<h5>{item.productName}</h5>
+					<h4>{item.productName}</h4>
 					<h1>${item.productPrice}</h1>
 					<div className="specific-product-quantity">
 						<button onClick={reduceQuantity}>-</button>
 						<input type="number" value={quantity} readOnly />
 						<button onClick={addQuantity}>+</button>
 					</div>
-					<p style={{ marginTop: '5px' }}>Remove</p>
+					<p style={{ marginTop: '5px' }} onClick={removeItem} >Remove</p>
 				</div>
 			</div>
 		</Fragment>

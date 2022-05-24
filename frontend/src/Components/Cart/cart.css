@@ -16,21 +16,45 @@
 
 .proceed-checkout {
 	background-color: rgb(255, 106, 0);
-	color: white;
 	border: none;
 	border-radius: 5px;
 	transition: all 0.5s;
 	cursor: pointer;
 	padding: 0.7vmax 3vmax;
 	outline: none;
-	text-decoration: none;
 	font-size: 20px;
+	color: white;
 }
 
 .proceed-checkout:hover {
 	background-color: rgb(204, 85, 0);
+	color: white;
+}
+
+.proceed-checkout:disabled {
+	cursor: not-allowed;
+	background-color: rgb(170, 82, 19);
+}
+
+.cart-empty {
+	font-size: 3vmax;
+	font-family: 'Comic Neue', cursive;
+}
+
+.view-product-btn {
+	background-color: rgb(165, 28, 65);
+	padding: 1.1vmax;
+	font-size:1.5vmax;
+	border-radius: 5px;
+	text-decoration: none;
+	color: rgb(213, 213, 213);
+	transition: all 0.5s;
+}
+
+.view-product-btn:hover {
 	text-decoration: none;
 	color: white;
+	background-color: rgb(235, 75, 75);
 }
 
 @media all and (max-width: 768px) {

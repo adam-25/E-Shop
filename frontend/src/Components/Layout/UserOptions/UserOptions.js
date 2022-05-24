@@ -28,6 +28,7 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
 
 const UserOptions = () => {
 
+	const { cartItems } = useSelector(state => state.cart);
 	const dispatch = useDispatch();
 	let history = useHistory();
 
@@ -35,7 +36,7 @@ const UserOptions = () => {
 
 	const actions = [
 		{ icon: <AccountCircleIcon />, name: 'Account', func: account },
-		{ icon: <ShoppingCartIcon />, name: 'ShoppingCart', func: cart },
+		{ icon: <ShoppingCartIcon />, name:  `ShoppingCart (${cartItems.length})`, func: cart },
 		{ icon: <LogoutIcon />, name: 'LogOut', func: logout },
 	];
 
