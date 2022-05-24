@@ -31,12 +31,10 @@ import UpdateName from './Components/UpdateDetails/UpdateName';
 import UpdateEmail from './Components/UpdateDetails/UpdateEmail';
 import UpdatePassword from './Components/UpdateDetails/UpdatePassword.js';
 import ForgotPassword from './Components/UpdateDetails/ForgotPassword.js';
-import ResetPassword from './Components/UpdateDetails/ResetPassword.js'
+import ResetPassword from './Components/UpdateDetails/ResetPassword.js';
 import Logout from './Components/Logout/Logout';
-
+import Cart from "./Components/Cart/Cart";
 function App() {
-
-	// let history = useHistory();
 
 	const dispatch = useDispatch();
 	const { isAuthenticateUser } = useSelector(state => state.user);
@@ -44,7 +42,7 @@ function App() {
 	useEffect(() => {
 		dispatch(loadUser());
 
-	}, [dispatch, isAuthenticateUser]);
+	}, [dispatch]);
 
 	return (
 		<Router>
@@ -67,6 +65,7 @@ function App() {
 			<Route exact path="/password/update" component={UpdatePassword} />
 			<Route exact path="/password/forgotPassword" component={ForgotPassword} />
 			<Route exact path="/password/reset/:resetToken" component={ResetPassword} />
+			<Route exact path="/cart" component={Cart} />
 
 			{/* Footer of the website. */}
 			<Footer />

@@ -18,6 +18,7 @@ import MetaData from '../Layout/MetaData';
 import Loading from '../Loading/Loading';
 import Heading from "../Layout/Heading/Heading";
 import ReviewCard from './ReviewCard.js';
+import { addToCart } from '../../Actions/cartActions';
 import './specificProductStyle.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { toast } from 'react-toastify';
@@ -41,6 +42,11 @@ const SpecificProduct = ({ match }) => {
 
 	// Getting Items from Store with useSelector.
 	const { oneProduct, loading, error } = useSelector(state => state.oneProduct);
+
+	const addToCartHandle = () => {
+		dispatch(addToCart(match.params.id, quantity));
+		toast("Item Added To Cart")
+	}
 
 
 	// Give Items from backend to Store. Call the function in Actions.
@@ -138,7 +144,7 @@ const SpecificProduct = ({ match }) => {
 									</div>
 									{/* Add to Cart Button */}
 
-									<button disabled={oneProduct.productStock <= 0 || quantity <= 0}>Add to Cart</button>
+									<button disabled={oneProduct.productStock <= 0 || quantity <= 0} onClick={addToCartHandle}>Add to Cart</button>
 								</div>
 
 								{/* InStock or not with colors and text */}

@@ -1,0 +1,44 @@
+.cart-container {
+	width: 70%;
+	margin: auto;
+	margin-top: 3%;
+}
+
+.cart-total-price {
+	text-align: end;
+	margin-top: 2%;
+	font-family: 'Comic Neue', cursive;
+}
+
+.cart-total-price span {
+	font-weight: bold;
+}
+
+.proceed-checkout {
+	background-color: rgb(255, 106, 0);
+	color: white;
+	border: none;
+	border-radius: 5px;
+	transition: all 0.5s;
+	cursor: pointer;
+	padding: 0.7vmax 3vmax;
+	outline: none;
+	text-decoration: none;
+	font-size: 20px;
+}
+
+.proceed-checkout:hover {
+	background-color: rgb(204, 85, 0);
+	text-decoration: none;
+	color: white;
+}
+
+@media all and (max-width: 768px) {
+	.cart-container {
+		width: 85%;
+	}
+
+	.proceed-checkout {
+		font-size: 18px;
+	}
+}
