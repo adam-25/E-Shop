@@ -7,6 +7,9 @@
 	
 	Date: May 12, 2022
 		* Use order Routes.
+
+	Date: May 19, 2022
+		* FileUpload require to setUp cloudinary.
 */ 
 
 // Importing necessary files.

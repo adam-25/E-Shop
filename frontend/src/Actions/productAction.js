@@ -8,10 +8,8 @@
 
 	Date: May 18, 2022
 		* Add Filters to products.
+		* Adding product category and price sorting.
 */
-
-// axios to Communicate with backend.
-import axios from 'axios';
 
 // Constants.
 import {
@@ -22,7 +20,11 @@ import {
 	PRODUCT_SUCCESS,
 	PRODUCT_FAIL,
 	CLEAR_ERRORS
-} from '../Constants/productConstant';
+} 
+from '../Constants/productConstant';
+
+// axios to Communicate with backend.
+import axios from 'axios';
 
 // Getting all the products from backend and give to store.
 export const getProduct = (searchWords = "", currentPage = 1, price=[0, 10000], category="", sort="") => async (dispatch) => {
@@ -36,8 +38,10 @@ export const getProduct = (searchWords = "", currentPage = 1, price=[0, 10000], 
 		+ "&productPrice[gte]=" + price[0]
 		+ "&productPrice[lte]=" + price[1];
 
+		// Creating link which sorts, products in backend and return in data.
 		if (category && sort) {
 
+			// If user give product category and sort option.
 			link = "/api/v1/products?keyword=" + searchWords
 				+ "&page=" + currentPage
 				+ "&productPrice[gte]=" + price[0]
@@ -45,6 +49,7 @@ export const getProduct = (searchWords = "", currentPage = 1, price=[0, 10000], 
 				+ "&productCategory=" + category
 				+ "&" + sort + "=true";
 		}
+		// If there is only user category not sorting.
 		else if (category && !sort) {
 			link = "/api/v1/products?keyword=" + searchWords
 			+ "&page=" + currentPage
@@ -52,6 +57,8 @@ export const getProduct = (searchWords = "", currentPage = 1, price=[0, 10000], 
 			+ "&productPrice[lte]=" + price[1]
 			+ "&productCategory=" + category;
 		}
+
+		// Only sorting products.
 		else if (!category && sort) {
 			link = "/api/v1/products?keyword=" + searchWords
 			+ "&page=" + currentPage
@@ -62,6 +69,7 @@ export const getProduct = (searchWords = "", currentPage = 1, price=[0, 10000], 
 		
 		let { data } = await axios.get(link);
 
+		// Dispatch products.
 		dispatch({
 		type: ALL_PRODUCTS_SUCCESS,
 		payload: data
@@ -80,8 +88,10 @@ export const getSpecificProduct = (id) => async (dispatch) => {
 	try {
 		dispatch({ type: PRODUCT_REQUEST });
 
+		// Get specific product from backend.
 		const { data } = await axios.get(`/api/v1/product/${id}`);
 
+		// Dispatch product.
 		dispatch({
 			type: PRODUCT_SUCCESS,
 			payload: data,

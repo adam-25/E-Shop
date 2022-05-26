@@ -8,6 +8,7 @@ import React from 'react';
 import './headingStyle.css';
 
 // Getting Heading.
+// Shows Header Component.
 const Heading = ({props}) => {
 	return (
 		<h2 className="heading-title">

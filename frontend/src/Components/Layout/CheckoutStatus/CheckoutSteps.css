@@ -1,0 +1,13 @@
+/* Line Styles */
+.MultiStepConnector-line {
+	display: none !important;
+}
+
+.MultiStepConnector-root {
+	height: 1px;
+}
+
+.MultiStepConnector-active,
+.MultiStepConnector-completed {
+	background-color: rgb(208, 81, 12);
+}

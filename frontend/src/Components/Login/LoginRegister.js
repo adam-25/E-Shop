@@ -1,25 +1,39 @@
+/*	
+	Date: May 19, 2022
+		* Creating Login Page.
+*/
+
+// Importing necessary modules and images.
 import React, { useState, useEffect, Fragment } from 'react';
-import './LoginRegister.css';
 import front from "../../Images/login-front.jpeg";
-import Loading from "../Loading/Loading";
-import MetaData from '../Layout/MetaData';
-import { useHistory } from 'react-router-dom';
 
+// toast for errors, useHistory for redirecting and useSelector and useDispatch to dispatch and get data.
 import { toast } from 'react-toastify';
-
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+
+// Importing functions required user to login, register and ...
 import { loginUser, clearErrors, registerUser } from '../../Actions/userAction';
 
+// Importing necessary Components.
+import Loading from "../Loading/Loading";
+import MetaData from '../Layout/MetaData';
+import './LoginRegister.css';
+
+// LoginOrRegister User Component.
 const LoginRegister = () => {
 
 	const dispatch = useDispatch();
 	const history = useHistory();
 
+	// Fetch user data from store.
 	const { loading, error, isAuthenticateUser } = useSelector(state => state.user)
 
+	// Set Login password and email when user enter in Input.
 	const [loginEmail, setLoginEmail] = useState("");
 	const [loginPassword, setLoginPassword] = useState("");
 
+	// Register user with name, email and password.
 	const [registerName, setRegisterName] = useState("");
 	const [registerEmail, setRegisterEmail] = useState("");
 	const [registerPassword, setRegisterPassword] = useState("");
@@ -30,6 +44,7 @@ const LoginRegister = () => {
 			dispatch(clearErrors());
 		}
 
+		// If User is logged in then redirect to "/account"
 		if (isAuthenticateUser) {
 			toast("LogIn / Register Successfully");
 			history.push("/account");
@@ -37,27 +52,28 @@ const LoginRegister = () => {
 
 	}, [dispatch, error, isAuthenticateUser, history]);
 
-
+	// If User click on Login Submit button then dispatch loginUser method in action.
 	const loginSubmit = (e) => {
 		e.preventDefault();
 		dispatch(loginUser(loginEmail, loginPassword));
 	}
 
+	// If User clicked on Register button then dispatch registerUser method in action.
 	const registerSubmit = (e) => {
 		e.preventDefault();
 		dispatch(registerUser(registerName, registerEmail, registerPassword));
-
-		console.log('Register Form Submitted');
 	}
 
 	return (
 		<Fragment>
 			{loading ? <Loading /> :
 				<div className="login-register">
+					{/* Give Login title to page. */}
 					<MetaData title="Login..." />
 					<div class="container">
 						<input type="checkbox" id="flip" />
 						<div class="cover">
+							{/* Image */}
 							<div class="front">
 								<img src={front} alt="Login" />
 							</div>
@@ -68,6 +84,7 @@ const LoginRegister = () => {
 									<div class="title">Login</div>
 									<form onSubmit={loginSubmit}>
 										<div class="input-boxes">
+											{/* Getting Email and Password of User and set it with useState.. */}
 											<div class="input-box">
 												<i class="fas fa-envelope"></i>
 												<input type="email"
@@ -84,19 +101,23 @@ const LoginRegister = () => {
 													value={loginPassword}
 													onChange={(e) => setLoginPassword(e.target.value)} />
 											</div>
+											{/* Forgot Password link. */}
 											<div class="text">
 												<a href="/password/forgotPassword">Forgot password?</a>
 											</div>
 											<div class="button input-box">
 												<input type="submit" value="Log In" />
 											</div>
-											<div class="text sign-up-text">Don't have an account? <label for="flip">Sigup now</label></div>
+											{/* Switch to sign up page. */}
+											<div class="text sign-up-text">Don't have an account? <label for="flip">SignUp now</label></div>
 										</div>
 									</form>
 								</div>
+								{/* SignUp Page. */}
 								<div class="signup-form">
 									<div class="title">Signup</div>
 									<form onSubmit={registerSubmit}>
+										{/* Get User name, email and password and set it with useState. */}
 										<div class="input-boxes">
 											<div class="input-box">
 												<i class="fas fa-user"></i>

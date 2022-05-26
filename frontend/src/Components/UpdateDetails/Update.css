@@ -1,3 +1,4 @@
+/* Page container */
 .name-change-container {
 	width: 100%;
 	padding: 30px;
@@ -6,26 +7,31 @@
 	justify-content: center;
 }
 
+/* Container to specify width. */
 .name-info-container {
 	width: 600px;
 }
 
+/* Edit heading margin. */
 .name-info-container h3 {
 	margin-bottom: 40px;
 }
 
+/* Paragraph styling */
 .name-info-container p {
 	font-family: 'Comic Neue', cursive;
 	word-spacing: 0;
 	letter-spacing: 0;
 }
 
+/* Giving border to the thing that we want. */
 .name-info-container > div:last-child {
 	border: 1px solid rgba(95, 113, 97, 0.4);
 	border-radius: 8px;
 	padding: 1.7vmax;
 }
 
+/* Input style */
 .new-name-input {
 	font-family: 'Comic Neue', cursive;
 	padding: 4px 10px 4px 10px;
@@ -35,12 +41,14 @@
 	margin-bottom: 25px;
 }
 
+/* Submit button form style. */
 .name-change-button {
 	display: flex;
 	flex-direction: column;
 	width: 35%;
 }
 
+/* Submit button style */
 .name-change-button>button {
 	background-color: rgb(255, 106, 0);
 	color: white;
@@ -51,6 +59,7 @@
 	outline: none;
 }
 
+/* Submit button hover. */
 .name-change-button button:hover {
 	background-color: rgb(176, 97, 48);
 }

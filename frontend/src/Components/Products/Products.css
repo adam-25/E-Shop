@@ -1,19 +1,24 @@
 /* Pagination Style */
 
+/* DropDown box for sorting products by price and category. */
 .drop-down {
 	position: absolute;
 	right: 5vmax;
 }
 
+
+/* Space */
 .space-below-heading {
 	margin-top: 3%;
 }
 
+/* Add padding in product cards from left and right. */
 .all-products {
 	padding-left: 13vmax;
 	padding-right: 13vmax;
 }
 
+/* PaginationBox center and margin. */
 .paginationBox {
 	display: flex;
 	justify-content: center;
@@ -21,26 +26,24 @@
 	margin-bottom: 0vmax;
 }
 
-.pagination {
-	display: flex;
-	justify-content: center;
-	padding: 0;
-}
-
+/* Pagination item making pointer cursor. */
 .page-item {
 	list-style: none;
 	transition: all 0.3s;
 	cursor: pointer;
 }
 
+/* Change border radius of first item in pagination box. */
 .page-item:first-child {
 	border-radius: 5px 0 0 5px;
 }
 
+/* Change border radius of last item in pagination box. */
 .page-item:last-child {
 	border-radius: 0 5px 5px 0;
 }
 
+/* Making numbers and arrows styling in pagination box. */
 .page-link {
 	text-decoration: none;
 	font-size: 1.2vmax;
@@ -54,15 +57,18 @@
 	background-color: rgb(230, 230, 230);
 }
 
+/* Set color when hover over pagination item which is link. */
 .page-item:hover .page-link {
 	color: #5F7161;
 }
 
+/* Background color and text color of active page. */
 .pageLinkActive {
 	color: white;
 	background-color: #5F7161;
 }
 
+/* Background color and text color of active page on hover. */
 .pageLinkActive:hover {
 	color: rgb(255, 255, 255);
 	background-color: rgb(199, 225, 179);
@@ -74,6 +80,8 @@
 
 
 /* Filter CSS. */
+
+/* Filter list style and set it at proper place in page. */
 .filters {
 	font-family: 'Comic Neue', cursive;
 	width: 13vmax;
@@ -82,11 +90,13 @@
 	left: 4vmax;
 }
 
+/* Setting category such as Electronics and so on to non list-style. */
 .category {
 	padding: 0%;
 	list-style: none;
 }
 
+/* Set color and pointer of list items. */
 .category li {
 	color:rgb(163, 163, 163);
 	margin: 0.7vmax;
@@ -95,12 +105,14 @@
 	
 }
 
+/* Hover change color of category. */
 .category li:hover {
 	color:rgb(226, 137, 69)
 }
 
 @media all and (max-width: 1062px) {
 
+	/* Increase size of numbers and arrows styling in pagination box. */
 	.page-link {
 		font-size: 3.2vmax;
 	}
@@ -109,22 +121,27 @@
 		margin-top: 13%;
 	}
 
+	/* Giving auto margin to product card container. */
 	.all-products {
 		margin: auto;
 	}
 }
 
 @media all and (max-width: 991px) {
+
+	/* Filter list style and set it at proper place in page on media. */
 	.filters {
 		position: static;
 		width: 30vmax;
 		margin: auto;
 	}
 
+	/* Set margin of list items of category. */
 	.category li {
 		margin: 1.5vmax;
 	}
 
+	/* Giving padding to product card container. */
 	.all-products {
 		padding-left: 0vmax;
 		padding-right: 0vmax;
@@ -150,11 +167,13 @@
 		margin-top: 21%;
 	}
 
+	/* Give title margin and width on media. */
 	.products-heading-title {
 		margin-left: 2.5vmax;
 		width: 50%;
 	}
 
+	/* Set place of dropdown of sorting. */
 	.drop-down {
 		right: 2vmax;
 	}

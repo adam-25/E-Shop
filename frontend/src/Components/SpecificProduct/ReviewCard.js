@@ -25,14 +25,16 @@ const ReviewCard = ({ review }) => {
 	return (
 		<div className="review-card">
 			<div className="row row-review">
-				{/* User Image */}
 				<div className="column column-review">
 					<img src={user} alt="" />
 				</div>
-				{/* User Detail with Comment. */}
+				{/* Reviewer Detail with Comment. */}
 				<div className="column column-review">
+					{/* Reviewer name */}
 					<p>{review.reviewerName}</p>
+					{/* Stars of review */}
 					<ReactStars {...optionsReview} />
+					{/* Comment on Products */}
 					<span>{review.commentOnProduct}</span>
 				</div>
 			</div>

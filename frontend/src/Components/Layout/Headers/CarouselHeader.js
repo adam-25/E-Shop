@@ -27,6 +27,7 @@ const CarouselHeader = ({ products }) => {
 	return (
 
 		<div className="header-carousel">
+			{/* Carousel Header  */}
 			<Carousel {...options}>
 				{products.map((item, index) => (
 					<img

@@ -1,4 +1,10 @@
-import axios from "axios";
+/*
+	Date: May 21, 2022
+		* Sending Email to reset the password.
+		* Reset Password function that make a post request to backend.
+*/
+
+// Constants
 import {
 	FORGOT_PASSWORD_REQUEST,
 	FORGOT_PASSWORD_SUCCESS,
@@ -7,8 +13,13 @@ import {
 	RESET_PASSWORD_SUCCESS,
 	RESET_PASSWORD_FAIL,
 	CLEAR_ERRORS
-} from "../Constants/forgotPasswordConstant";
+} 
+from "../Constants/forgotPasswordConstant";
 
+// axios to Communicate with backend.
+import axios from "axios";
+
+// Make a post request to send reset password email with a link to reset password.
 export const forgotPassword = (userEmail) => async (dispatch) => {
 
 	try {
@@ -16,6 +27,7 @@ export const forgotPassword = (userEmail) => async (dispatch) => {
 
 		const config = { headers: { "Content-Type": "application/json" } };
 
+		// Making a post request to send reset password email with a link to reset password.
 		const { data } = await axios.post("/api/v1/password/forgot", { userEmail: userEmail }, config);
 
 		dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: data });
@@ -28,6 +40,7 @@ export const forgotPassword = (userEmail) => async (dispatch) => {
 	}
 }
 
+// When user enter new password making a put request to update password in backend.
 export const resetPassword = (resetToken, newPassword, confirmNewPassword) => async (dispatch) => {
 
 	try {
@@ -35,6 +48,7 @@ export const resetPassword = (resetToken, newPassword, confirmNewPassword) => as
 
 		const config = { headers: { "Content-Type": "application/json" } };
 
+		// Put request to update password in DB through backend.
 		const { data } = await axios.put("/api/v1/password/reset/" + resetToken, { 
 			newPassword: newPassword, confirmNewPassword: confirmNewPassword }, 
 			config);

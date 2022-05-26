@@ -1,6 +1,12 @@
 /*	
 	Date: May 17, 2022
 		* Creating Component for Specific Product page.
+	
+	Date: May 21, 2022
+		* Added function which will be able to change the quantity of items.
+
+	Date: May 23, 2022
+		* Add Item to the Cart of user.
 */
 
 
@@ -8,7 +14,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearErrors, getSpecificProduct } from '../../Actions/productAction';
+import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
+
 
 // Review and Error PopUp
 import ReactStars from 'react-rating-stars-component';
@@ -19,9 +27,10 @@ import Loading from '../Loading/Loading';
 import Heading from "../Layout/Heading/Heading";
 import ReviewCard from './ReviewCard.js';
 import { addToCart } from '../../Actions/cartActions';
+import { clearErrors, getSpecificProduct } from '../../Actions/productAction';
 import './specificProductStyle.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { toast } from 'react-toastify';
+
 // Options for Carousel.
 const optionsCarousel = {
 	infiniteLoop: true,
@@ -37,15 +46,60 @@ const optionsCarousel = {
 const SpecificProduct = ({ match }) => {
 
 	const dispatch = useDispatch();
+	let history = useHistory();
 
 	const [quantity, setQuantity] = useState(0);
 
 	// Getting Items from Store with useSelector.
-	const { oneProduct, loading, error } = useSelector(state => state.oneProduct);
+	const { oneProduct, loadingOneProduct, error } = useSelector(state => state.oneProduct);
+	const { isAuthenticateUser, loading } = useSelector(state => state.user);
 
 	const addToCartHandle = () => {
-		dispatch(addToCart(match.params.id, quantity));
-		toast("Item Added To Cart")
+
+		if (!loading) {
+			if (isAuthenticateUser === false) {
+				history.push('/login');
+			}
+		}
+
+		if (!loading) {
+			if (isAuthenticateUser === true) {
+				dispatch(addToCart(match.params.id, quantity));
+				toast("Item Added To Cart")
+			}
+		}
+	}
+
+	// Stars options.
+	const optionsReview = {
+		edit: false,
+		color: "#0F1111",
+		activeColor: "#FDCC0D",
+		size: window.innerWidth < 992 ? 17 : 20,
+		value: oneProduct.productRating,
+		isHalf: true
+	}
+
+	// Reduce the quantity.
+	function reduceQuantity() {
+		if (quantity === 0) {
+			setQuantity(quantity);
+		}
+		else {
+			const temp = quantity - 1;
+			setQuantity(temp);
+		}
+	}
+
+	// Increase the quantity.
+	function addQuantity() {
+		if (oneProduct.productStock <= quantity) {
+			setQuantity(quantity);
+		}
+		else {
+			const temp = quantity + 1;
+			setQuantity(temp);
+		}
 	}
 
 
@@ -62,42 +116,12 @@ const SpecificProduct = ({ match }) => {
 		// Getting ID in URL with match.params.id.
 		dispatch(getSpecificProduct(match.params.id));
 
-	}, [dispatch, match.params.id, error]);
-
-	// Stars options.
-	const optionsReview = {
-		edit: false,
-		color: "#0F1111",
-		activeColor: "#FDCC0D",
-		size: window.innerWidth < 992 ? 17 : 20,
-		value: oneProduct.productRating,
-		isHalf: true
-	}
-
-	function reduceQuantity() {
-		if (quantity === 0) {
-			setQuantity(quantity);
-		}
-		else {
-			const temp = quantity - 1;
-			setQuantity(temp);
-		}
-	}
-
-	function addQuantity() {
-		if (oneProduct.productStock <= quantity) {
-			setQuantity(quantity);
-		}
-		else {
-			const temp = quantity + 1;
-			setQuantity(temp);
-		}
-	}
+	}, [dispatch, match.params.id, error, loading, isAuthenticateUser]);
 
 	return (
 		<Fragment>
 			{/* Loading */}
-			{loading ? <Loading /> :
+			{loadingOneProduct ? <Loading /> :
 				<Fragment>
 					{/* Setting name of the page to the productName */}
 					<MetaData title={oneProduct.productName && oneProduct.productName} />
@@ -149,9 +173,9 @@ const SpecificProduct = ({ match }) => {
 
 								{/* InStock or not with colors and text */}
 								<p>
-									Status: {" "}
+									Status:
 									<b className={oneProduct.productStock < 1 ? "red-color" : "green-color"}>
-										{oneProduct.productStock < 1 ? "Out of Stock" : "InStock"}
+										{oneProduct.productStock < 1 ? " Out of Stock" : " InStock"}
 									</b>
 								</p>
 							</div>

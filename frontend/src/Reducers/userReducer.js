@@ -1,3 +1,13 @@
+/*	
+	Date: May 19, 2022
+		* Login/Register User Reducer.
+		* Loading User Reducer.
+
+	Date: May 20, 2022
+		* Logout User Reducer.
+*/
+
+// Importing all Constants required.
 import {
 	LOGIN_REQUEST,
 	LOGIN_SUCCESS,
@@ -11,11 +21,15 @@ import {
 	LOGOUT_SUCCESS,
 	LOGOUT_FAIL,
 	CLEAR_ERRORS
-} from "../Constants/userConstant";
+}
+from "../Constants/userConstant";
 
+// User Reducer.
 export const userReducer = (state = { user: {} }, action) => {
 
 	switch (action.type) {
+
+		// LOGIN, REGISTER || LOADING request.
 		case LOGIN_REQUEST:
 		case REGISTER_REQUEST:
 		case LOADING_REQUEST:
@@ -23,6 +37,8 @@ export const userReducer = (state = { user: {} }, action) => {
 				loading: true,
 				isAuthenticateUser: false
 			}
+		
+		// When LOGIN, REGISTER, LOADING request success.
 		case LOGIN_SUCCESS:
 		case REGISTER_SUCCESS:
 		case LOADING_SUCCESS:
@@ -32,6 +48,8 @@ export const userReducer = (state = { user: {} }, action) => {
 				isAuthenticateUser: true,
 				user: action.payload.user
 			}
+		
+		// When LOGIN, REGISTER request fail.
 		case LOGIN_FAIL:
 		case REGISTER_FAIL:
 			return {
@@ -41,6 +59,8 @@ export const userReducer = (state = { user: {} }, action) => {
 				isAuthenticateUser: false,
 				user: null
 			}
+		
+		// When LOADING request fails.
 		case LOADING_FAIL:
 			return {
 				loading: false,
@@ -48,18 +68,24 @@ export const userReducer = (state = { user: {} }, action) => {
 				isAuthenticateUser: false,
 				user: null
 			}
+
+		// When LOGOUT request success.
 		case LOGOUT_SUCCESS:
 			return {
 				loading: false,
 				user: null,
 				isAuthenticateUser: false,
 			}
+
+		// When Logout request fails.
 		case LOGOUT_FAIL:
 			return {
 				...state,
 				loading: false,
 				error: action.payload
 			}
+		
+		// Clearing errors.
 		case CLEAR_ERRORS:
 			return {
 				...state,

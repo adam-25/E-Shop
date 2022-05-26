@@ -13,7 +13,7 @@ import ReactStars from 'react-rating-stars-component';
 
 const ProductCard = ({ product }) => {
 
-	// Options for review.
+	// Options for review Star.
 	const options = {
 		edit: false,
 		color: "#0F1111",

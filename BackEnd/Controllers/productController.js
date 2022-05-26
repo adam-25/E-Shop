@@ -7,6 +7,11 @@
 		* Add function to create or update, delete a review, of a product.
 		* Get all Reviews of a product.
 		* Add function to sort products in either ascending or descending.
+
+	Date: May 18, 2022
+		* Add Pagination.
+		* Make resultsPerPage Global.
+		* Return categories and total products when searching products.
 */
 
 // Importing necessary files.
@@ -73,6 +78,7 @@ exports.getOneProduct = asyncCatch(async (req, res, next) => {
 // Extracting all the Products from the DB.
 exports.getAllProducts = asyncCatch(async (req, res, next) => {
 
+	// Add to count total products and pagination.
 	const totalProducts = await productModel.countDocuments();
 	const apiFeatureForSearchProductCount = new apiFeature(productModel.find(), req.query).search().filter();
 	const apiFeatureObj = new apiFeature(productModel.find(), req.query)

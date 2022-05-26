@@ -1,3 +1,4 @@
+/* Container of the cartItems for display and border, padding */
 .cart-item-card-container {
 	border: 0.5px solid rgb(202, 202, 202);
 	border-radius: 5px;
@@ -6,28 +7,45 @@
 	margin-bottom: 1.5vmax;
 }
 
+/* Image of product in Cart */
 .cart-item-card-container img {
 	width: 20vmax;
 	border-radius: 5px;
 }
 
+/* Contain every information and new class to make information side with image. */
 .cart-item-card-info {
 	padding: 20px;
 	font-family: 'Comic Neue', cursive;
 	padding-bottom: 5px
 }
 
+/* Price of the product */
 .cart-item-card-info h1 {
 	font-weight: bold;
 	letter-spacing: 0px;
 }
 
+/* Remove item from cart link */
 .cart-item-card-info p {
 	color: rgb(175, 107, 52);
 	cursor: pointer;
 }
 
+/* Name of the product */
+.cart-item-card-info h4 {
+	color: black;
+	text-decoration: none;
+}
+
+/* When hover over name and image. */
+.cart-item-card-info a:hover {
+	color: black;
+	text-decoration: none;
+}
+
 @media all and (max-width: 992px) {
+	/* Container of the cartItem. */
 	.cart-item-card-container {
 		margin-bottom: 3vmax;
 	}

@@ -4,6 +4,9 @@
 
 	Date: May 18, 2022
 		* Add filters for every Products.
+		* Add Pagination and Searching Products.
+		* Add Price range.\
+		* Add Dropdown menu.
 */
 
 // Importing necessary modules for getting items from backend.
@@ -21,7 +24,7 @@ import Slider from '@material-ui/core/Slider';
 import Loading from '../Loading/Loading';
 import Heading from '../Layout/Heading/Heading';
 import ProductCard from '../Layout/ProductCard/ProductCard';
-import './paginationStyle.css';
+import './Products.css';
 
 // Module for error PopUp.
 import { toast } from 'react-toastify';
@@ -31,16 +34,23 @@ const Products = ({ match }) => {
 
 	// Setting current Page useState.
 	const [currentPage, setCurrentPage] = useState(1);
+	// Set Price range.
 	const [price, setPrice] = useState([0, 10000]);
+
+	// Set Category/
 	const [category, setCategory] = useState("");
+
+	// Set which type of sort user has clicked.
 	const [sort, setSort] = useState("");
 
 	const { isAuthenticateUser } = useSelector(state => state.user);
 
+	// Set Current page by pagination.
 	const setCurrentPageNo = (event) => {
 		setCurrentPage(event);
 	}
 
+	// Set the price.
 	const priceChangeHandler = (event, newPrice) => {
 		setPrice(newPrice);
 	}
@@ -58,6 +68,7 @@ const Products = ({ match }) => {
 			dispatch(clearErrors());
 		}
 
+		// Passing Parameters to getProduct with particular criteria.
 		dispatch(getProduct(searchWords, currentPage, price, category, sort));
 	}, [dispatch, searchWords, error, currentPage, price, category, sort]);
 
@@ -69,6 +80,7 @@ const Products = ({ match }) => {
 					{!isAuthenticateUser && <div className="space"></div>}
 					<div>
 						<div className="products-heading-title">
+							{/* Set Headers if products is not found. */}
 							<Heading props="No Results..." />
 						</div>
 						<MetaData title="No Results..." />
@@ -79,39 +91,55 @@ const Products = ({ match }) => {
 					<Fragment>
 						<div className="drop-down">
 							<div className="dropdown">
+								{/* Sort Options Dropdown menu. */}
 								<button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Sort Products... <span>   </span>
 								</button>
-								<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<div className="dropdown-menu">
+									{/* Dropdown menu items. */}
 									<li className="dropdown-item" onClick={() => setSort("lowHigh")}>Low to High Price</li>
 									<li className="dropdown-item" onClick={() => setSort("highLow")}>High to Low Price</li>
 									<li className="dropdown-item" onClick={() => setSort("ratingSort")}>By Ratings</li>
 								</div>
 							</div>
-						</div>{!searchWords ? <Fragment>
+						</div>
+						{/* If there is no search by the user. */}
+						{!searchWords ? <Fragment>
+
+							{/* If user is not logged in adjust space. */}
 							{!isAuthenticateUser && <div className="space"></div>}
 
+							{/* If there is no category. */}
 							{!category ? <Fragment>
 								<div className="products-heading-title">
+									{/* Set Header. */}
 									<Heading props="All Products" />
 								</div>
 								<MetaData title="All Products" />
 							</Fragment>
-								: <Fragment>
+								:
+								
+								// Particular category products.
+								<Fragment>
 									<div className="products-heading-title">
+										{/* Set Header with product category name. */}
 										<Heading props={category} />
 									</div>
 									<MetaData title={category + " category"} />
 								</Fragment>}
 							<div className="space-below-heading"></div>
-
+							
+							{/* Search all products card. */}
 							<div className="product-container all-products">
 								{products && products.map(product => (
 									<ProductCard product={product} />
 								))}
 							</div>
+
+							{/* Filter options. */}
 							<div className="filters">
 								<h5>Price</h5>
+								{/* Slider for Price. */}
 								<Slider
 									value={price}
 									onChange={priceChangeHandler}
@@ -121,6 +149,7 @@ const Products = ({ match }) => {
 									max={10000}
 								/>
 								<h5>Category</h5>
+								{/* Category names list. */}
 								<ul className="category">
 									{categories && categories.map(category => (
 										<li
@@ -131,6 +160,7 @@ const Products = ({ match }) => {
 									))}
 								</ul>
 							</div>
+							{/* Pagination box. */}
 							<div className="paginationBox">
 								<Pagination
 									activePage={currentPage}
@@ -148,7 +178,7 @@ const Products = ({ match }) => {
 								/>
 							</div>
 						</Fragment> :
-							// Return Searched Products.
+							// Return Searched Products with title.
 							<Fragment>
 								{!isAuthenticateUser && <div className="space"></div>}
 								<div className="products-heading-title">
@@ -157,27 +187,17 @@ const Products = ({ match }) => {
 								<MetaData title={"\"" + searchWords.charAt(0).toUpperCase() + searchWords.slice(1) + "\" Search..."} />
 								<div className="space-below-heading"></div>
 
+								{/* Show all searched products card. */}
 								<div className="product-container all-products">
 									{products && products.map(product => (
 										<ProductCard product={product} />
 									))}
 								</div>
 
+								{/* Filters. */}
 								<div className="filters">
 									<h5>Price</h5>
-									{(function () {
-										("#slider-range").slider({
-											range: true,
-											min: 0,
-											max: 500,
-											values: [75, 300],
-											slide: function (event, ui) {
-												("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-											}
-										});
-										("#amount").val("$" + ("#slider-range").slider("values", 0) +
-											" - $" + ("#slider-range").slider("values", 1));
-									})}
+									{/* Price Slider. */}
 									<Slider
 										value={price}
 										onChange={priceChangeHandler}
@@ -187,6 +207,8 @@ const Products = ({ match }) => {
 										max={10000}
 									/>
 									<h5>Category</h5>
+
+									{/* All Category list. */}
 									<ul className="category">
 										{categories && categories.map(category => (
 											<li
@@ -198,6 +220,7 @@ const Products = ({ match }) => {
 									</ul>
 								</div>
 
+								{/* Pagination box. */}
 								<div className="paginationBox">
 									<Pagination
 										activePage={currentPage}

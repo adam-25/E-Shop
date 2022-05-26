@@ -4,6 +4,9 @@
 
 	Date: May 17, 2022
 		* Update Search method so, it can search by name or description.
+
+	Date: May 18, 2022
+		* Sort Products with pagination on productPerPage method.
 */
 
 // Creating class with with params query and it's string.
@@ -57,17 +60,25 @@ class Features {
 	// Get Product with a particular limit on a page.
 	productPerPage(productPerPage) {
 
+		// If price sort by low to high then sort products by the same.
 		if (this.queryStr.lowHigh)
 			this.query = this.query.sort( { productPrice: 0 } )
+
+		// If price sort by high to low then sort products by the same.
 		else if (this.queryStr.highLow)
 			this.query = this.query.sort( { productPrice: -1 } )
+		
+		// If Rating sort then sort products by the same.
 		else if (this.queryStr.ratingSort)
 			this.query = this.query.sort( { productRating: -1 } )
 
+		// Get Current page.
 		const currentPage = Number(this.queryStr.page) || 1;
 
+		// Check how many products need to skip depending on page number and product per page.
 		const skipProducts = (currentPage - 1) * productPerPage;
 
+		// Limiting items to display.
 		this.query = this.query.limit(productPerPage).skip(skipProducts);
 
 		return this;

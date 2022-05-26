@@ -88,7 +88,7 @@ exports.forgotPassword = catchError(async (req, res, next) => {
 
 		await sendEmail({
 			email: user.userEmail,
-			subject: "EShop Account Reset Password",
+			subject: "E-Shop Account Reset Password",
 			message: message
 		});
 

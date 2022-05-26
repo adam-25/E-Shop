@@ -5,6 +5,7 @@
 
 	Date: May 17, 2022
 		* SpecificProduct Reducer.
+		* Add products category, results per page and number of products in page in reducer.
 */
 
 // Importing Constants.
@@ -56,17 +57,17 @@ export const specificProductReducer = (state = { oneProduct: {} }, action) => {
 	switch (action.type) {
 		case PRODUCT_REQUEST:
 			return {
-				loading: true,
+				loadingOneProduct: true,
 				...state,
 			};
 		case PRODUCT_SUCCESS:
 			return {
-				loading: false,
+				loadingOneProduct: false,
 				oneProduct: action.payload.oneProduct,
 			};
 		case PRODUCT_FAIL:
 			return {
-				loading: false,
+				loadingOneProduct: false,
 				error: action.payload,
 			};
 

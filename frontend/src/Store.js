@@ -6,6 +6,18 @@
 	Date: May 17, 2022
 		* Combine Reducers for SpecificProduct
 
+	Date: May 19, 2022
+		* Adding User information in store.
+
+	Date: May 20, 2022
+		* Adding Profile information in store.
+
+	Date: May 21, 2022
+		* Adding forgotPassword information in store.
+
+	Date: May 23, 2022
+		* Add Cart Reducer to store.
+		* Change initialState of store cart to the items in localStorage of cart.
 */
 
 // Creating Store.
@@ -33,8 +45,9 @@ const reducer = combineReducers({
 let initialState = {
 	cart: {
 		cartItems: localStorage.getItem('cartItems') ?
-		JSON.parse(localStorage.getItem('cartItems')) :
-		[]
+		JSON.parse(localStorage.getItem('cartItems')) : [],
+		shippingInfo: localStorage.getItem('shippingInfo') ?
+		JSON.parse(localStorage.getItem('shippingInfo')) : {}
 	}
 };
 

@@ -1,25 +1,35 @@
+/*
+	Date: May 21, 2022
+		* Forgot Password Component that dispatch action when user click on save change button.
+*/
+
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './Update.css';
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-
-// Importing Components.
+// Importing Components and actions.
 import Loading from '../Loading/Loading';
 import MetaData from '../Layout/MetaData';
 import { clearErrors, forgotPassword } from '../../Actions/forgotPasswordAction';
-import { toast } from 'react-toastify';
+import './Update.css';
 
-const UpdateEmail = () => {
+// Forgot Password Component that take email from user and dispatch action of forgot password which send an email to user.
+const ForgotPassword = () => {
 
+	let history = useHistory();
 	const dispatch = useDispatch();
-
 	const { message, error, loadingProfile } = useSelector((state) => state.forgotPassword);
 
+	// Storing users email.
 	const [userEmail, setEmail] = useState("");
 
+	// Dispatch action of forgot password with email so backend can send rest password link to the email.
 	const sentEmail = (e) => {
 		e.preventDefault();
 		dispatch(forgotPassword(userEmail));
+
+		history.push('/login');
 	}
 
 	useEffect(() => {
@@ -28,6 +38,7 @@ const UpdateEmail = () => {
 			dispatch(clearErrors());
 		}
 
+		// Showing the message.
 		if (message) {
 			toast(message);
 		}
@@ -37,6 +48,7 @@ const UpdateEmail = () => {
 	return (
 		<Fragment>
 			{loadingProfile ? <Loading /> : <Fragment>
+				{/* Page title. */}
 				<MetaData title="Enter Email..." />
 				<div className="name-change-container">
 					<div className="name-info-container">
@@ -48,6 +60,7 @@ const UpdateEmail = () => {
 								you reset it by providing your Email registered with E-Shop. Be sure to click Submit button when you are done.</p>
 							<h5>Your Email</h5>
 
+							{/* Submit button and email input. */}
 							<form className="name-change-button" onSubmit={sentEmail}>
 								<input type="email" className='new-name-input' onChange={(e) => setEmail(e.target.value)}/>
 								<button type='submit'>Save Changes</button>
@@ -60,4 +73,4 @@ const UpdateEmail = () => {
 	)
 }
 
-export default UpdateEmail
+export default ForgotPassword

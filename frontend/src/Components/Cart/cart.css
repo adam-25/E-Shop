@@ -1,19 +1,23 @@
+/* Container of the Cart for width. */
 .cart-container {
 	width: 70%;
 	margin: auto;
 	margin-top: 3%;
 }
 
+/* Shows the total price and Checkout button. */
 .cart-total-price {
 	text-align: end;
 	margin-top: 2%;
 	font-family: 'Comic Neue', cursive;
 }
 
+/* Total Price */
 .cart-total-price span {
 	font-weight: bold;
 }
 
+/* Button to proceed to checkout. */
 .proceed-checkout {
 	background-color: rgb(255, 106, 0);
 	border: none;
@@ -26,21 +30,25 @@
 	color: white;
 }
 
+/* Hover button to proceed to checkout. */
 .proceed-checkout:hover {
 	background-color: rgb(204, 85, 0);
 	color: white;
 }
 
+/* Style when button is disabled. */
 .proceed-checkout:disabled {
 	cursor: not-allowed;
 	background-color: rgb(170, 82, 19);
 }
 
+/* Link to view products and Text of No items in Cart. */
 .cart-empty {
 	font-size: 3vmax;
 	font-family: 'Comic Neue', cursive;
 }
 
+/* Button of viewing all the products of cart. */
 .view-product-btn {
 	background-color: rgb(165, 28, 65);
 	padding: 1.1vmax;
@@ -51,6 +59,7 @@
 	transition: all 0.5s;
 }
 
+/* Hover of View Products button. */
 .view-product-btn:hover {
 	text-decoration: none;
 	color: white;
@@ -58,10 +67,12 @@
 }
 
 @media all and (max-width: 768px) {
+	/* Container of the Cart for width. */
 	.cart-container {
 		width: 85%;
 	}
 
+	/* Button to proceed to checkout. */
 	.proceed-checkout {
 		font-size: 18px;
 	}

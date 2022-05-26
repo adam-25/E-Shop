@@ -1,6 +1,12 @@
 /*
 	Date: May 13, 2022
 		* PreHeader Component which is NavBar..
+	
+	Date: May 18, 2022
+		* Add Search link on submit of searching product.
+
+	Date: May 19, 2022
+		* Add User name and account when it logged in into navbar.
 */
 
 // Importing Logo for NavBar and it's CSS file.

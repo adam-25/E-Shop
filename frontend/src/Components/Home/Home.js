@@ -5,6 +5,9 @@
 
 	Date: May 16, 2022
 		* Add Loading and fetched products from backend.
+
+	Date: May 20, 2022
+		* Add User options to home page when it logged in.
 */
 
 // Importing necessary modules for getting items from backend.

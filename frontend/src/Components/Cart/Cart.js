@@ -1,15 +1,27 @@
-import React, { Fragment, useEffect } from 'react'
-import './cart.css';
-import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom';
-import CartItemCard from '../Layout/CartItemCard/CartItemCard';
+/*
+	Date: May 23, 2022
+		* Cart Component.
+*/
 
+import React, { Fragment, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom';
+
+// Importing required components.
+import CartItemCard from '../Layout/CartItemCard/CartItemCard';
+import MetaData from '../Layout/MetaData';
+import './cart.css';
+
+// Cart Component.
 const Cart = () => {
 
 	const history = useHistory();
-	const { isAuthenticateUser, loading } = useSelector(state => state.user);
+
+	// Getting user and cart info from the store.
+	const { isAuthenticateUser, loading, user } = useSelector(state => state.user);
 	const { cartItems } = useSelector(state => state.cart);
 
+	// Total of the item in cart.
 	let total = 0;
 
 	for (let i = 0; i < cartItems.length; i++) {
@@ -17,6 +29,8 @@ const Cart = () => {
 	}
 
 	useEffect(() => {
+
+		// If user is not logged in and try to access cart then redirect to login.
 		if (!loading) {
 			if (isAuthenticateUser === false) {
 				history.push("/login");
@@ -26,16 +40,21 @@ const Cart = () => {
 
 	return (
 		<Fragment>
+			{/* Title of the page. */}
+			{user && <MetaData title={user.userFirstName + "'s Cart..."} />}
 			<div className="cart-container">
 				<h2>Shopping Cart</h2>
 				<hr />
+				{/* If cart is empty then show this. */}
 				{cartItems.length === 0 && <div className="cart-empty">
 					<p>No Items In Cart.</p>
 					<a href="/products" className="view-product-btn"> View Products </a>
 				</div>}
+				{/* If cart is not empty show every item as CartItemCard. */}
 				{cartItems && cartItems.map((item) => <CartItemCard item={item} />)}
 				<div className="cart-total-price">
-					<hr/>
+					<hr />
+					{/* Subtotal and Link to Checkout. */}
 					<h3>Subtotal ({cartItems.length} item): <span>${total}</span></h3>
 					<a href="/Checkout"><button className="proceed-checkout" disabled={total === 0}>Proceed to Checkout</button></a>
 				</div>

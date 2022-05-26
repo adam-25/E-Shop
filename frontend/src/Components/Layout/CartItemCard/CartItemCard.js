@@ -1,19 +1,31 @@
-import React, { Fragment, useState } from 'react'
-import './cartItemCard.css';
-import { addToCart, removeItemCart } from '../../../Actions/cartActions';
+/*
+	Date: May 23, 2022
+		* Component of the items in Cart.
+		* All Items in Cart has it's own CartItemCard Component.
+*/
+
+import React, { Fragment, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 
+// Importing Components and actions.
+import './cartItemCard.css';
+import { addToCart, removeItemCart } from '../../../Actions/cartActions';
+
+
 const CartItemCard = ({ item }) => {
 
+	// Can change quantity in cart as well with setting quantity.
 	const dispatch = useDispatch();
 	const [quantity, setQuantity] = useState(item.orderQuantity);
 
+	// Remove item from the cart.
 	const removeItem = () => {
 		dispatch(removeItemCart(item.productID));
 		toast(item.productName + " has been Removed from Cart.")
 	}
 
+	// Reduce the quantity of the product in cart.
 	function reduceQuantity() {
 		if (quantity === 1) {
 			setQuantity(quantity);
@@ -26,6 +38,7 @@ const CartItemCard = ({ item }) => {
 		}
 	}
 
+	// Increase the quantity of item in cart.
 	function addQuantity() {
 		if (item.productStock <= quantity) {
 			setQuantity(quantity);
@@ -42,9 +55,16 @@ const CartItemCard = ({ item }) => {
 	return (
 		<Fragment>
 			<div className="cart-item-card-container">
-				<img src={item.productImages} alt={item.productName} />
+				{/* Image of the product which will be the link which take to the product description */}
+				<a href={"/product/" + item.productID}>
+					<img src={item.productImages} alt={item.productName} />
+				</a>
 				<div className='cart-item-card-info'>
-					<h4>{item.productName}</h4>
+					{/* Name of the product which will be the link which take to the product description */}
+					<a href={"/product/" + item.productID}>
+						<h4>{item.productName}</h4>
+					</a>
+					{/* Product Price and Quantity buttons */}
 					<h1>${item.productPrice}</h1>
 					<div className="specific-product-quantity">
 						<button onClick={reduceQuantity}>-</button>
