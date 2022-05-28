@@ -56,7 +56,7 @@ const Cart = () => {
 					<hr />
 					{/* Subtotal and Link to Checkout. */}
 					<h3>Subtotal ({cartItems.length} item): <span>${total}</span></h3>
-					<a href="/Checkout"><button className="proceed-checkout" disabled={total === 0}>Proceed to Checkout</button></a>
+					<a href="/order/Checkout"><button className="proceed-checkout" disabled={total === 0}>Proceed to Checkout</button></a>
 				</div>
 			</div>
 

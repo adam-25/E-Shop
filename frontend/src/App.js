@@ -6,14 +6,17 @@
 	Date: May 15, 2022
 		* Created Home Route.
 
+	// Products
 	Date: May 17, 2022
 		* Created SpecificProduct and All Products Route.
 		* Add Route to show products When it's is searched.
 
+	// Login
 	Date: May 19, 2022
 		* Add Route of Login page.
 		* Add to check that user is logged in or not.
-	
+
+	// Updating User information.
 	Date: May 20, 2022
 		* Add UserOptions when it logged in.
 		* Add Loading, Logout and Account page Routes.
@@ -24,11 +27,16 @@
 		* Add Forgot Password Route.
 		* Add Route which have the component of resetting the password.
 
+	// Cart
 	Date: May 23, 2022
 		* Add Cart Route.
 
+	// CheckOut
 	Date: May 25, 2022
 		* Add Shipping Information Route.
+
+	Date: May 26, 2022
+		* Add Reviewing order Route in process of Checkout.
 */
 
 // Importing CSS and Router, doms.
@@ -55,6 +63,7 @@ import ResetPassword from './Components/UpdateDetails/ResetPassword.js';
 import Logout from './Components/Logout/Logout';
 import Cart from "./Components/Cart/Cart";
 import ShippingInformation from "./Components/Checkout/ShippingInformation";
+import OrderReviewAndConfirm from "./Components/Checkout/OrderReviewAndConfirm.js";
 
 function App() {
 
@@ -89,7 +98,8 @@ function App() {
 			<Route exact path="/password/forgotPassword" component={ForgotPassword} />
 			<Route exact path="/password/reset/:resetToken" component={ResetPassword} />
 			<Route exact path="/cart" component={Cart} />
-			<Route exact path="/Checkout" component={ShippingInformation} />
+			<Route exact path="/order/shippingInfo" component={ShippingInformation} />
+			<Route exact path="/order/reviewAndConfirm" component={OrderReviewAndConfirm} />
 
 			{/* Footer of the website. */}
 			<Footer />

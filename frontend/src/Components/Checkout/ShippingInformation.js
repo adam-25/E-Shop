@@ -1,10 +1,13 @@
 /*	
 	Date: May 25, 2022
 		* Checkout Component which take, store information of shipping details.
+
+	Date: May 26, 2022
+		* Send shipping information and redirect to review order page.
 */
 
 import React, { Fragment, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // For country and State.
 import { Country, State } from 'country-state-city';
@@ -14,6 +17,7 @@ import { toast } from 'react-toastify';
 import MetaData from '../Layout/MetaData';
 import Loading from '../Loading/Loading';
 import CheckoutSteps from "../Layout/CheckoutStatus/CheckoutSteps.js";
+import { saveShippingInfo } from '../../Actions/cartActions';
 import './ShippingInformation.css';
 
 // Required Icons in Shipping Information page.
@@ -29,6 +33,7 @@ import TransferWithinAStationIcon from '@mui/icons-material/TransferWithinAStati
 const Checkout = () => {
 
 	const history = useHistory();
+	const dispatch = useDispatch();
 
 	// Getting Cart Items, User and Shipping Information.
 	const { cartItems } = useSelector(state => state.cart);
@@ -53,6 +58,17 @@ const Checkout = () => {
 			toast("Please Enter Valid Contact Number.");
 			return;
 		}
+		dispatch(saveShippingInfo({
+			takeDeliveryFirstName, 
+			takeDeliveryLastName, 
+			addressToShip, 
+			cityToShip, 
+			stateToShip, 
+			countryToShip, 
+			postalCodeToShip, 
+			contactNo}));
+
+		history.push("/order/reviewAndConfirm")
 	}
 
 	useEffect(() => {
@@ -130,7 +146,7 @@ const Checkout = () => {
 								<div className="state-shipping">
 									<h5> State: </h5>
 									<TransferWithinAStationIcon />
-									<select value={stateToShip} onChange={(event) => setShippingState(event.target.value)}>
+									<select value={stateToShip} onChange={(event) => setShippingState(event.target.value)} required>
 										<option value="" key="">Not - Selected</option>
 										{State && State.getStatesOfCountry(countryToShip).map((state) =>
 											<option value={state.isoCode} key={state.isoCode}>
