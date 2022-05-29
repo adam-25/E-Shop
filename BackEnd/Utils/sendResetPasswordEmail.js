@@ -12,6 +12,7 @@ const catchAsyncError = require('../MiddleWare/catchAsyncError');
 // Send an email with this function.
 const sendEmail = catchAsyncError(async (emailOptions) => {
 
+	// Host service.
 	const transporter = nodemailer.createTransport({
 		host: process.env.SMPT_HOST,
 		PORT: process.env.GMAIL_PORT,
@@ -22,6 +23,7 @@ const sendEmail = catchAsyncError(async (emailOptions) => {
 		}
 	});
 
+	// mail options such as your email, client email, subject and message.
 	const mailOptions = {
 		from: process.env.MY_EMAIL,
 		to: emailOptions.email,
@@ -29,6 +31,7 @@ const sendEmail = catchAsyncError(async (emailOptions) => {
 		text: emailOptions.message
 	};
 
+	// Send the email.
 	await transporter.sendMail(mailOptions, function (error, info) {
 		if (error) {
 			console.log("There is an error while sending an email: " + error.message);

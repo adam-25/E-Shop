@@ -10,6 +10,9 @@
 
 	Date: May 19, 2022
 		* FileUpload require to setUp cloudinary.
+
+	Date: May 29, 2022
+		* Add Payment Routes.
 */ 
 
 // Importing necessary files.
@@ -18,7 +21,11 @@ const express = require('express');
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
+const dotenv = require('dotenv');
 const app = express();
+
+// Configuration of env file.
+dotenv.config({ path: "BackEnd/Config/config.env" });
 
 app.use(express.json());
 app.use(cookieParser());
@@ -29,12 +36,13 @@ app.use(fileUpload());
 const productRoute = require('./Routes/productRoute');
 const userRoute = require('./Routes/userRoutes');
 const orderRoute = require('./Routes/orderRoute');
+const paymentRoute = require('./Routes/paymentRoute');
 
 // Using Routes.
 app.use("/api/v1/", productRoute);
 app.use("/api/v1/", userRoute);
 app.use("/api/v1/", orderRoute);
-
+app.use("/api/v1/", paymentRoute);
 
 // Using MiddleWare
 app.use(errorMiddleWare);

@@ -1,3 +1,4 @@
+// Class which takes error message and status code and prints the error trace tree.
 class ErrorHandler extends Error {
 	constructor(message, statusCode) {
 		super(message);
