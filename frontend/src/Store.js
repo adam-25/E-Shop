@@ -18,6 +18,9 @@
 	Date: May 23, 2022
 		* Add Cart Reducer to store.
 		* Change initialState of store cart to the items in localStorage of cart.
+
+	Date: May 29, 2022
+		* Adding Order Reducer to store.
 */
 
 // Creating Store.
@@ -31,6 +34,7 @@ import { userReducer } from "./Reducers/userReducer";
 import { profileReducer } from "./Reducers/profileReducer";
 import { forgotPasswordReducer } from "./Reducers/forgotPasswordReducer";
 import { cartReducer } from "./Reducers/cartReducer";
+import { orderReducer } from "./Reducers/orderReducer";
 
 // Combining Reducers.
 const reducer = combineReducers({
@@ -39,7 +43,8 @@ const reducer = combineReducers({
 	user: userReducer,
 	profile: profileReducer,
 	forgotPassword: forgotPasswordReducer,
-	cart: cartReducer
+	cart: cartReducer,
+	order: orderReducer
 });
 
 let initialState = {

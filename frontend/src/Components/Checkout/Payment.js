@@ -5,7 +5,7 @@
 */
 
 // Importing necessary modules.
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment, useRef, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -23,21 +23,29 @@ import { CardNumberElement, CardExpiryElement, CardCvcElement, useStripe, useEle
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import DateRangeIcon from '@mui/icons-material/DateRange';
+import { createOrder } from '../../Actions/orderAction';
 
 const Payment = () => {
 
 	let history = useHistory();
+	const dispatch = useDispatch();
 
 	// Getting current cart items and shipping information.
 	const { shippingInfo, cartItems } = useSelector(state => state.cart);
 	const { user } = useSelector(state => state.user);
+	const { order } = useSelector(state => state.order);
 
 	// Calculating total of the cart and store it in total.
-	let total = 0;
+	let subTotal = 0;
 
+		// Calculating total of the cart.
 	for (let i = 0; i < cartItems.length; i++) {
-		total += cartItems[i].productPrice * cartItems[i].orderQuantity;
+		subTotal += cartItems[i].productPrice * cartItems[i].orderQuantity;
 	}
+
+	const shippingCharge = subTotal > 500 ? 0 : 50;
+	const GST = subTotal * 0.05;
+	const total = shippingCharge + GST + subTotal;
 
 	// Require component for payment using stripe API.
 	const stripe = useStripe();
@@ -47,6 +55,15 @@ const Payment = () => {
 	// Setting up amount to send to stripe for record.
 	const paymentData = {
 		amount: Math.round(total * 100)
+	}
+
+	const newOrder = {
+		orderInfo: cartItems,
+		shippingInfo: shippingInfo,
+		itemsPrice: subTotal,
+		taxPrice: GST,
+		shippingPrice: shippingCharge,
+		totalPrice: total,
 	}
 
 	// function call when payment button is clicked.
@@ -100,6 +117,15 @@ const Payment = () => {
 
 			// If payment is successful then redirect to the order confirmation page.
 			else if (result.paymentIntent.status === "succeeded") {
+				
+				newOrder.paymentInfo = {
+					id: result.paymentIntent.id,
+					status: result.paymentIntent.status,
+				};
+
+				newOrder.shippingInfo.emailToContact = user.userEmail;
+				dispatch(createOrder(newOrder));
+
 				history.push("/success");
 			}
 			// If payment is failed then show the following line.
@@ -111,9 +137,13 @@ const Payment = () => {
 		// If there is error then make button enable and show the error.
 		catch (error) {
 			paymentButton.current.disabled = false;
-			toast(error.response.data.message);
+			toast(error.message);
 		}
 	}
+
+	useEffect(() => {
+
+	}, []);
 
 	return (
 		<Fragment>

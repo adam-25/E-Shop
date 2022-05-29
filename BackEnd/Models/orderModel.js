@@ -1,6 +1,9 @@
 /*	
-	Date: May 1w, 2022
+	Date: May 12, 2022
 		* Created Schema to store order details and store in DB.
+
+	Date: May 29, 2022
+		* Change the name of orderInfo and shippingInfo in Schema to match it with the frontend.
 */
 
 // Importing necessary files.
@@ -16,23 +19,23 @@ const orderSchema = new mongoose.Schema({
 	},
 	orderInfo: [
 		{
-			itemName: {
+			productName: {
 				type: String,
 				required: [true, "Please enter the name of the product"]
 			},
-			itemPrice: {
+			productPrice: {
 				type: Number,
 				required: [true, "Please enter the price of the product"]
 			},
-			itemQuantity: {
+			orderQuantity: {
 				type: Number,
 				required: [true, "Please enter the quantity of the product"]
 			},
-			itemImage: {
+			productImages: {
 				type: String,
 				required: true
 			},
-			product: {
+			productID: {
 				type: mongoose.Schema.ObjectId,
 				ref: 'product',
 				required: true
@@ -40,27 +43,35 @@ const orderSchema = new mongoose.Schema({
 		}
 	],
 	shippingInfo: {
-		customerAddress: {
+		takeDeliveryFirstName: {
+			type: String,
+			required: [true, "Please enter the first name of the customer"]
+		},
+		takeDeliveryLastName: {
+			type: String,
+			required: [true, "Please enter the last name of the customer"]
+		},
+		addressToShip: {
 			type: String,
 			required: [true, "Please enter the address of the customer"]
 		},
-		customerCity: {
+		cityToShip: {
 			type: String,
 			required: [true, "Please enter the city of the customer"]
 		},
-		customerProvince: {
+		stateToShip: {
 			type: String,
 			required: [true, "Please enter the province of the customer"]
 		},
-		customerCountry: {
+		countryToShip: {
 			type: String,
 			required: [true, "Please enter the country of the customer"]
 		},
-		customerPostalCode: {
+		postalCodeToShip: {
 			type: String,
 			required: [true, "Please enter the postal code of the customer"]
 		},
-		phoneNumber: {
+		contactNo: {
 			type: Number,
 			required: [true, "Please enter the phone number"]
 		},
@@ -70,9 +81,9 @@ const orderSchema = new mongoose.Schema({
 		}
 	},
 	paymentInfo: {
-		method: {
+		id: {
 			type: String,
-			required: [true, "Please enter the payment method"]
+			required: [true, "Please enter the payment id"]
 		},
 		status: {
 			type: String,
@@ -83,7 +94,7 @@ const orderSchema = new mongoose.Schema({
 		type: Date,
 		required: [true, "Please enter the payment date"]
 	},
-	itemPrice: {
+	itemsPrice: {
 		type: Number,
 		default: 0,
 		required: [true, "Please enter the items price"]

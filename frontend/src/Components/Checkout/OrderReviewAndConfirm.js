@@ -19,7 +19,7 @@ const OrderReviewAndConfirm = () => {
 	const history = useHistory();
 
 	// Getting user and cart info from the store.
-	const { isAuthenticateUser, loading, user } = useSelector(state => state.user);
+	const { isAuthenticateUser, loading } = useSelector(state => state.user);
 	const { cartItems, shippingInfo } = useSelector(state => state.cart);
 
 	// Total of the item in cart.

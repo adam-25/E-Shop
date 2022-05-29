@@ -20,13 +20,13 @@ exports.createOrder = catchAsyncError(async (req, res, next) => {
 		shippingInfo: req.body.shippingInfo,
 		paymentInfo: req.body.paymentInfo,
 		paidAt: Date.now(),
-		itemPrice: req.body.itemsPrice,
+		itemsPrice: req.body.itemsPrice,
 		taxPrice: req.body.taxPrice,
 		shippingPrice: req.body.shippingPrice,
 		totalPrice: req.body.totalPrice,
 	});
 
-	res.status(200).json({ status: true, message: order });
+	res.status(200).json({ status: true, order: order });
 
 });
 
