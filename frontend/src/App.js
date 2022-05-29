@@ -37,13 +37,19 @@
 
 	Date: May 26, 2022
 		* Add Reviewing order Route in process of Checkout.
+
+	Date: May 29, 2022
+		* Add Payment Route with stripe.
 */
 
 // Importing CSS and Router, doms.
 import './App.css';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 // Importing Components.
 import Header from './Components/Layout/Headers/Header.js';
@@ -64,14 +70,27 @@ import Logout from './Components/Logout/Logout';
 import Cart from "./Components/Cart/Cart";
 import ShippingInformation from "./Components/Checkout/ShippingInformation";
 import OrderReviewAndConfirm from "./Components/Checkout/OrderReviewAndConfirm.js";
+import Payment from "./Components/Checkout/Payment.js";
 
 function App() {
 
 	const dispatch = useDispatch();
 	const { isAuthenticateUser } = useSelector(state => state.user);
 
+	// Getting payment stripe key from the backend and store in paymentAPIKey.
+	const [paymentAPIKey, setPaymentAPIKey] = useState();
+
+	// Getting stripe key from the backend and store in paymentAPIKey.
+	async function getPaymentAPIKey() {
+		const { data } = await axios.get('api/v1/stripeAPIKey');
+
+		setPaymentAPIKey(data.stripe_api_key);
+	}
+
 	useEffect(() => {
 		dispatch(loadUser());
+
+		getPaymentAPIKey();
 
 	}, [dispatch]);
 
@@ -100,6 +119,11 @@ function App() {
 			<Route exact path="/cart" component={Cart} />
 			<Route exact path="/order/shippingInfo" component={ShippingInformation} />
 			<Route exact path="/order/reviewAndConfirm" component={OrderReviewAndConfirm} />
+			{paymentAPIKey && 
+				<Elements stripe={loadStripe(paymentAPIKey)}>
+					<Route exact path="/payment" component={Payment} />
+				</Elements>
+			}
 
 			{/* Footer of the website. */}
 			<Footer />
