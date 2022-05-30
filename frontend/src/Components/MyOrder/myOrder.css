@@ -1,0 +1,37 @@
+/* Container of the Order for width. */
+.order-container {
+	width: 70%;
+	margin: auto;
+	margin-top: 3%;
+}
+
+/* Link to view products and Text of No items in Order. */
+.order-empty {
+	font-size: 3vmax;
+	font-family: 'Comic Neue', cursive;
+}
+
+/* Product view button */
+.view-product-btn {
+	background-color: rgb(165, 28, 65);
+	padding: 1.1vmax;
+	font-size:1.5vmax;
+	border-radius: 5px;
+	text-decoration: none;
+	color: rgb(213, 213, 213);
+	transition: all 0.5s;
+}
+
+/* Hover of View Products button. */
+.view-product-btn:hover {
+	text-decoration: none;
+	color: white;
+	background-color: rgb(235, 75, 75);
+}
+
+@media all and (max-width: 768px) {
+	/* Container of the order for width. */
+	.order-container {
+		width: 85%;
+	}
+}

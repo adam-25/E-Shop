@@ -13,10 +13,10 @@ const router = express.Router();
 router.route("/order/newOrder").post(isAuthenticateUser, order.createOrder);
 
 // Search for a specific order with ID -- ADMIN
-router.route("/order/:id").get(isAuthenticateUser, isAdmin("admin"), order.getOneOrder);
+router.route("/order/:id").get(isAuthenticateUser, order.getOneOrder);
 
 // Get cart of an user.
-router.route("/myCart").get(isAuthenticateUser, order.myOrders);
+router.route("/myOrder").get(isAuthenticateUser, order.myOrders);
 
 // Get all orders -- ADMIN
 router.route("/admin/order").get(isAuthenticateUser, isAdmin("admin"), order.allOrders);

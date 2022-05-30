@@ -51,9 +51,9 @@ exports.myOrders = catchAsyncError(async (req, res, next) => {
 
 	const userID = req.user.id;
 
-	const cartItems = await orderModel.find({ customer: userID });
+	const myOrder = await orderModel.find({ customer: userID });
 
-	res.status(200).json({ status: true, cartItems: cartItems });
+	res.status(200).json({ status: true, myOrder: myOrder });
 
 });
 

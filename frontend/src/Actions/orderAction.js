@@ -1,6 +1,7 @@
 /*
 	Date: May 29, 2022
-		* Order Action.
+		* Order Action to create an order.
+		* Get User all Orders.
 */
 
 // Importing required constants.
@@ -8,7 +9,9 @@ import {
 	CREATE_ORDER_REQUEST,
 	CREATE_ORDER_SUCCESS,
 	CREATE_ORDER_FAIL,
-
+	ORDER_REQUEST,
+	ORDER_SUCCESS,
+	ORDER_FAIL,
 	CLEAR_ERRORS
 }
 	from "../Constants/orderConstants";
@@ -39,6 +42,29 @@ export const createOrder = (newOrder) => async (dispatch) => {
 			type: CREATE_ORDER_FAIL,
 			payload: error.response.data.message
 		});
+	}
+};
+
+// Get User order.
+export const myOrderAction = () => async (dispatch) => {
+	try {
+		dispatch({
+			type: ORDER_REQUEST
+		});
+		
+		// Getting all order data from backend.
+		const { data } = await axios.get("/api/v1/myOrder");
+
+		dispatch({
+			type: ORDER_SUCCESS,
+			payload: data.myOrder
+		});
+	}
+	catch (error) {
+		dispatch({
+			type: ORDER_FAIL,
+			payload: error.response.data.message
+		})
 	}
 };
 
