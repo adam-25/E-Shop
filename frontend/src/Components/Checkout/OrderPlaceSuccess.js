@@ -2,11 +2,12 @@
 	Date: May 29, 2022
 		* Created Success Component.
 
-		- Required to add when it should render.
+	Date: May 30, 2022
+		* Success page only render after payment is done.
 */
 
 // Importing necessary modules.
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 // Importing Components.
@@ -14,6 +15,18 @@ import MetaData from '../Layout/MetaData';
 import './OrderPlace.css';
 
 const OrderPlaceSuccess = () => {
+
+	const history = useHistory();
+
+	// Add variable which is true when payment is done.
+	useEffect(() => {
+
+		if (window.paid === false)
+			history.push("/payment");
+		else
+			window.paid = false;
+
+	}, [history, window.paid]);
 
 	return (
 		<Fragment>

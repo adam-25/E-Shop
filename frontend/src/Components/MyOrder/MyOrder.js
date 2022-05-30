@@ -67,7 +67,7 @@ const MyOrder = () => {
 						<h2>Your Orders</h2>
 						<hr/>
 						{/* Every order Card map. */}
-						{myOrder && myOrder.map((orderItem) => <OrderItemCard orderItem={orderItem} />)}
+						{myOrder && myOrder.reverse().map((orderItem) => <OrderItemCard orderItem={orderItem} />)}
 					</div>
 				</Fragment>}
 			</Fragment>}

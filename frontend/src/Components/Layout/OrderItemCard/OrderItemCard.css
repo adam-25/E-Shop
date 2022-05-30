@@ -28,14 +28,14 @@
 .order-info p:first-child {
 	color: #7b7b7b;
 	font-family: "Comic Neue", cursive;
-	margin: 10px 0px 0px 30px;
+	margin: 10px 0px 0px 20px;
 }
 
 /* Contain information of header. */
 .order-info p:last-child {
 	color: #464646;
 	font-family: "Comic Neue", cursive;
-	margin-left: 30px;
+	margin-left: 20px;
 }
 
 /* Order Number position absolute to make it right align */
@@ -127,9 +127,7 @@
 	transform: scale(1.1);
 }
 
-@media all and (max-width: 850px) {
-
-
+@media all and (max-width: 1120px) {
 
 	/* Show order info after image. */
 	.order-container-info {
@@ -179,5 +177,11 @@
 	.order-item-info p {
 		font-size: 1.2vmax;
 		margin-bottom: 10px;
+	}
+}
+
+@media all and (max-width: 450px) {
+	.order-detail-container {
+		height: 125px;
 	}
 }

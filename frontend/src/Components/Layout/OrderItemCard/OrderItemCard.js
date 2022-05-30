@@ -1,6 +1,9 @@
 /*
 	Date: May 29, 2022
 		* Create a Component for each order for user.
+
+	Date: May 30, 2022
+		* Add Order Status to each order of user.
 */
 
 // Importing necessary modules.
@@ -44,6 +47,10 @@ const OrderItemCard = ({ orderItem }) => {
 							<p>SHIP TO</p>
 							<p>{orderItem.shippingInfo.takeDeliveryFirstName + " "}
 								{orderItem.shippingInfo.takeDeliveryLastName}</p>
+						</div>
+						<div className='order-info'>
+							<p>ORDER STATUS</p>
+							<p> <b className={orderItem.orderStatus !== "Delivered" ? "red-color" : "green-color"}>{orderItem.orderStatus}</b></p>
 						</div>
 					</div>
 					{/* Order Number and link to view details of order */}

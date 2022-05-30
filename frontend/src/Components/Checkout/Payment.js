@@ -127,6 +127,11 @@ const Payment = () => {
 
 				newOrder.shippingInfo.emailToContact = user.userEmail;
 				dispatch(createOrder(newOrder));
+				window.paid = true;
+
+				// When payment is done making cart and address information empty.
+				localStorage.setItem("cartItems", []);
+				localStorage.setItem("shippingInfo", JSON.stringify({}));
 
 				history.push("/success");
 			}
