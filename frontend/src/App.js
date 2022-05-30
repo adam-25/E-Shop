@@ -41,6 +41,9 @@
 	Date: May 29, 2022
 		* Add Payment Route with stripe.
 		* Add myOrders for user.
+
+	Date: May 30, 2022
+		* Add Route for Particular Order Details.
 */
 
 // Importing CSS and Router, doms.
@@ -74,6 +77,7 @@ import OrderReviewAndConfirm from "./Components/Checkout/OrderReviewAndConfirm.j
 import Payment from "./Components/Checkout/Payment.js";
 import OrderPlaceSuccess from "./Components/Checkout/OrderPlaceSuccess.js";
 import MyOrder from './Components/MyOrder/MyOrder.js';
+import SpecificOrder from './Components/SpecificOrder/SpecificOrder.js';
 
 function App() {
 
@@ -129,6 +133,7 @@ function App() {
 			}
 			<Route exact path="/success" component={OrderPlaceSuccess} />
 			<Route exact path="/myOrders" component={MyOrder} />
+			<Route exact path="/orderDetail/:id" component={SpecificOrder} />
 
 			{/* Footer of the website. */}
 			<Footer />
