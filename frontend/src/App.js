@@ -71,6 +71,7 @@ import Cart from "./Components/Cart/Cart";
 import ShippingInformation from "./Components/Checkout/ShippingInformation";
 import OrderReviewAndConfirm from "./Components/Checkout/OrderReviewAndConfirm.js";
 import Payment from "./Components/Checkout/Payment.js";
+import OrderPlaceSuccess from "./Components/Checkout/OrderPlaceSuccess.js";
 
 function App() {
 
@@ -124,6 +125,7 @@ function App() {
 					<Route exact path="/payment" component={Payment} />
 				</Elements>
 			}
+			<Route exact path="/success" component={OrderPlaceSuccess} />
 
 			{/* Footer of the website. */}
 			<Footer />

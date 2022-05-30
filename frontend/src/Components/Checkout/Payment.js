@@ -2,6 +2,9 @@
 	Date: May 28, 2022
 		* Payment with the stripe API.
 		* Payment Component.
+	
+	Date: May 29, 2022
+		* Payment Page only open when shipping information provided and cart is not empty.
 */
 
 // Importing necessary modules.
@@ -32,8 +35,7 @@ const Payment = () => {
 
 	// Getting current cart items and shipping information.
 	const { shippingInfo, cartItems } = useSelector(state => state.cart);
-	const { user } = useSelector(state => state.user);
-	const { order } = useSelector(state => state.order);
+	const { user, loading, isAuthenticateUser } = useSelector(state => state.user);
 
 	// Calculating total of the cart and store it in total.
 	let subTotal = 0;
@@ -142,8 +144,30 @@ const Payment = () => {
 	}
 
 	useEffect(() => {
+		// If user is not logged in and try to access cart then redirect to login.
+		if (!loading) {
+			if (isAuthenticateUser === false) {
+				history.push("/login");
+			}
+		}
 
-	}, []);
+		// If there is no items in cart and user wants to access order and review then redirect to cart.
+		if (!loading)	{
+			if (isAuthenticateUser === true)	{
+				if (cartItems.length === 0)
+					history.push("/cart");
+			}
+		}
+
+		// If user does not enter any shipping information then redirect to shipping information.
+		if (!loading)	{
+			if (isAuthenticateUser === true)	{
+				if (cartItems.length !== 0)
+					if (!shippingInfo.takeDeliveryFirstName)
+						history.push("/order/shippingInfo");
+			}
+		}
+	}, [loading, isAuthenticateUser, history, cartItems]);
 
 	return (
 		<Fragment>
