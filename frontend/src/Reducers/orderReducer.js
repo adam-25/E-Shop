@@ -2,6 +2,9 @@
 	Date: May 29, 2022
 		* Creating order reducer.
 		* User order reducer.
+	
+	Date: May 30, 2022
+		* Add reducer for specific order.
 */
 
 // importing all constants.
@@ -12,7 +15,9 @@ import {
 	ORDER_REQUEST,
 	ORDER_SUCCESS,
 	ORDER_FAIL,
-
+	SPECIFIC_ORDER_REQUEST,
+	SPECIFIC_ORDER_SUCCESS,
+	SPECIFIC_ORDER_FAIL,
 	CLEAR_ERRORS
 }
 from '../Constants/orderConstants';
@@ -46,6 +51,7 @@ export const createOrderReducer = (state = {} , action) => {
 	}
 }
 
+// Get all user orders.
 export const myOrderReducer = (state = {myOrder: []}, action) => {
 	switch(action.type) {
 		case ORDER_REQUEST:
@@ -71,3 +77,30 @@ export const myOrderReducer = (state = {myOrder: []}, action) => {
 			return state;
 	}
 };
+
+// get specific user order depend on the order id.
+export const specificOrderReducer = (state = {specificOrder: {}}, action) => {
+	switch(action.type) {
+		case SPECIFIC_ORDER_REQUEST:
+			return {
+				loadingOrder: true
+			};
+		case SPECIFIC_ORDER_SUCCESS:
+			return {
+				loadingOrder: false,
+				specificOrder: action.payload
+			};
+		case SPECIFIC_ORDER_FAIL:
+			return {
+				loadingOrder: false,
+				error: action.payload
+			};
+		case CLEAR_ERRORS:
+			return {
+				...state,
+				error: null
+			};
+		default:
+			return state;
+	}
+}

@@ -22,6 +22,9 @@
 	Date: May 29, 2022
 		* Adding Order Reducer to store.
 		* Add Reducer for user to get their own orders.
+	
+	Date: May 30, 2022
+		* Add Reducer for specific order by ID.
 */
 
 // Creating Store.
@@ -35,7 +38,7 @@ import { userReducer } from "./Reducers/userReducer";
 import { profileReducer } from "./Reducers/profileReducer";
 import { forgotPasswordReducer } from "./Reducers/forgotPasswordReducer";
 import { cartReducer } from "./Reducers/cartReducer";
-import { createOrderReducer, myOrderReducer } from "./Reducers/orderReducer";
+import { createOrderReducer, myOrderReducer, specificOrderReducer } from "./Reducers/orderReducer";
 
 // Combining Reducers.
 const reducer = combineReducers({
@@ -46,7 +49,8 @@ const reducer = combineReducers({
 	forgotPassword: forgotPasswordReducer,
 	cart: cartReducer,
 	order: createOrderReducer,
-	myOrder: myOrderReducer
+	myOrder: myOrderReducer,
+	specificOrder: specificOrderReducer
 });
 
 let initialState = {

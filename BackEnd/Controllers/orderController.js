@@ -30,20 +30,20 @@ exports.createOrder = catchAsyncError(async (req, res, next) => {
 
 });
 
-// Get an Order -- ADMIN.
+// Get an Order.
 exports.getOneOrder = catchAsyncError(async (req, res, next) => {
 
-	const order = await orderModel.findById(req.params.id).populate({
+	const specificOrder = await orderModel.findById(req.params.id).populate({
 		path: 'customer',
 		select: 'userFullName userEmail',
 		model: userModel
 	});
 
-	if (!order) {
+	if (!specificOrder) {
 		return next(new ErrorHandler("Product has not been found with this id", 404));
 	}
 
-	res.status(200).json({ status: true, message: order })
+	res.status(200).json({ status: true, specificOrder: specificOrder });
 });
 
 // User get Orders while logged in.

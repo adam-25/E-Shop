@@ -12,7 +12,7 @@ const router = express.Router();
 // Creating a new Order by user while logged in.
 router.route("/order/newOrder").post(isAuthenticateUser, order.createOrder);
 
-// Search for a specific order with ID -- ADMIN
+// Search for a specific order with ID
 router.route("/order/:id").get(isAuthenticateUser, order.getOneOrder);
 
 // Get cart of an user.
