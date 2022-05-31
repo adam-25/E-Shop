@@ -84,6 +84,11 @@ const SpecificOrder = ({ match }) => {
 								<p>{specificOrder.shippingInfo.postalCodeToShip}</p>
 							</div>}
 
+							{specificOrder.orderStatus && <div className='order-status-info'>
+								<p>ORDER STATUS</p>
+								<p>{specificOrder.orderStatus}</p>
+							</div>}
+
 							{/* Order Summery */}
 							<div className='order-detail-summery'>
 								<p>Order Summery</p>

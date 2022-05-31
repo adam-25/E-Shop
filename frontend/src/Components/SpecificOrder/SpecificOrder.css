@@ -76,6 +76,24 @@
 	font-size: 1.5rem;
 }
 
+/* Order Status */
+.order-status-info {
+	width: 30%;
+}
+
+/* Reduce space between p and font-family. */
+.order-status-info p {
+	margin-bottom: 0px;
+	font-family: "Comic Neue", cursive;
+}
+
+/* Heading of Order information */
+.order-status-info p:first-child {
+	margin-bottom: 5px;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	font-size: 1.5rem;
+}
+
 .specific-order-items {
 	background-color: #e2e2e2;
 	border: none;
@@ -83,6 +101,10 @@
 }
 
 @media all and (max-width: 675px) {
+
+	.specific-order-container {
+		width: 80%;
+	}
 
 	/* Making shipping detail and order summery horizontal */
 	.order-details {
@@ -92,6 +114,12 @@
 	/* shipping information width to 100% */
 	.order-shipping-info {
 		width: 100%;
+	}
+
+	/* Order status width and top margin. */
+	.order-status-info {
+		width: 100%;
+		margin-top: 20px;
 	}
 
 	/* Order detail to the left horizontal with width 100% */
