@@ -26,6 +26,12 @@
 	Date: May 30, 2022
 		* Add Reducer for specific order by ID.
 		* Add Reducer for product review.
+
+	Date: May 31, 2022
+		* Add 3 Reducers for Admin: 
+			1). adminProducts.
+			2). adminOrders.
+			3). adminUsers.
 */
 
 // Creating Store.
@@ -40,6 +46,9 @@ import { profileReducer } from "./Reducers/profileReducer";
 import { forgotPasswordReducer } from "./Reducers/forgotPasswordReducer";
 import { cartReducer } from "./Reducers/cartReducer";
 import { createOrderReducer, myOrderReducer, specificOrderReducer } from "./Reducers/orderReducer";
+import { adminAllOrderReducer } from "./Reducers/Admin/adminOrderReducer";
+import { adminAllUsersReducer } from "./Reducers/Admin/adminUsersReducer";
+import { adminAllProductsReducer } from "./Reducers/Admin/adminProductReducer";
 
 // Combining Reducers.
 const reducer = combineReducers({
@@ -52,7 +61,10 @@ const reducer = combineReducers({
 	order: createOrderReducer,
 	myOrder: myOrderReducer,
 	specificOrder: specificOrderReducer,
-	addReview: AddOrUpdateReviewReducer
+	addReview: AddOrUpdateReviewReducer,
+	adminOrders: adminAllOrderReducer,
+	adminUsers: adminAllUsersReducer,
+	adminProducts: adminAllProductsReducer
 });
 
 let initialState = {

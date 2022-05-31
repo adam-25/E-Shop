@@ -1,0 +1,101 @@
+/* Container of Dashboard information for width and margin, border. */
+.summery-dashboard {
+	width: 80%;
+	margin: auto;
+	margin-top: 50px;
+	border: 1px solid #d0d0d0;
+	border-radius: 10px;
+	position: relative;
+}
+
+/* First Component total sale. */
+.total-sale-dashboard {
+	background-color: #e2e2e2;
+	font-family: "Comic Neue", cursive;
+	text-align: center;
+	padding: 8px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+/* Heading of total sale */
+.total-sale-dashboard h5:first-child {
+	margin-bottom: 0px;
+}
+
+/* Number containing total sale. */
+.total-sale-dashboard h5:last-child {
+	font-weight: 600;
+	font-size: 1.5rem;
+}
+
+/* All Information of user, products, orders. */
+.dashboard-info {
+	display: flex;
+	justify-content: center;
+	background-color: #e2ecea;
+	padding: 15px 8px 15px 8px;
+	padding-bottom: 5px;
+}
+
+/* All three div which contains information */
+.dashboard-info div {
+	padding: 0px 5vmax 0px 5vmax;
+	font-family: "Comic Neue", cursive;
+}
+
+/* Heading of all three div. */
+.dashboard-info div h5:first-child {
+	margin-bottom: 0px;
+}
+
+/* Actual Number in three div. */
+.dashboard-info div h5:last-child {
+	font-weight: 600;
+	font-size: 1.5rem;
+}
+
+/* Container which have child divs which are line and pie charts */
+/* Making it side-by-side */
+.chart {
+	padding: 3vmax;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Give padding to both charts */
+.chart div {
+	padding: 0px 3vmax 0px 3vmax;
+}
+
+/* Width of Line graph */
+.chart div:first-child {
+	width: 65%;
+}
+
+@media all and (max-width: 992px) {
+
+	/* Display block in smaller width */
+	.chart {
+		display: block;
+		padding: 0.5vmax;
+	}
+
+	/* Width of Line graph */
+	.chart div:first-child {
+		width: 100%;
+		height: 100%;
+		margin-bottom: 20px;
+		margin-top: 15px;
+	}
+
+	/* Width of Pie chart */
+	.chart div:last-child {
+		width: 100%;
+		margin: auto;
+		margin-top: 20px;
+		margin-bottom: 15px;
+	}
+
+}

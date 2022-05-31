@@ -1,0 +1,80 @@
+
+/* Bars Icon position absolute and  */
+.navbar-menu-icon-dashboard svg {
+	position: absolute;
+	top: 120px;
+}
+
+/* When menu is closed */
+.nav-menu {
+	background-color: #060b26;
+	width: 250px;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: -100%;
+	transition: 1s;
+	margin: 0;
+}
+
+/* left to 0 so, we show sidebar. */
+.nav-menu.active {
+	left: 0;
+	transition: 0.8s;
+	z-index: 1;
+}
+
+/* Both bar and close icon. */
+.menu-bars svg {
+	margin: 20px;
+	font-size: 3rem;
+}
+
+/* Container of all items in sidebar. */
+.nav-menu-items {
+	width: 100%;
+	padding-left: 5px;
+}
+
+/* Close sidebar button. */
+.navbar-toggle-item {
+	background-color: #060b26;
+	width: 100%;
+}
+
+/* Icon padding and list style with height. */
+.nav-text {
+	padding: 8px 0px 8px 16px;
+	list-style: none;
+	height: 60px;
+	transition: all 0.5s;
+}
+
+/* Text Link which is Link decoration and color */
+.nav-text a {
+	text-decoration: none;
+	color: #f5f5f5;
+	font-size: 18px;
+	width: 95%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	padding: 0 16px;
+}
+
+/* When hover change background color and padding. */
+.nav-text:hover {
+	background-color: #1a83ff;
+	padding: 5px;
+}
+
+/* Title margin from icon. */
+.nav-text span {
+	margin-left: 16px;
+}
+
+@media all and (max-width: 900px) {
+	.nav-menu {
+		width: 100%;
+	}
+}

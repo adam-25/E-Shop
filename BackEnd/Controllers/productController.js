@@ -103,6 +103,12 @@ exports.getAllProducts = asyncCatch(async (req, res, next) => {
 	});
 });
 
+exports.getAllProductsAdmin = asyncCatch(async (req, res, next) => {
+	const products = await productModel.find({});
+
+	res.status(200).json({ status: true, products: products });
+});
+
 // Create or update a review of a product.
 exports.updateOrCreateReview = asyncCatch(async (req, res, next) => {
 

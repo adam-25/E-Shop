@@ -38,12 +38,17 @@
 	Date: May 26, 2022
 		* Add Reviewing order Route in process of Checkout.
 
+	// Order
 	Date: May 29, 2022
 		* Add Payment Route with stripe.
 		* Add myOrders for user.
 
 	Date: May 30, 2022
 		* Add Route for Particular Order Details.
+
+	// ADMIN
+	Date: May 30, 2022
+		* Add Dashboard Route for Admin.
 */
 
 // Importing CSS and Router, doms.
@@ -78,6 +83,9 @@ import Payment from "./Components/Checkout/Payment.js";
 import OrderPlaceSuccess from "./Components/Checkout/OrderPlaceSuccess.js";
 import MyOrder from './Components/MyOrder/MyOrder.js';
 import SpecificOrder from './Components/SpecificOrder/SpecificOrder.js';
+
+// ADMIN Routes.
+import DashBoard from "./Components/Admin/Dashboard/DashBoard";
 
 function App() {
 
@@ -134,6 +142,7 @@ function App() {
 			<Route exact path="/success" component={OrderPlaceSuccess} />
 			<Route exact path="/myOrders" component={MyOrder} />
 			<Route exact path="/orderDetail/:id" component={SpecificOrder} />
+			<Route exact path="/dashboard" component={DashBoard} />
 
 			{/* Footer of the website. */}
 			<Footer />

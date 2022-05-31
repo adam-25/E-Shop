@@ -67,7 +67,7 @@ exports.allOrders = catchAsyncError(async (req, res, next) => {
 		totalEarnings += order.totalPrice;
 	});
 
-	res.status(200).json({ status: true, message: orders, total: totalEarnings });
+	res.status(200).json({ status: true, orders: orders, totalEarnings: totalEarnings });
 
 });
 

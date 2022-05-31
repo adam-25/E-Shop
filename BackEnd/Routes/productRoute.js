@@ -15,6 +15,9 @@ const { isAuthenticateUser, isAdmin } = require('../MiddleWare/Authentication');
 // Creating a route where all the products can be displayed.
 router.route("/products").get(product.getAllProducts);
 
+// Creating a route where a all product count can be displayed.
+router.route("/admin/products/getAll").get(product.getAllProductsAdmin);
+
 // Creating a route to create a new product.
 router.route("/products/newProduct").post(isAuthenticateUser, isAdmin("admin"), product.createProduct);
 
