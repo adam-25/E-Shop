@@ -142,7 +142,7 @@
 }
 
 .product-add-to-cart>button:last-child:disabled {
-	background-color:rgb(190, 113, 59);
+	background-color: rgb(190, 113, 59);
 	cursor: no-drop;
 }
 
@@ -180,6 +180,36 @@
 .submit-specific-product-review:hover {
 	background-color: rgb(164, 68, 0);
 	transform: scale(1.1);
+}
+
+/* Popup window textarea */
+textarea {
+	font-family: "Comic Neue", cursive;
+	padding: 15px;
+	border-radius: 10px;
+	border: 1px solid #d0d0d0;
+	width: 100%;
+	font-size: 20px;
+}
+
+/* Buttons of submit or cancel review popup */
+#review-popup-button {
+	border: 2px solid rgb(31, 102, 56);
+	border-radius: 10px;
+	padding: 0.8vmax;
+	color: rgb(28, 133, 86);
+	float: right;
+	margin-right: 40px;
+	transition: 0.5s;
+	margin-top: 20px;
+}
+
+#review-popup-button:hover {
+	background-color: #d0d0d0;
+}
+
+#review-popup-button:active {
+	border: 3px solid rgb(31, 102, 56);
 }
 
 .green-color {
@@ -225,9 +255,9 @@
 	.specific-product-reviews {
 		display: block;
 	}
-	
+
 	/* Number of reviews Size */
-	.specific-product-reviews > span {
+	.specific-product-reviews>span {
 		font-size: 1.9vmax;
 		margin: auto;
 	}
@@ -241,7 +271,7 @@
 	}
 
 	/* Input Height and Width */
-	.specific-product-quantity > input {
+	.specific-product-quantity>input {
 		width: 4vmax;
 		height: 3.9vmax;
 	}
@@ -277,7 +307,7 @@
 		font-size: 2vmax;
 		color: #5F7161;
 	}
-	
+
 	/* Product Description */
 	.specific-product-description p:last-child {
 		font-size: 1.9vmax;
@@ -290,5 +320,10 @@
 		margin-top: 3vmax;
 		height: 3.9vmax;
 		margin-bottom: 0;
+	}
+
+	/* Buttons of submit and cancel popup review */
+	#review-popup-button {
+		font-size: 15px;
 	}
 }

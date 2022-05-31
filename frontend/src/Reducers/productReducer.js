@@ -6,6 +6,9 @@
 	Date: May 17, 2022
 		* SpecificProduct Reducer.
 		* Add products category, results per page and number of products in page in reducer.
+
+	Date: May 30, 2022
+		* Add Product Review Reducer.
 */
 
 // Importing Constants.
@@ -16,6 +19,9 @@ import {
 	PRODUCT_REQUEST,
 	PRODUCT_SUCCESS,
 	PRODUCT_FAIL,
+	REVIEW_REQUEST,
+	REVIEW_SUCCESS,
+	REVIEW_FAIL,
 	CLEAR_ERRORS
 } from '../Constants/productConstant';
 
@@ -80,3 +86,32 @@ export const specificProductReducer = (state = { oneProduct: {} }, action) => {
 			return state;
 	}
 };
+
+// Adding or updating product review reducer.
+export const AddOrUpdateReviewReducer = (state = {}, action) => {
+	switch (action.type) {
+		case REVIEW_REQUEST:
+			return {
+				loading: true,
+				...state,
+			};
+		case REVIEW_SUCCESS:
+			return {
+				loading: false,
+				message: action.payload,
+			};
+		case REVIEW_FAIL:
+			return {
+				loading: false,
+				reviewError: action.payload,
+				...state,
+			};
+		case CLEAR_ERRORS:
+			return {
+				...state,
+				reviewError: null,
+			};
+		default:
+			return state;
+	}
+}

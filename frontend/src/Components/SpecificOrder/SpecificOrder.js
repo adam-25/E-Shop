@@ -48,7 +48,7 @@ const SpecificOrder = ({ match }) => {
 		// Dispatch an action of specific order and passing an ID of an order.
 		dispatch(getSpecificOrder(orderID));
 
-	}, [history, loading, isAuthenticateUser, dispatch]);
+	}, [history, loading, isAuthenticateUser, dispatch, orderID]);
 
 	return (
 		<Fragment>

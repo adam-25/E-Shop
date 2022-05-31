@@ -26,6 +26,7 @@ const OrderPlaceSuccess = () => {
 		else
 			window.paid = false;
 
+		// eslint-disable-next-line
 	}, [history, window.paid]);
 
 	return (

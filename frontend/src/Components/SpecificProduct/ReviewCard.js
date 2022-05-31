@@ -15,7 +15,7 @@ const ReviewCard = ({ review }) => {
 	// Review Options
 	const optionsReview = {
 		edit: false,
-		color: "#0F1111",
+		color: "#d0d0d0",
 		activeColor: "#FDCC0D",
 		size: window.innerWidth < 992 ? 17 : 20,
 		value: review.ratingOfTheProduct,

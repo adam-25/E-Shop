@@ -16,5 +16,11 @@ export const PRODUCT_REQUEST = "PRODUCT_REQUEST";
 export const PRODUCT_SUCCESS = "PRODUCT_SUCCESS";
 export const PRODUCT_FAIL = "PRODUCT_FAIL";
 
+// Creating product Review.
+export const REVIEW_REQUEST = "REVIEW_REQUEST";
+export const REVIEW_SUCCESS = "REVIEW_SUCCESS";
+export const REVIEW_FAIL = "REVIEW_FAIL";
+export const REVIEW_RESET = "REVIEW_RESET";
+
 // Cleaning Errors Constants.
 export const CLEAR_ERRORS = "CLEAR_ERRORS";

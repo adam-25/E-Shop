@@ -16,7 +16,7 @@ const ProductCard = ({ product }) => {
 	// Options for review Star.
 	const options = {
 		edit: false,
-		color: "#0F1111",
+		color: "#d0d0d0",
 		activeColor: "#FDCC0D",
 		size: window.innerWidth < 900 ? 13 : 20,
 		value: product.productRating,

@@ -28,6 +28,7 @@ const PreHeader = () => {
 		else {
 			setLabel(`<span> <span> Sign-In </span>  <br /> <span> & Register </span> </span>`)
 		}
+		// eslint-disable-next-line
 	}, [isAuthenticateUser]);
 
 

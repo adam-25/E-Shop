@@ -172,7 +172,7 @@ const Payment = () => {
 						history.push("/order/shippingInfo");
 			}
 		}
-	}, [loading, isAuthenticateUser, history, cartItems]);
+	}, [loading, isAuthenticateUser, history, cartItems, shippingInfo.takeDeliveryFirstName]);
 
 	return (
 		<Fragment>

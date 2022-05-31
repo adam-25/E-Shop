@@ -43,7 +43,7 @@ const MyOrder = () => {
 		// Dispatch an action which get an user order and put it in store.
 		dispatch(myOrderAction());
 
-	}, [history, loading, isAuthenticateUser, error]);
+	}, [history, loading, isAuthenticateUser, error, dispatch]);
 
 	return (
 		<Fragment>

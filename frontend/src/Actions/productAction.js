@@ -19,6 +19,9 @@ import {
 	PRODUCT_REQUEST,
 	PRODUCT_SUCCESS,
 	PRODUCT_FAIL,
+	REVIEW_REQUEST,
+	REVIEW_SUCCESS,
+	REVIEW_FAIL,
 	CLEAR_ERRORS
 } 
 from '../Constants/productConstant';
@@ -103,6 +106,29 @@ export const getSpecificProduct = (id) => async (dispatch) => {
 		});
 	}
 };
+
+// When this action dispatch, it updates review in backend.
+export const addOrCreateReview = (rating, comment, productID) => async (dispatch) => {
+	try {
+		dispatch({ type: REVIEW_REQUEST });
+
+		const config = {"Content-Type": "application/json"};
+
+		// Get specific product from backend.
+		const { data } = await axios.put(`/api/v1/reviews/addReview`, {rating: rating, comment: comment, productID: productID}, config);
+
+		// Dispatch product.
+		dispatch({
+			type: REVIEW_SUCCESS,
+			payload: data.message,
+		});
+	} catch (error) {
+		dispatch({
+			type: REVIEW_FAIL,
+			payload: error.response.data.message,
+		});
+	}
+}
 
 // Clearing all the errors.
 export const clearErrors = () => async (dispatch) => {

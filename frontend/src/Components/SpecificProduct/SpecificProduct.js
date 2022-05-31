@@ -17,6 +17,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 
+// For Submit Review PopUp.
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 // Review and Error PopUp
 import ReactStars from 'react-rating-stars-component';
@@ -27,9 +35,11 @@ import Loading from '../Loading/Loading';
 import Heading from "../Layout/Heading/Heading";
 import ReviewCard from './ReviewCard.js';
 import { addToCart } from '../../Actions/cartActions';
-import { clearErrors, getSpecificProduct } from '../../Actions/productAction';
+import { addOrCreateReview, clearErrors, getSpecificProduct } from '../../Actions/productAction';
 import './specificProductStyle.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { Rating } from '@mui/material';
+import { fontSize } from '@mui/system';
 
 // Options for Carousel.
 const optionsCarousel = {
@@ -50,10 +60,31 @@ const SpecificProduct = ({ match }) => {
 
 	const [quantity, setQuantity] = useState(0);
 
+	// Review PopUp.
+	const [open, setOpen] = useState(false);
+	const theme = useTheme();
+	const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+	// Rating and Comment which is set when popup opens.
+	const [rating, setRating] = useState(0);
+	const [comment, setComment] = useState();
+
+	// When submit review button clicked popup opens.
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	// When popup closed.
+	const handleClose = () => {
+		setOpen(false);
+	};
+
 	// Getting Items from Store with useSelector.
 	const { oneProduct, loadingOneProduct, error } = useSelector(state => state.oneProduct);
 	const { isAuthenticateUser, loading } = useSelector(state => state.user);
+	const { message, reviewError } = useSelector(state => state.addReview);
 
+	// Adds Item to the Cart of user.
 	const addToCartHandle = () => {
 
 		if (!loading) {
@@ -73,7 +104,7 @@ const SpecificProduct = ({ match }) => {
 	// Stars options.
 	const optionsReview = {
 		edit: false,
-		color: "#0F1111",
+		color: "#d0d0d0",
 		activeColor: "#FDCC0D",
 		size: window.innerWidth < 992 ? 17 : 20,
 		value: oneProduct.productRating,
@@ -112,11 +143,36 @@ const SpecificProduct = ({ match }) => {
 			dispatch(clearErrors());
 		}
 
+		if (reviewError) {
+			toast("Error: " + reviewError);
+			dispatch(clearErrors());
+		}
+
 		// Dispatch getSpecificProduct() function with ID in URL.
 		// Getting ID in URL with match.params.id.
 		dispatch(getSpecificProduct(match.params.id));
 
-	}, [dispatch, match.params.id, error, loading, isAuthenticateUser]);
+	}, [dispatch, match.params.id, error, loading, isAuthenticateUser, oneProduct, reviewError]);
+
+	// When user click submit on review popup.
+	const submitReview = () => {
+		// Product ID
+		const productID = match.params.id;
+
+		// If User rating is 0, then let them know 0 is not possible.
+		if (rating === 0) {
+			toast("Rating cannot be zero...");
+			setOpen(false);
+			return;
+		}
+
+		// Otherwise, dispatch an action...
+		dispatch(addOrCreateReview(rating, comment, productID));
+		setOpen(false);
+
+		// Reload the page.
+		window.location.reload();
+	}
 
 	return (
 		<Fragment>
@@ -185,7 +241,7 @@ const SpecificProduct = ({ match }) => {
 							</div>
 
 							{/* Submit Review Button */}
-							<button className="submit-specific-product-review">Submit Review</button>
+							<button className="submit-specific-product-review" onClick={handleClickOpen}>Submit Review</button>
 						</div>
 					</div>
 				</Fragment>
@@ -193,6 +249,50 @@ const SpecificProduct = ({ match }) => {
 
 			{/* Heading */}
 			<Heading props="Reviews" />
+
+			{/* Review popup */}
+			<div className='popup-review'>
+				{/* When Dialog box opens when close. */}
+				<Dialog
+					fullScreen={fullScreen}
+					open={open}
+					onClose={handleClose}
+					aria-labelledby="responsive-dialog-title"
+				>
+					{/* Title of the popup */}
+					<DialogTitle id="responsive-dialog-title" style={{ fontFamily: "Comic Neue, cursive", fontSize: "3vmax" }} >
+						{oneProduct.productName + " Review Submit"}
+					</DialogTitle>
+					<DialogContent>
+						{/* rating to set */}
+						<div>
+							<Rating
+								onChange={(e) => setRating(e.target.value)}
+								value={rating}
+								color="#0F1111"
+								activeColor="#FDCC0D"
+								size="large"
+							/>
+						</div>
+						{/* TextArea where comment is written */}
+						<div className='text-area-and-button'>
+							<div>
+								<textarea className='comment-area' cols={50} rows={3} value={comment} onChange={(e) => setComment(e.target.value)} />
+							</div>
+							<div>
+								{/* Submit Button. */}
+								<button id="review-popup-button" onClick={submitReview}>
+									Submit
+								</button>
+								{/* Cancel Button */}
+								<button id="review-popup-button" onClick={handleClose}>
+									Cancel
+								</button>
+							</div>
+						</div>
+					</DialogContent>
+				</Dialog>
+			</div>
 
 			{/* Margin */}
 			<div style={{ marginTop: "62px" }}></div>

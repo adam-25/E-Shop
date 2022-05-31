@@ -57,7 +57,7 @@ const OrderReviewAndConfirm = () => {
 
 
 
-	}, [loading, isAuthenticateUser, history, cartItems]);
+	}, [loading, isAuthenticateUser, history, cartItems, shippingInfo.takeDeliveryFirstName]);
 
 	// Calculating total of the cart.
 	const shippingCharge = total > 500 ? 0 : 50;

@@ -25,6 +25,7 @@
 	
 	Date: May 30, 2022
 		* Add Reducer for specific order by ID.
+		* Add Reducer for product review.
 */
 
 // Creating Store.
@@ -33,7 +34,7 @@ import thunk from "redux-thunk";
 
 // Connect with Redux Web Extension.
 import { composeWithDevTools } from "redux-devtools-extension";
-import { productReducer, specificProductReducer,  } from './Reducers/productReducer';
+import { AddOrUpdateReviewReducer, productReducer, specificProductReducer,  } from './Reducers/productReducer';
 import { userReducer } from "./Reducers/userReducer";
 import { profileReducer } from "./Reducers/profileReducer";
 import { forgotPasswordReducer } from "./Reducers/forgotPasswordReducer";
@@ -50,7 +51,8 @@ const reducer = combineReducers({
 	cart: cartReducer,
 	order: createOrderReducer,
 	myOrder: myOrderReducer,
-	specificOrder: specificOrderReducer
+	specificOrder: specificOrderReducer,
+	addReview: AddOrUpdateReviewReducer
 });
 
 let initialState = {

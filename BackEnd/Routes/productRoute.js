@@ -25,7 +25,7 @@ router.route("/product/:id")
 .get(product.getOneProduct);
 
 // Add Review of a product.
-router.route("/reviews/addReview").post(isAuthenticateUser, product.updateOrCreateReview);
+router.route("/reviews/addReview").put(isAuthenticateUser, product.updateOrCreateReview);
 
 // Get add the reviews, delete a specific review.
 router.route("/reviews").get(product.getAllReviews).delete(product.deleteReview);
