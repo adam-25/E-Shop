@@ -18,9 +18,7 @@ import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 
 // For Submit Review PopUp.
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -39,7 +37,6 @@ import { addOrCreateReview, clearErrors, getSpecificProduct } from '../../Action
 import './specificProductStyle.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Rating } from '@mui/material';
-import { fontSize } from '@mui/system';
 
 // Options for Carousel.
 const optionsCarousel = {
@@ -82,7 +79,7 @@ const SpecificProduct = ({ match }) => {
 	// Getting Items from Store with useSelector.
 	const { oneProduct, loadingOneProduct, error } = useSelector(state => state.oneProduct);
 	const { isAuthenticateUser, loading } = useSelector(state => state.user);
-	const { message, reviewError } = useSelector(state => state.addReview);
+	const { reviewError } = useSelector(state => state.addReview);
 
 	// Adds Item to the Cart of user.
 	const addToCartHandle = () => {
