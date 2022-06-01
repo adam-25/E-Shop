@@ -70,7 +70,7 @@ const UpdatePassword = () => {
 	}, [loading, history, isAuthenticateUser, isUpdate, dispatch, error]);
 	return (
 		<Fragment>
-			{loadingProfile ? <Loading /> : <Fragment>
+			{loadingProfile || loading ? <Loading /> : <Fragment>
 				{/* Page Title. */}
 				<MetaData title="Edit Password" />
 				<div className="name-change-container">

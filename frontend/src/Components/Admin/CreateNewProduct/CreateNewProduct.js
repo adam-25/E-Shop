@@ -123,7 +123,7 @@ const CreateNewProduct = () => {
 
 	return (
 		<Fragment>
-			{loadingNewProduct ? <Loading /> : <Fragment>
+			{loadingNewProduct || loading ? <Loading /> : <Fragment>
 				{/* Title of the page */}
 				<MetaData title="Create New Product -- ADMIN" />
 				{/* Side Bar */}

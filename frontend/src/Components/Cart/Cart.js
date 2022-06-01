@@ -20,7 +20,7 @@ const Cart = () => {
 
 	// Getting user and cart info from the store.
 	const { isAuthenticateUser, loading, user } = useSelector(state => state.user);
-	const { cartItems, } = useSelector(state => state.cart);
+	const { cartItems } = useSelector(state => state.cart);
 
 	// Total of the item in cart.
 	let total = 0;

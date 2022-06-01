@@ -67,7 +67,7 @@ const UpdateEmail = () => {
 	}, [loading, history, isAuthenticateUser, isUpdate, dispatch, error]);
 	return (
 		<Fragment>
-			{loadingProfile ? <Loading /> : <Fragment>
+			{loadingProfile || loading ? <Loading /> : <Fragment>
 				{/* Page Title */}
 				<MetaData title="Edit email" />
 				<div className="name-change-container">

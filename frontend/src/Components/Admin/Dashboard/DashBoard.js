@@ -27,9 +27,9 @@ const DashBoard = () => {
 
 	// Get user, orders, products, and all users data.
 	const { user, loading, isAuthenticateUser } = useSelector(state => state.user);
-	const { totalEarnings, orders } = useSelector(state => state.adminOrders);
-	const { products } = useSelector(state => state.adminProducts);
-	const { users } = useSelector(state => state.adminUsers);
+	const { totalEarnings, orders, loading: loadingOrders } = useSelector(state => state.adminOrders);
+	const { products, loading: loadingProducts } = useSelector(state => state.adminProducts);
+	const { users, loading: loadingUsers } = useSelector(state => state.adminUsers);
 
 	// Creating array of products in stock and out of stock.
 	const productsInStock = products.filter(product => product.productStock > 0);
@@ -90,7 +90,7 @@ const DashBoard = () => {
 
 	return (
 		<Fragment>
-			{loading ? <Loading /> : <Fragment>
+			{loading || loadingOrders || loadingProducts || loadingUsers ? <Loading /> : <Fragment>
 				{/* Title of the page. */}
 				<MetaData title="Dashboard -- ADMIN" />
 				{/* SideBar */}

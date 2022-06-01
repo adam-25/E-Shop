@@ -59,34 +59,41 @@ const ProductsAdmin = () => {
 		// Values with heading and field name.
 		{
 			field: "id",
-			headerName: "Product ID",
+			headerName: "ID",
 			minWidth: 250,
-			flex: 0.7
+			flex: 0.65
 		},
 		{
 			field: "Name",
-			headerName: "Product Name",
+			headerName: "Name",
 			minWidth: 250,
-			flex: 0.6
+			flex: 0.53
+		},
+		{
+			field: "Sell",
+			headerName: "Total Sell",
+			type: "number",
+			minWidth: 155,
+			flex: 0.4
 		},
 		{
 			field: "Stock",
-			headerName: "Product Stock",
+			headerName: "Stock",
 			type: "number",
-			minWidth: 200,
-			flex: 0.4
+			minWidth: 150,
+			flex: 0.28
 		},
 		{
 			field: "Price",
-			headerName: "Product Price",
-			minWidth: 200,
+			headerName: "Price",
+			minWidth: 150,
 			type: "number",
-			flex: 0.4
+			flex: 0.29
 		}, {
 			field: "Actions",
-			headerName: "Product Actions",
-			minWidth: 200,
-			flex: 0.4,
+			headerName: "Actions",
+			minWidth: 150,
+			flex: 0.3,
 			type: "number",
 			sortable: false,
 			// Buttons
@@ -94,7 +101,7 @@ const ProductsAdmin = () => {
 				return (
 					<Fragment>
 						{/* Edit Button with link to the id of the product. */}
-						<Link to={"/admin/products/" + params.getValue(params.id, "id")}>
+						<Link to={"/admin/product/edit" + params.getValue(params.id, "id")}>
 							<EditIcon />
 						</Link>
 						{/* Delete Button. */}
@@ -114,6 +121,7 @@ const ProductsAdmin = () => {
 		rows.push({
 			id: product._id,
 			Name: product.productName,
+			Sell: product.totalSell,
 			Stock: product.productStock,
 			Price: product.productPrice,
 		})
@@ -156,7 +164,7 @@ const ProductsAdmin = () => {
 
 	return (
 		<Fragment>
-			{loadingProduct ? <Loading /> : <Fragment>
+			{loadingProduct || loading ? <Loading /> : <Fragment>
 				{/* Giving title to the page. */}
 				<MetaData title="All Products -- ADMIN" />
 				{/* SideBar */}

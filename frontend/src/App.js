@@ -53,6 +53,9 @@
 	Date: May 31, 2022
 		* Add All Products Route for Admin.
 		* Add Route to Create a Product ADMIN.
+
+	Date: June 1, 2022
+		* Add Route to Update a Product.
 */
 
 // Importing CSS and Router, doms.

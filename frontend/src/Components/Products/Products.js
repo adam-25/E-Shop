@@ -57,8 +57,7 @@ const Products = ({ match }) => {
 
 	// Getting Items from Store with useSelector.
 	const dispatch = useDispatch();
-	const { loading, error, products, resultsPerPage, totalSearchProducts, categories } = useSelector(
-		(state) => state.products);
+	const { loading, error, products, resultsPerPage, totalSearchProducts, categories } = useSelector((state) => state.products);
 
 	const searchWords = match.params.searchWords;
 

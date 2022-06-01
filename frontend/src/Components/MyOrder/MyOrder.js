@@ -47,7 +47,7 @@ const MyOrder = () => {
 
 	return (
 		<Fragment>
-			{loadingOrder ? <Loading /> : <Fragment>
+			{loadingOrder || loading ? <Loading /> : <Fragment>
 				{/* Page title. */}
 				{user && <MetaData title={user.userFirstName + "'s Orders..."} />}
 				{myOrder && myOrder.length === 0 ? <Fragment>

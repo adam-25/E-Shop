@@ -68,7 +68,7 @@ const UpdateName = () => {
 	}, [loading, history, isAuthenticateUser, isUpdate, dispatch, error]);
 	return (
 		<Fragment>
-			{loadingProfile ? <Loading /> : <Fragment>
+			{loadingProfile || loading ? <Loading /> : <Fragment>
 				{/* Page Title */}
 				<MetaData title="Edit name" />
 				<div className="name-change-container">

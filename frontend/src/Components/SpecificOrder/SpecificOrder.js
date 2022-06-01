@@ -53,7 +53,7 @@ const SpecificOrder = ({ match }) => {
 	return (
 		<Fragment>
 			{/* Page Title */}
-			{loadingOrder ? <Loading /> : specificOrder && <Fragment>
+			{loadingOrder || loading ? <Loading /> : specificOrder && <Fragment>
 				<MetaData title="Order Detail..." />
 				<div className='specific-order-container'>
 					{/* Contain the heading and Order Number */}

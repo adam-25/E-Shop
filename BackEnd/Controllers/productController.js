@@ -83,7 +83,7 @@ exports.updateProduct = asyncCatch(async (req, res, next) => {
 				useFindAndModify: false,
 			}
 		);
-		res.status(200).json({ status: "Updated Successfully" });
+		res.status(200).json({ status: true });
 	}
 });
 
