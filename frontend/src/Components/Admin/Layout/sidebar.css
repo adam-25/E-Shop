@@ -3,6 +3,7 @@
 .navbar-menu-icon-dashboard svg {
 	position: absolute;
 	top: 120px;
+	color: #060b26;
 }
 
 /* When menu is closed */
@@ -40,6 +41,10 @@
 .navbar-toggle-item {
 	background-color: #060b26;
 	width: 100%;
+}
+
+.navbar-toggle-item svg {
+	color: #d0d0d0;
 }
 
 /* Icon padding and list style with height. */

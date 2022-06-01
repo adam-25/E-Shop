@@ -1,0 +1,23 @@
+/* Giving margin and padding to Table. */
+.products-admin-grid {
+	margin: 50px 40px 0 40px;
+	padding: 10px;
+}
+
+/* All table value */
+.MuiDataGrid-root *, .MuiDataGrid-root *::before, .MuiDataGrid-root *::after {
+	font-family: "Comic Neue", cursive;
+	font-size: 1.2rem;
+}
+
+/* SVG Edit and Delete icons */
+.MuiDataGrid-root * svg {
+	color: #060b26;
+	transition: 0.5s;
+}
+
+/* SVG Edit and Delete icons hover. */
+.MuiDataGrid-root * svg:hover {
+	color: #636363;
+	transform: scale(1.5);
+}

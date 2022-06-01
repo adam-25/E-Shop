@@ -7,7 +7,8 @@
 import {
 	ADMIN_ALL_PRODUCTS_REQUEST,
 	ADMIN_ALL_PRODUCTS_SUCCESS,
-	ADMIN_ALL_PRODUCTS_FAILURE
+	ADMIN_ALL_PRODUCTS_FAILURE,
+	CLEAR_ERRORS
 } from "../../Constants/Admin/adminProductsConstants";
 
 // Importing axios for making API calls.
@@ -36,3 +37,8 @@ export const adminAllProducts = () => async (dispatch) => {
 		});
 	}
 }
+
+// Clearing all the errors.
+export const clearErrors = () => async (dispatch) => {
+	dispatch({ type: CLEAR_ERRORS });
+};

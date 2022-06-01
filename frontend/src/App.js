@@ -49,6 +49,9 @@
 	// ADMIN
 	Date: May 30, 2022
 		* Add Dashboard Route for Admin.
+	
+	Date: May 31, 2022
+		* Add All Products Route for Admin.
 */
 
 // Importing CSS and Router, doms.
@@ -86,6 +89,7 @@ import SpecificOrder from './Components/SpecificOrder/SpecificOrder.js';
 
 // ADMIN Routes.
 import DashBoard from "./Components/Admin/Dashboard/DashBoard";
+import ProductsAdmin from './Components/Admin/Products/ProductsAdmin';
 
 function App() {
 
@@ -143,6 +147,7 @@ function App() {
 			<Route exact path="/myOrders" component={MyOrder} />
 			<Route exact path="/orderDetail/:id" component={SpecificOrder} />
 			<Route exact path="/dashboard" component={DashBoard} />
+			<Route exact path="/admin/products" component={ProductsAdmin} />
 
 			{/* Footer of the website. */}
 			<Footer />
