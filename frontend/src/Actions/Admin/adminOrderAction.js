@@ -37,3 +37,8 @@ export const adminAllOrder = () => async (dispatch) => {
 		});
 	}
 }
+
+// Clearing all the errors.
+export const clearErrors = () => async (dispatch) => {
+	dispatch({ type: CLEAR_ERRORS });
+};

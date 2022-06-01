@@ -43,18 +43,18 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
 // UserOption Component.
 const UserOptions = () => {
 
-	// Get cart Items Array to show how many items in cart.
-	const { cartItems } = useSelector(state => state.cart);
 	const dispatch = useDispatch();
-	let history = useHistory();
+	const history = useHistory();
 
 	// Getting User to check it's role.
 	const { error, user } = useSelector(state => state.user);
+	// Get cart Items Array to show how many items in cart.
+	const { cartItems } = useSelector(state => state.cart);
 
 	// Array of option icons and the function that will be called when the user clicked.
 	const actions = [
 		{ icon: <AccountCircleIcon />, name: 'Account', func: account },
-		{ icon: <ShoppingCartIcon />, name:  `ShoppingCart (${cartItems.length})`, func: cart },
+		{ icon: <ShoppingCartIcon />, name: `ShoppingCart (${cartItems.length})`, func: cart },
 		{ icon: <LogoutIcon />, name: 'LogOut', func: logout },
 	];
 
@@ -82,12 +82,11 @@ const UserOptions = () => {
 	function logout() {
 		// Dispatch logout user.
 		dispatch(logoutUser());
-		if (error)
-		{
+		if (error) {
 			toast("Error", error);
 			dispatch(clearErrors());
 		}
-		
+
 		toast("Log out Successfully");
 	}
 

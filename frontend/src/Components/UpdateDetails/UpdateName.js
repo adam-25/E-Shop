@@ -21,6 +21,7 @@ import { toast } from 'react-toastify';
 // Importing required constants to dispatch and actions.
 import { UPDATE_NAME_RESET } from '../../Constants/profileConstants';
 import { clearErrors, updateName } from '../../Actions/profileActions';
+import { clearErrors as clearUserErrors } from '../../Actions/userAction';
 import { loadUser } from '../../Actions/userAction';
 
 // Update Name component.
@@ -30,7 +31,7 @@ const UpdateName = () => {
 	const history = useHistory();
 
 	// Get User details of login and isProperty updated or not.
-	const { loading, isAuthenticateUser } = useSelector(state => state.user);
+	const { loading, isAuthenticateUser, error: userError } = useSelector(state => state.user);
 	const { isUpdate, error, loadingProfile } = useSelector((state) => state.profile);
 
 	const [newFullName, setNewFullName] = useState("");
@@ -55,6 +56,11 @@ const UpdateName = () => {
 			dispatch(clearErrors());
 		}
 
+		if (userError) {
+			toast("Error: " + userError);
+			dispatch(clearUserErrors());
+		}
+
 		// If update is successful, then show it and redirect to /account.
 		if (isUpdate) {
 			toast("Name Updated Successfully");
@@ -65,7 +71,7 @@ const UpdateName = () => {
 		}
 
 
-	}, [loading, history, isAuthenticateUser, isUpdate, dispatch, error]);
+	}, [loading, history, isAuthenticateUser, isUpdate, dispatch, error, userError]);
 	return (
 		<Fragment>
 			{loadingProfile || loading ? <Loading /> : <Fragment>

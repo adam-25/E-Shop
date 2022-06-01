@@ -27,16 +27,17 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import Loading from '../Loading/Loading';
+import { clearErrors } from '../../Actions/userAction';
 import { createOrder } from '../../Actions/orderAction';
 
 const Payment = () => {
 
-	let history = useHistory();
+	const history = useHistory();
 	const dispatch = useDispatch();
 
 	// Getting current cart items and shipping information.
 	const { shippingInfo, cartItems } = useSelector(state => state.cart);
-	const { user, loading, isAuthenticateUser } = useSelector(state => state.user);
+	const { user, loading, isAuthenticateUser, error } = useSelector(state => state.user);
 
 	// Calculating total of the cart and store it in total.
 	let subTotal = 0;
@@ -173,7 +174,13 @@ const Payment = () => {
 						history.push("/order/shippingInfo");
 			}
 		}
-	}, [loading, isAuthenticateUser, history, cartItems, shippingInfo.takeDeliveryFirstName]);
+
+		if (error) {
+			toast("Error: " + error);
+			dispatch(clearErrors());
+		}
+
+	}, [loading, isAuthenticateUser, history, cartItems, shippingInfo.takeDeliveryFirstName, error, dispatch]);
 
 	return (
 		<Fragment>

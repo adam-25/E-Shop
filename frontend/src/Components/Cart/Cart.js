@@ -4,22 +4,25 @@
 */
 
 import React, { Fragment, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // Importing required components.
 import CartItemCard from '../Layout/CartItemCard/CartItemCard';
 import MetaData from '../Layout/MetaData';
 import Loading from '../Loading/Loading';
+import { clearErrors } from '../../Actions/userAction';
 import './cart.css';
 
 // Cart Component.
 const Cart = () => {
 
 	const history = useHistory();
+	const dispatch = useDispatch();
 
 	// Getting user and cart info from the store.
-	const { isAuthenticateUser, loading, user } = useSelector(state => state.user);
+	const { isAuthenticateUser, loading, user, error } = useSelector(state => state.user);
 	const { cartItems } = useSelector(state => state.cart);
 
 	// Total of the item in cart.
@@ -37,7 +40,13 @@ const Cart = () => {
 				history.push("/login");
 			}
 		}
-	}, [loading, isAuthenticateUser, history, cartItems]);
+
+		if (error) {
+			toast.error("Error: " + error);
+			dispatch(clearErrors());
+		}
+
+	}, [loading, isAuthenticateUser, history, cartItems, dispatch, error]);
 
 	return (
 		<Fragment>

@@ -18,6 +18,7 @@ import MetaData from '../Layout/MetaData';
 import Loading from '../Loading/Loading';
 import CheckoutSteps from "../Layout/CheckoutStatus/CheckoutSteps.js";
 import { saveShippingInfo } from '../../Actions/cartActions';
+import { clearErrors } from '../../Actions/userAction';
 import './ShippingInformation.css';
 
 // Required Icons in Shipping Information page.
@@ -36,7 +37,7 @@ const Checkout = () => {
 	const dispatch = useDispatch();
 
 	// Getting Cart Items, User and Shipping Information.
-	const { loading, isAuthenticateUser, user } = useSelector(state => state.user);
+	const { loading, isAuthenticateUser, user, error } = useSelector(state => state.user);
 	const { shippingInfo, cartItems } = useSelector(state => state.cart);
 
 	// Setting User name, and all shipping information initially when page is render from localStorage.
@@ -87,8 +88,13 @@ const Checkout = () => {
 			}
 		}
 
+		if (error) {
+			toast.error("Error: " + error);
+			dispatch(clearErrors());
+		}
 
-	}, [cartItems, history, isAuthenticateUser, loading, user]);
+
+	}, [cartItems, history, isAuthenticateUser, loading, user, error, dispatch]);
 
 	return (
 		<Fragment>

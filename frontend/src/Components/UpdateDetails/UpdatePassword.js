@@ -19,6 +19,7 @@ import { useHistory } from 'react-router-dom';
 
 // Importing required constants to dispatch and actions.
 import { clearErrors, updatePassword } from '../../Actions/profileActions';
+import { clearErrors as clearUserErrors } from '../../Actions/userAction';
 import { loadUser } from '../../Actions/userAction';
 import { UPDATE_PASSWORD_RESET } from '../../Constants/profileConstants';
 
@@ -29,7 +30,7 @@ const UpdatePassword = () => {
 	const history = useHistory();
 
 	// Get User details of login and isProperty updated or not.
-	const { loading, isAuthenticateUser } = useSelector(state => state.user);
+	const { loading, isAuthenticateUser, error: userError } = useSelector(state => state.user);
 	const { isUpdate, error, loadingProfile } = useSelector((state) => state.profile);
 
 	// Set old password, new password and confirm password while user enter their password.
@@ -57,7 +58,12 @@ const UpdatePassword = () => {
 			dispatch(clearErrors());
 		}
 
-				// If update is successful, then show it and redirect to /account.
+		if (userError) {
+			toast("Error: " + userError);
+			dispatch(clearUserErrors());
+		}
+
+		// If update is successful, then show it and redirect to /account.
 		if (isUpdate) {
 			toast("Password Updated Successfully");
 			dispatch(loadUser());
@@ -67,7 +73,7 @@ const UpdatePassword = () => {
 		}
 
 
-	}, [loading, history, isAuthenticateUser, isUpdate, dispatch, error]);
+	}, [loading, history, isAuthenticateUser, isUpdate, dispatch, error, userError]);
 	return (
 		<Fragment>
 			{loadingProfile || loading ? <Loading /> : <Fragment>

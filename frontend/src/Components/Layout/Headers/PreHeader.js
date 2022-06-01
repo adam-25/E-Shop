@@ -11,30 +11,43 @@
 
 // Importing Logo for NavBar and it's CSS file.
 import React, { useState, useEffect } from 'react'
-import logo from '../../../Images/logo.png';
-import './preHeaderStyles.css';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 // Importing to redirect for searching items.
 import { useHistory } from "react-router-dom";
 
+import logo from '../../../Images/logo.png';
+import './preHeaderStyles.css';
+import { clearErrors } from '../../../Actions/userAction';
+
 const PreHeader = () => {
 
-	const { user, isAuthenticateUser } = useSelector(state => state.user);
+	const { user, isAuthenticateUser, error, loading } = useSelector(state => state.user);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (isAuthenticateUser)
-			setLabel(`<span> <span> Hello <span>${user.userFirstName}</span>  </span> <br /> <span> & Account </spam> </span>`)
-		else {
-			setLabel(`<span> <span> Sign-In </span>  <br /> <span> & Register </span> </span>`)
+		if (!loading) {
+			if (isAuthenticateUser)
+				setLabel(`<span> <span> Hello <span>${user.userFirstName}</span>  </span> <br /> <span> & Account </spam> </span>`)
+			else {
+				setLabel(`<span> <span> Sign-In </span>  <br /> <span> & Register </span> </span>`)
+			}
 		}
+
+		if (error) {
+			toast.error("Error: " + error);
+			dispatch(clearErrors());
+		}
+
 		// eslint-disable-next-line
-	}, [isAuthenticateUser]);
+	}, [isAuthenticateUser, error, dispatch, loading]);
 
 
 	const [label, setLabel] = useState("");
 
-	let history = useHistory();
+	const history = useHistory();
 
 	const [searchWords, setSearchWords] = useState("");
 

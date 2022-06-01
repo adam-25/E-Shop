@@ -15,9 +15,10 @@ import SideBar from "../Layout/SideBar";
 import Loading from "../../Loading/Loading";
 import MetaData from '../../Layout/MetaData';
 import Heading from '../../Layout/Heading/Heading';
-import { adminAllOrder } from '../../../Actions/Admin/adminOrderAction';
-import { adminAllUsers } from '../../../Actions/Admin/adminUsersAction';
-import { adminAllProducts } from '../../../Actions/Admin/adminProductsAction';
+import { adminAllOrder, clearErrors as orderClearError } from '../../../Actions/Admin/adminOrderAction';
+import { adminAllUsers, clearErrors as usersClearError } from '../../../Actions/Admin/adminUsersAction';
+import { adminAllProducts, clearErrors as productClearError } from '../../../Actions/Admin/adminProductsAction';
+import { clearErrors } from '../../../Actions/userAction';
 import './Dashboard.css';
 
 const DashBoard = () => {
@@ -26,10 +27,10 @@ const DashBoard = () => {
 	const dispatch = useDispatch();
 
 	// Get user, orders, products, and all users data.
-	const { user, loading, isAuthenticateUser } = useSelector(state => state.user);
-	const { totalEarnings, orders, loading: loadingOrders } = useSelector(state => state.adminOrders);
-	const { products, loading: loadingProducts } = useSelector(state => state.adminProducts);
-	const { users, loading: loadingUsers } = useSelector(state => state.adminUsers);
+	const { user, loading, isAuthenticateUser, error } = useSelector(state => state.user);
+	const { totalEarnings, orders, loading: loadingOrders, error: orderError } = useSelector(state => state.adminOrders);
+	const { products, loading: loadingProducts, error: productError } = useSelector(state => state.adminProducts);
+	const { users, loading: loadingUsers, error: userError } = useSelector(state => state.adminUsers);
 
 	// Creating array of products in stock and out of stock.
 	const productsInStock = products.filter(product => product.productStock > 0);
@@ -81,12 +82,30 @@ const DashBoard = () => {
 					toast("Error: Cannot Access this Resource...")
 				}
 
+		if (error) {
+			toast("Error: " + error);
+			dispatch(clearErrors());
+		}
+
+		if (orderError) {
+			toast("Error: " + orderError);
+			dispatch(orderClearError());
+		}
+		if (productError) {
+			toast("Error: " + productError);
+			dispatch(productClearError());
+		}
+		if (userError) {
+			toast("Error: " + userError);
+			dispatch(usersClearError());
+		}
+
 		// Dispatching action to get all orders, products, users.
 		dispatch(adminAllOrder());
 		dispatch(adminAllProducts());
 		dispatch(adminAllUsers());
 
-	}, [loading, history, isAuthenticateUser, user, dispatch]);
+	}, [loading, history, isAuthenticateUser, user, dispatch, orderError, productError, userError, error]);
 
 	return (
 		<Fragment>

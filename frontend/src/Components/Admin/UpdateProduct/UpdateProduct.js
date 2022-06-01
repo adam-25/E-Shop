@@ -22,20 +22,22 @@ import MetaData from '../../Layout/MetaData';
 import Heading from '../../Layout/Heading/Heading';
 import Loading from '../../Loading/Loading';
 import SideBar from '../Layout/SideBar';
-import { adminCreateNewProduct, clearErrors } from '../../../Actions/Admin/adminProductsAction';
-import { clearErrors as userErrorNull } from '../../../Actions/userAction';
-import { ADMIN_NEW_PRODUCT_RESET } from '../../../Constants/Admin/adminProductsConstants';
-import './newProduct.css';
+import { adminUpdateProduct, clearErrors } from '../../../Actions/Admin/adminProductsAction';
+import { ADMIN_UPDATE_PRODUCT_RESET } from '../../../Constants/Admin/adminProductsConstants';
+import { getSpecificProduct, clearErrors as clearOneOrderError } from '../../../Actions/productAction';
+import { clearErrors as clearUserError } from '../../../Actions/userAction';
+import './UpdateProduct.css';
 
 // Creating new Product Component.
-const CreateNewProduct = () => {
+const UpdateProduct = ( {match} ) => {
 
 	const history = useHistory();
 	const dispatch = useDispatch();
 
 	// Getting user and products from store.
 	const { user, loading, isAuthenticateUser, error: userError } = useSelector(state => state.user);
-	const { error, status, loading: loadingNewProduct } = useSelector(state => state.adminCreateNewProduct);
+	const { error, status, loading: loadingCreateProduct } = useSelector(state => state.adminUpdateProduct);
+	const { oneProduct, loadingOneProduct, error: orderError } = useSelector(state => state.product);
 
 	// useState to set value of each input.
 	const [productName, setProductName] = useState();
@@ -61,7 +63,7 @@ const CreateNewProduct = () => {
 		}
 
 		// dispatch action to create new product.
-		dispatch(adminCreateNewProduct(productData));
+		dispatch(adminUpdateProduct(productData));
 	}
 
 	// Adding images to productImage and productImagePreview array.
@@ -100,7 +102,7 @@ const CreateNewProduct = () => {
 			if (isAuthenticateUser === false)
 				history.push('/login');
 
-		// If user is not admin then cannot access product creation.
+		// If user is not admin then cannot access dashboard.
 		if (!loading)
 			if (isAuthenticateUser === true)
 				if (user.userRole !== 'admin') {
@@ -108,30 +110,37 @@ const CreateNewProduct = () => {
 					toast("Error: Cannot Access this Resource...")
 				}
 
-		if (userError) {
-			toast("Error: " + userError);
-			dispatch(userErrorNull());
-		}
-
 		// If error then toast error and clear error.
 		if (error) {
 			toast("Error: " + error);
 			dispatch(clearErrors());
 		}
 
-		// If product creation is successful then toast success and redirect to dashboard.
-		if (status === true) {
-			dispatch({ type: ADMIN_NEW_PRODUCT_RESET });
-			history.push('/dashboard');
+		if (orderError) {
+			toast("Error: " + orderError);
+			dispatch(clearOneOrderError());
 		}
 
-	}, [loading, history, isAuthenticateUser, user, dispatch, error, status, userError]);
+		if (userError) {
+			toast("Error: " + userError);
+			dispatch(clearUserError());
+		}
+
+		// If product creation is successful then toast success and redirect to dashboard.
+		if (status === true) {
+			dispatch({ type: ADMIN_UPDATE_PRODUCT_RESET });
+			history.push('/admin/products');
+		}
+
+		dispatch(getSpecificProduct(match.params.id));
+
+	}, [loading, history, isAuthenticateUser, user, dispatch, error, status, match.params.id, orderError, userError]);
 
 	return (
 		<Fragment>
-			{loadingNewProduct || loading ? <Loading /> : <Fragment>
+			{loadingCreateProduct || loading || loadingOneProduct ? <Loading /> : <Fragment>
 				{/* Title of the page */}
-				<MetaData title="Create New Product -- ADMIN" />
+				<MetaData title="Update Product -- ADMIN" />
 				{/* Side Bar */}
 				<SideBar />
 				{/* heading of the page */}
@@ -220,8 +229,8 @@ const CreateNewProduct = () => {
 							</div>
 						</div>
 						{/* Button disable when loading to submit the created product. */}
-						<button disabled={loadingNewProduct ? true : false} type="submit" className='create-product-button' >
-							Create Product
+						<button disabled={loadingCreateProduct ? true : false} type="submit" className='create-product-button' >
+							Update Product
 						</button>
 					</form>
 				</div>
@@ -230,4 +239,4 @@ const CreateNewProduct = () => {
 	)
 }
 
-export default CreateNewProduct
+export default UpdateProduct

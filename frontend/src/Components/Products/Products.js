@@ -11,7 +11,6 @@
 
 // Importing necessary modules for getting items from backend.
 import React, { Fragment, useEffect, useState } from 'react';
-import { clearErrors, getProduct } from '../../Actions/productAction';
 import { useSelector, useDispatch } from 'react-redux';
 
 // For Pagination
@@ -24,6 +23,8 @@ import Slider from '@material-ui/core/Slider';
 import Loading from '../Loading/Loading';
 import Heading from '../Layout/Heading/Heading';
 import ProductCard from '../Layout/ProductCard/ProductCard';
+import { clearErrors, getProduct } from '../../Actions/productAction';
+import { clearErrors as clearUserErrors } from '../../Actions/userAction';
 import './Products.css';
 
 // Module for error PopUp.
@@ -31,6 +32,11 @@ import { toast } from 'react-toastify';
 import MetaData from '../Layout/MetaData';
 
 const Products = ({ match }) => {
+
+	// Getting Items from Store with useSelector.
+	const dispatch = useDispatch();
+	const { isAuthenticateUser, error: userError } = useSelector(state => state.user);
+	const { loading, error, products, resultsPerPage, totalSearchProducts, categories } = useSelector((state) => state.products);
 
 	// Setting current Page useState.
 	const [currentPage, setCurrentPage] = useState(1);
@@ -43,8 +49,6 @@ const Products = ({ match }) => {
 	// Set which type of sort user has clicked.
 	const [sort, setSort] = useState("");
 
-	const { isAuthenticateUser } = useSelector(state => state.user);
-
 	// Set Current page by pagination.
 	const setCurrentPageNo = (event) => {
 		setCurrentPage(event);
@@ -55,10 +59,6 @@ const Products = ({ match }) => {
 		setPrice(newPrice);
 	}
 
-	// Getting Items from Store with useSelector.
-	const dispatch = useDispatch();
-	const { loading, error, products, resultsPerPage, totalSearchProducts, categories } = useSelector((state) => state.products);
-
 	const searchWords = match.params.searchWords;
 
 	useEffect(() => {
@@ -67,9 +67,14 @@ const Products = ({ match }) => {
 			dispatch(clearErrors());
 		}
 
+		if (userError) {
+			toast("Error: " + userError);
+			dispatch(clearUserErrors());
+		}
+
 		// Passing Parameters to getProduct with particular criteria.
 		dispatch(getProduct(searchWords, currentPage, price, category, sort));
-	}, [dispatch, searchWords, error, currentPage, price, category, sort]);
+	}, [dispatch, searchWords, error, currentPage, price, category, sort, userError]);
 
 	return (
 		<Fragment>
@@ -117,7 +122,7 @@ const Products = ({ match }) => {
 								<MetaData title="All Products" />
 							</Fragment>
 								:
-								
+
 								// Particular category products.
 								<Fragment>
 									<div className="products-heading-title">
@@ -127,7 +132,7 @@ const Products = ({ match }) => {
 									<MetaData title={category + " category"} />
 								</Fragment>}
 							<div className="space-below-heading"></div>
-							
+
 							{/* Search all products card. */}
 							<div className="product-container all-products">
 								{products && products.map(product => (

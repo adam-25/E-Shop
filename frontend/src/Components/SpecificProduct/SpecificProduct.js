@@ -34,6 +34,7 @@ import Heading from "../Layout/Heading/Heading";
 import ReviewCard from './ReviewCard.js';
 import { addToCart } from '../../Actions/cartActions';
 import { addOrCreateReview, clearErrors, getSpecificProduct } from '../../Actions/productAction';
+import { clearErrors as clearUserErrors } from '../../Actions/userAction';
 import './specificProductStyle.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Rating } from '@mui/material';
@@ -53,7 +54,7 @@ const optionsCarousel = {
 const SpecificProduct = ({ match }) => {
 
 	const dispatch = useDispatch();
-	let history = useHistory();
+	const history = useHistory();
 
 	const [quantity, setQuantity] = useState(0);
 
@@ -78,7 +79,7 @@ const SpecificProduct = ({ match }) => {
 
 	// Getting Items from Store with useSelector.
 	const { oneProduct, loadingOneProduct, error } = useSelector(state => state.oneProduct);
-	const { isAuthenticateUser, loading } = useSelector(state => state.user);
+	const { isAuthenticateUser, loading, error: userError } = useSelector(state => state.user);
 	const { reviewError } = useSelector(state => state.addReview);
 
 	// Adds Item to the Cart of user.
@@ -145,11 +146,16 @@ const SpecificProduct = ({ match }) => {
 			dispatch(clearErrors());
 		}
 
+		if (userError) {
+			toast("Error: " + userError);
+			dispatch(clearUserErrors());
+		}
+
 		// Dispatch getSpecificProduct() function with ID in URL.
 		// Getting ID in URL with match.params.id.
 		dispatch(getSpecificProduct(match.params.id));
 
-	}, [dispatch, match.params.id, error, loading, isAuthenticateUser, oneProduct, reviewError]);
+	}, [dispatch, match.params.id, error, loading, isAuthenticateUser, oneProduct, reviewError, userError]);
 
 	// When user click submit on review popup.
 	const submitReview = () => {

@@ -17,7 +17,7 @@ import './Update.css';
 // Forgot Password Component that take email from user and dispatch action of forgot password which send an email to user.
 const ForgotPassword = () => {
 
-	let history = useHistory();
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const { message, error, loadingProfile } = useSelector((state) => state.forgotPassword);
 

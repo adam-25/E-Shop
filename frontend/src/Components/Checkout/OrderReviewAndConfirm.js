@@ -4,23 +4,26 @@
 */
 
 import React, { Fragment, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // Importing required components.
 import MetaData from '../Layout/MetaData';
 import CheckoutSteps from '../Layout/CheckoutStatus/CheckoutSteps';
 import CartItemCard from '../Layout/CartItemCard/CartItemCard';
 import Loading from '../Loading/Loading';
+import { clearErrors } from '../../Actions/userAction';
 import './ConfirmOrder.css';
 
 // Order Review and Confirm order Component.
 const OrderReviewAndConfirm = () => {
 
 	const history = useHistory();
+	const dispatch = useDispatch();
 
 	// Getting user and cart info from the store.
-	const { isAuthenticateUser, loading } = useSelector(state => state.user);
+	const { isAuthenticateUser, loading, error } = useSelector(state => state.user);
 	const { cartItems, shippingInfo } = useSelector(state => state.cart);
 
 	// Total of the item in cart.
@@ -56,9 +59,12 @@ const OrderReviewAndConfirm = () => {
 			}
 		}
 
+		if (error) {
+			toast.error("Error: " + error);
+			dispatch(clearErrors());
+		}
 
-
-	}, [loading, isAuthenticateUser, history, cartItems, shippingInfo.takeDeliveryFirstName]);
+	}, [loading, isAuthenticateUser, history, cartItems, shippingInfo.takeDeliveryFirstName, error, dispatch]);
 
 	// Calculating total of the cart.
 	const shippingCharge = total > 500 ? 0 : 50;

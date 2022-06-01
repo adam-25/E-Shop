@@ -5,6 +5,7 @@
 
 	Date: June 1, 2022
 		* Created Reducer for admin to delete Products.
+		* Created Reducer for admin to update Products.
 */
 
 // Importing necessary constants.
@@ -105,6 +106,7 @@ export const adminCreateNewProductReducer = (state = { status: false }, action) 
 	}
 }
 
+// Admin to update product reducer.
 export const adminUpdateProductReducer = (state = { status: false }, action) => {
 	switch (action.type) {
 		case ADMIN_UPDATE_PRODUCT_REQUEST:

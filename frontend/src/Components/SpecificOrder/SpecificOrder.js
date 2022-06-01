@@ -6,11 +6,13 @@
 import React, { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getSpecificOrder } from '../../Actions/orderAction';
+import { toast } from 'react-toastify';
 
 import MetaData from '../Layout/MetaData';
 import OrderItemInfoCard from '../Layout/OrderItemCard/OrderItemInfoCard';
 import Loading from '../Loading/Loading';
+import { getSpecificOrder, clearErrors } from '../../Actions/orderAction';
+import { clearErrors as clearUserErrors } from '../../Actions/userAction';
 import './SpecificOrder.css';
 
 const SpecificOrder = ({ match }) => {
@@ -21,8 +23,8 @@ const SpecificOrder = ({ match }) => {
 	const dispatch = useDispatch();
 
 	// Getting User and it's order.
-	const { isAuthenticateUser, loading } = useSelector(state => state.user);
-	const { specificOrder, loadingOrder } = useSelector(state => state.specificOrder);
+	const { isAuthenticateUser, loading, error } = useSelector(state => state.user);
+	const { specificOrder, loadingOrder, error: orderError } = useSelector(state => state.specificOrder);
 
 	// Function which return the format of date.
 	const dateOfOrder = (paidAt) => {
@@ -45,10 +47,20 @@ const SpecificOrder = ({ match }) => {
 			}
 		}
 
+		if (error) {
+			toast("Error: " + error);
+			dispatch(clearErrors());
+		}
+
+		if (orderError) {
+			toast("Error: " + orderError);
+			dispatch(clearUserErrors());
+		}
+
 		// Dispatch an action of specific order and passing an ID of an order.
 		dispatch(getSpecificOrder(orderID));
 
-	}, [history, loading, isAuthenticateUser, dispatch, orderID]);
+	}, [history, loading, isAuthenticateUser, dispatch, orderID, orderError, error]);
 
 	return (
 		<Fragment>

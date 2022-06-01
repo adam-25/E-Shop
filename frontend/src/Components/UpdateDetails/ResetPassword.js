@@ -17,7 +17,7 @@ import './Update.css';
 // Reset Password Component that take the resetToken as input and dispatch to reset Password action.
 const ResetPassword = ( {match} ) => {
 
-	let history = useHistory();
+	const history = useHistory();
 	const dispatch = useDispatch();
 
 	const { success, error, loadingProfile } = useSelector((state) => state.forgotPassword);

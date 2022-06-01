@@ -5,22 +5,25 @@
 
 // Importing necessary modules.
 import React, { Fragment, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // Importing necessary components.
 import MetaData from '../Layout/MetaData';
 import Heading from '../Layout/Heading/Heading';
 import Loading from '../Loading/Loading';
+import { clearErrors } from '../../Actions/userAction';
 import './account.css';
 
 // Account Component.
 const Account = () => {
 
-	let history = useHistory();
+	const history = useHistory();
+	const dispatch = useDispatch();
 
 	// Get Login User Information.
-	const { user, loading, isAuthenticateUser } = useSelector(state => state.user);
+	const { user, loading, isAuthenticateUser, error } = useSelector(state => state.user);
 
 	useEffect(() => {
 
@@ -28,7 +31,13 @@ const Account = () => {
 		if (isAuthenticateUser === false) {
 			history.push("/login");
 		}
-	}, [isAuthenticateUser, history]);
+
+		if (error) {
+			toast.error("Error: " + error);
+			dispatch(clearErrors());
+		}
+
+	}, [isAuthenticateUser, history, error, dispatch]);
 
 	return (
 		<Fragment>

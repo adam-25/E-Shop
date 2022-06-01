@@ -27,6 +27,7 @@ import Loading from '../../Loading/Loading';
 import Heading from '../../Layout/Heading/Heading';
 import { adminAllProducts, adminDeleteProduct, clearErrors } from '../../../Actions/Admin/adminProductsAction';
 import { ADMIN_DELETE_PRODUCT_RESET } from '../../../Constants/Admin/adminProductsConstants';
+import { clearErrors as userClearError } from '../../../Actions/userAction';
 import './ProductsAdmin.css';
 
 // All Products Admin Component.
@@ -36,8 +37,8 @@ const ProductsAdmin = () => {
 	const dispatch = useDispatch();
 
 	// Getting user and products from store.
-	const { user, loading, isAuthenticateUser } = useSelector(state => state.user);
-	const { error, products, loading: loadingProduct, status } = useSelector(state => state.adminProducts);
+	const { user, loading, isAuthenticateUser, error } = useSelector(state => state.user);
+	const { error: productError, products, loading: loadingProduct, status } = useSelector(state => state.adminProducts);
 
 	// Delete product by admin.
 	const deleteProductID = async (id) => {
@@ -147,9 +148,14 @@ const ProductsAdmin = () => {
 					toast("Error: Cannot Access this Resource...")
 				}
 
+		if (productError) {
+			toast("Error: " + productError);
+			dispatch(clearErrors());
+		}
+
 		if (error) {
 			toast("Error: " + error);
-			dispatch(clearErrors());
+			dispatch(userClearError());
 		}
 
 		if (status === true) {
@@ -160,7 +166,7 @@ const ProductsAdmin = () => {
 		// Dispatching action to get all products.
 		dispatch(adminAllProducts());
 
-	}, [loading, history, isAuthenticateUser, user, dispatch, error, status]);
+	}, [loading, history, isAuthenticateUser, user, dispatch, productError, status, error]);
 
 	return (
 		<Fragment>

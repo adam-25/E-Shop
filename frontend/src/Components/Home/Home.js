@@ -16,7 +16,6 @@
 
 // Importing necessary modules for getting items from backend.
 import React, { Fragment, useEffect } from 'react';
-import { clearErrors, getHighestSellingProducts, getProduct, getRandomProduct } from "../../Actions/productAction";
 import { useSelector, useDispatch } from 'react-redux';
 import './HomeStyles.css';
 
@@ -30,16 +29,18 @@ import ProductCard from "../Layout/ProductCard/ProductCard.js";
 import MetaData from "../Layout/MetaData";
 import UserOptions from "../Layout/UserOptions/UserOptions";
 import Loading from '../Loading/Loading';
+import { clearErrors, getHighestSellingProducts, getProduct, getRandomProduct } from "../../Actions/productAction";
+import { clearErrors as clearUserErrors } from "../../Actions/userAction";
+import { clearErrors as clearProductErrors, clearErrors as clearHomeErrors } from "../../Actions/productAction";
 
 const Home = () => {
 
 	// Getting Items from Store with useSelector.
 	const dispatch = useDispatch();
-	const { isAuthenticateUser } = useSelector(state => state.user);
-
+	const { isAuthenticateUser, error: userError } = useSelector(state => state.user);
 	const { loading, error } = useSelector((state) => state.products);
-	const { randomProducts, loadingCarouselProduct } = useSelector((state) => state.carouselProducts);
-	const { loadingHomeProduct, highestSellingProducts } = useSelector((state) => state.homeProducts);
+	const { randomProducts, loadingCarouselProduct, error: productError } = useSelector((state) => state.carouselProducts);
+	const { loadingHomeProduct, highestSellingProducts, error: homeError } = useSelector((state) => state.homeProducts);
 
 	// Give Items from backend to Store. Call the function in Actions.
 	useEffect(() => {
@@ -49,11 +50,26 @@ const Home = () => {
 			dispatch(clearErrors());
 		}
 
+		if (userError) {
+			toast("Error: " + userError);
+			dispatch(clearUserErrors());
+		}
+
+		if (productError) {
+			toast("Error: " + productError);
+			dispatch(clearProductErrors());
+		}
+
+		if (homeError) {
+			toast("Error: " + homeError);
+			dispatch(clearHomeErrors());
+		}
+
 		// getProduct() function in Actions.
 		dispatch(getProduct());
 		dispatch(getRandomProduct());
 		dispatch(getHighestSellingProducts());
-	}, [dispatch, error]);
+	}, [dispatch, error, userError, productError, homeError]);
 
 	return (
 		<Fragment>

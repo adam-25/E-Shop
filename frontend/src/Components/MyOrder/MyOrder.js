@@ -14,6 +14,7 @@ import MetaData from "../Layout/MetaData";
 import Loading from "../Loading/Loading";
 import OrderItemCard from "../Layout/OrderItemCard/OrderItemCard";
 import { clearErrors, myOrderAction } from '../../Actions/orderAction';
+import { clearErrors as userClearError } from '../../Actions/userAction';
 import "./myOrder.css";
 
 // Get User Orders Component.
@@ -23,7 +24,7 @@ const MyOrder = () => {
 	const history = useHistory();
 
 	// Getting User and it's order.
-	const { isAuthenticateUser, loading, user } = useSelector(state => state.user);
+	const { isAuthenticateUser, loading, user, error: userError } = useSelector(state => state.user);
 	const { myOrder, loadingOrder, error } = useSelector(state => state.myOrder);
 
 	useEffect(() => {
@@ -36,14 +37,19 @@ const MyOrder = () => {
 
 		// If error shows the error.
 		if (error) {
-			toast(error);
+			toast("Error: " + error);
 			dispatch(clearErrors());
+		}
+
+		if (userError) {
+			toast("Error: " + userError);
+			dispatch(userClearError());
 		}
 
 		// Dispatch an action which get an user order and put it in store.
 		dispatch(myOrderAction());
 
-	}, [history, loading, isAuthenticateUser, error, dispatch]);
+	}, [history, loading, isAuthenticateUser, error, dispatch, userError]);
 
 	return (
 		<Fragment>
