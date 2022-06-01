@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom';
 // Importing required components.
 import CartItemCard from '../Layout/CartItemCard/CartItemCard';
 import MetaData from '../Layout/MetaData';
+import Loading from '../Loading/Loading';
 import './cart.css';
 
 // Cart Component.
@@ -19,7 +20,7 @@ const Cart = () => {
 
 	// Getting user and cart info from the store.
 	const { isAuthenticateUser, loading, user } = useSelector(state => state.user);
-	const { cartItems } = useSelector(state => state.cart);
+	const { cartItems, } = useSelector(state => state.cart);
 
 	// Total of the item in cart.
 	let total = 0;
@@ -40,26 +41,27 @@ const Cart = () => {
 
 	return (
 		<Fragment>
-			{/* Title of the page. */}
-			{user && <MetaData title={user.userFirstName + "'s Cart..."} />}
-			<div className="cart-container">
-				<h2>Shopping Cart</h2>
-				<hr />
-				{/* If cart is empty then show this. */}
-				{cartItems.length === 0 && <div className="cart-empty">
-					<p>No Items In Cart.</p>
-					<a href="/products" className="view-product-btn"> View Products </a>
-				</div>}
-				{/* If cart is not empty show every item as CartItemCard. */}
-				{cartItems && cartItems.map((item) => <CartItemCard item={item} />)}
-				<div className="cart-total-price">
+			{loading ? <Loading /> : <Fragment>
+				{/* Title of the page. */}
+				{user && <MetaData title={user.userFirstName + "'s Cart..."} />}
+				<div className="cart-container">
+					<h2>Shopping Cart</h2>
 					<hr />
-					{/* Subtotal and Link to Checkout. */}
-					<h3>Subtotal ({cartItems.length} item): <span>${total}</span></h3>
-					<a href="/order/shippingInfo"><button className="proceed-checkout" disabled={total === 0}>Proceed to Checkout</button></a>
+					{/* If cart is empty then show this. */}
+					{cartItems.length === 0 && <div className="cart-empty">
+						<p>No Items In Cart.</p>
+						<a href="/products" className="view-product-btn"> View Products </a>
+					</div>}
+					{/* If cart is not empty show every item as CartItemCard. */}
+					{cartItems && cartItems.map((item) => <CartItemCard item={item} />)}
+					<div className="cart-total-price">
+						<hr />
+						{/* Subtotal and Link to Checkout. */}
+						<h3>Subtotal ({cartItems.length} item): <span>${total}</span></h3>
+						<a href="/order/shippingInfo"><button className="proceed-checkout" disabled={total === 0}>Proceed to Checkout</button></a>
+					</div>
 				</div>
-			</div>
-
+			</Fragment>}
 		</Fragment>
 	)
 }

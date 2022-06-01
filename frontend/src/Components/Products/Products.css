@@ -84,10 +84,14 @@
 /* Filter list style and set it at proper place in page. */
 .filters {
 	font-family: 'Comic Neue', cursive;
-	width: 13vmax;
+	width: 14vmax;
 	position: absolute;
 	top: 25vmax;
-	left: 4vmax;
+	left: 3vmax;
+	border: 1px solid #d0d0d0;
+	background-color: rgb(232, 240, 240);
+	border-radius: 5px;
+	padding: 20px;
 }
 
 /* Setting category such as Electronics and so on to non list-style. */

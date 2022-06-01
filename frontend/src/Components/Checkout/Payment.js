@@ -26,6 +26,7 @@ import { CardNumberElement, CardExpiryElement, CardCvcElement, useStripe, useEle
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import DateRangeIcon from '@mui/icons-material/DateRange';
+import Loading from '../Loading/Loading';
 import { createOrder } from '../../Actions/orderAction';
 
 const Payment = () => {
@@ -40,7 +41,7 @@ const Payment = () => {
 	// Calculating total of the cart and store it in total.
 	let subTotal = 0;
 
-		// Calculating total of the cart.
+	// Calculating total of the cart.
 	for (let i = 0; i < cartItems.length; i++) {
 		subTotal += cartItems[i].productPrice * cartItems[i].orderQuantity;
 	}
@@ -79,7 +80,7 @@ const Payment = () => {
 		try {
 			// Config to send to backend.
 			const config = {
-				headers: {"Content-Type": "application/json"}
+				headers: { "Content-Type": "application/json" }
 			}
 
 			// Send data and amount to backend to create and process the payment.
@@ -119,7 +120,7 @@ const Payment = () => {
 
 			// If payment is successful then redirect to the order confirmation page.
 			else if (result.paymentIntent.status === "succeeded") {
-				
+
 				newOrder.paymentInfo = {
 					id: result.paymentIntent.id,
 					status: result.paymentIntent.status,
@@ -140,7 +141,7 @@ const Payment = () => {
 				toast("Issue while processing your payment, Try again later...");
 			}
 
-		} 
+		}
 		// If there is error then make button enable and show the error.
 		catch (error) {
 			paymentButton.current.disabled = false;
@@ -157,16 +158,16 @@ const Payment = () => {
 		}
 
 		// If there is no items in cart and user wants to access order and review then redirect to cart.
-		if (!loading)	{
-			if (isAuthenticateUser === true)	{
+		if (!loading) {
+			if (isAuthenticateUser === true) {
 				if (cartItems.length === 0)
 					history.push("/cart");
 			}
 		}
 
 		// If user does not enter any shipping information then redirect to shipping information.
-		if (!loading)	{
-			if (isAuthenticateUser === true)	{
+		if (!loading) {
+			if (isAuthenticateUser === true) {
 				if (cartItems.length !== 0)
 					if (!shippingInfo.takeDeliveryFirstName)
 						history.push("/order/shippingInfo");
@@ -176,38 +177,40 @@ const Payment = () => {
 
 	return (
 		<Fragment>
-			{/* Title of the page */}
-			<MetaData title="Payment..." />
+			{loading ? <Loading /> : <Fragment>
+				{/* Title of the page */}
+				<MetaData title="Payment..." />
 
-			{/* Checkout step. */}
-			<CheckoutSteps step={2} />
+				{/* Checkout step. */}
+				<CheckoutSteps step={2} />
 
-			{/* Full form */}
-			<form className='card-info-form' onSubmit={paymentSubmitted}>
+				{/* Full form */}
+				<form className='card-info-form' onSubmit={paymentSubmitted}>
 
-				{/* Heading of the page. */}
-				<h2>Card Information</h2>
-				{/* Container which have all the information of the page. */}
-				<div className='card-info-container'>
-					{/* Card Number */}
-					<div className='icon-detail'>
-						<CreditCardIcon />
-						<CardNumberElement className="card-details" />
+					{/* Heading of the page. */}
+					<h2>Card Information</h2>
+					{/* Container which have all the information of the page. */}
+					<div className='card-info-container'>
+						{/* Card Number */}
+						<div className='icon-detail'>
+							<CreditCardIcon />
+							<CardNumberElement className="card-details" />
+						</div>
+						{/* Expiry date */}
+						<div className='icon-detail'>
+							<DateRangeIcon />
+							<CardExpiryElement className="card-details" />
+						</div>
+						{/* CVC of the card */}
+						<div className='icon-detail'>
+							<VpnKeyIcon />
+							<CardCvcElement className="card-details" />
+						</div>
+						{/* Button to process. */}
+						<button type='submit' ref={paymentButton} >Pay - ${total}</button>
 					</div>
-					{/* Expiry date */}
-					<div className='icon-detail'>
-						<DateRangeIcon />
-						<CardExpiryElement className="card-details" />
-					</div>
-					{/* CVC of the card */}
-					<div className='icon-detail'>
-						<VpnKeyIcon />
-						<CardCvcElement className="card-details" />
-					</div>
-					{/* Button to process. */}
-					<button type='submit' ref={paymentButton} >Pay - ${total}</button>
-				</div>
-			</form>
+				</form>
+			</Fragment>}
 		</Fragment>
 	)
 }

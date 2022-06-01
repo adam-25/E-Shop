@@ -1,11 +1,18 @@
 /* Main Div to contain both carousel and Details */
 .specific-product {
 	width: 100%;
-	padding: 6vmax;
+	padding: 2vmax;
 	box-sizing: border-box;
 	display: flex;
 	background-color: rgb(241, 245, 246);
 	padding-bottom: 0vmax;
+	border: 1px solid #d0d0d0;
+	background-color: rgb(232, 240, 240);
+	width: 80%;
+	margin: auto;
+	border-radius: 10px;
+	margin-bottom: 40px;
+	margin-top: 20px;
 }
 
 /* Both Divs */
@@ -25,6 +32,7 @@
 /* Carousel Width make 50% */
 .product-carousel-image {
 	width: 50%;
+	min-height: 350px;
 	border-radius: 20px;
 }
 
@@ -76,8 +84,13 @@
 .price-quantity h1 {
 	font-size: 2.5vmax;
 	color: #5F7161;
-	font-weight: lighter;
+	font-weight: 500;
 	margin-top: 0.5vmax;
+	margin-bottom: 0px;
+}
+
+.price-quantity p {
+	margin-bottom: 0.5vmax;
 }
 
 /* Input */
@@ -121,7 +134,7 @@
 /* Create Margin of Input and Add to Cart Buttons from Price */
 .product-add-to-cart {
 	display: flex;
-	margin-top: 1.3vmax;
+	margin-top: 0.5vmax;
 }
 
 /* Add to Cart Button */
@@ -153,13 +166,13 @@
 
 /* Description */
 .specific-product-description p:first-child {
-	font-size: 1.3vmax;
+	font-size: 1.4vmax;
 	color: #5F7161;
 }
 
 /* Product Description */
 .specific-product-description p:last-child {
-	font-size: 1.1vmax;
+	font-size: 1.2vmax;
 	color: #858585;
 	font-weight: lighter;
 }
@@ -204,6 +217,11 @@
 	margin-top: 20px;
 }
 
+.product-no-review {
+	margin-bottom: 50px;
+	font-size: 3vmax;
+}
+
 #review-popup-button:hover {
 	background-color: #d0d0d0;
 }
@@ -243,12 +261,12 @@
 
 	/* Name Size */
 	.product-name h2 {
-		font-size: 3vmax;
+		font-size: 3.4vmax;
 	}
 
 	/* ID Size */
 	.product-name p {
-		font-size: 1vmax;
+		font-size: 1.3vmax;
 	}
 
 	/* Reviews in two rows */
@@ -264,9 +282,10 @@
 
 	/* Price */
 	.price-quantity h1 {
-		font-size: 3.5vmax;
+		font-size: 4vmax;
 		margin-left: -15px;
 		margin-top: 10px;
+		margin-bottom: 0px;
 		text-align: center;
 	}
 
@@ -285,20 +304,20 @@
 	/* Add to Cart Button */
 	.product-add-to-cart>button:last-child {
 		height: 3.9vmax;
-		margin-left: 3vmax;
+		margin-left: 2.0vmax;
 	}
 
 	/* Maintain margin from Price of Cart and + - buttons */
 	.product-add-to-cart {
 		display: flex;
-		margin-top: 3vmax;
+		margin-top: 2vmax;
 	}
 
 	/* Centering Description */
 	.specific-product-description {
 		display: inline;
 		text-align: center;
-		margin-top: 2vmax;
+		margin-top: 1vmax;
 		width: 70%;
 	}
 
@@ -310,7 +329,7 @@
 
 	/* Product Description */
 	.specific-product-description p:last-child {
-		font-size: 1.9vmax;
+		font-size: 2vmax;
 		word-wrap: break-word;
 	}
 
@@ -318,8 +337,14 @@
 	.submit-specific-product-review {
 		background-color: rgb(255, 132, 44);
 		margin-top: 3vmax;
-		height: 3.9vmax;
+		height: 4.3vmax;
 		margin-bottom: 0;
+		font-size: 2vmax;
+	}
+
+	.product-carousel-image {
+		width: 100%;
+		min-height: 100px;
 	}
 
 	/* Buttons of submit and cancel popup review */

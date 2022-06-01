@@ -30,11 +30,11 @@ const productSchema = new mongoose.Schema({
 	},
 	productImages: [
 		{
-			public_id: {
+			imagePublicId: {
 				type: String,
 				required: true
 			},
-			url: {
+			imageURL: {
 				type: String,
 				required: true
 			}

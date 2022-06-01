@@ -36,9 +36,8 @@ const Checkout = () => {
 	const dispatch = useDispatch();
 
 	// Getting Cart Items, User and Shipping Information.
-	const { cartItems } = useSelector(state => state.cart);
 	const { loading, isAuthenticateUser, user } = useSelector(state => state.user);
-	const { shippingInfo } = useSelector(state => state.cart);
+	const { shippingInfo, cartItems } = useSelector(state => state.cart);
 
 	// Setting User name, and all shipping information initially when page is render from localStorage.
 	const [takeDeliveryFirstName, setFirstName] = useState(shippingInfo.userFirstName);

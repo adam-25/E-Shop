@@ -30,7 +30,7 @@ const UpdatePassword = () => {
 
 	// Get User details of login and isProperty updated or not.
 	const { loading, isAuthenticateUser } = useSelector(state => state.user);
-	const { isUpdate, error } = useSelector((state) => state.profile);
+	const { isUpdate, error, loadingProfile } = useSelector((state) => state.profile);
 
 	// Set old password, new password and confirm password while user enter their password.
 	const [newPassword, setNewPassword] = useState("");
@@ -70,7 +70,7 @@ const UpdatePassword = () => {
 	}, [loading, history, isAuthenticateUser, isUpdate, dispatch, error]);
 	return (
 		<Fragment>
-			{loading ? <Loading /> : <Fragment>
+			{loadingProfile ? <Loading /> : <Fragment>
 				{/* Page Title. */}
 				<MetaData title="Edit Password" />
 				<div className="name-change-container">

@@ -50,8 +50,8 @@ export const adminAllProductsReducer = (state = { products: [] }, action) => {
 	}
 }
 
-// Admin to Create new Product Redicer.
-export const adminCreateNewProductReducer = (state = {}, action) => {
+// Admin to Create new Product Reducer.
+export const adminCreateNewProductReducer = (state = { status: false }, action) => {
 
 	switch (action.type) {
 

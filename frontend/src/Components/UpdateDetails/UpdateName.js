@@ -31,7 +31,7 @@ const UpdateName = () => {
 
 	// Get User details of login and isProperty updated or not.
 	const { loading, isAuthenticateUser } = useSelector(state => state.user);
-	const { isUpdate, error } = useSelector((state) => state.profile);
+	const { isUpdate, error, loadingProfile } = useSelector((state) => state.profile);
 
 	const [newFullName, setNewFullName] = useState("");
 
@@ -68,7 +68,7 @@ const UpdateName = () => {
 	}, [loading, history, isAuthenticateUser, isUpdate, dispatch, error]);
 	return (
 		<Fragment>
-			{loading ? <Loading /> : <Fragment>
+			{loadingProfile ? <Loading /> : <Fragment>
 				{/* Page Title */}
 				<MetaData title="Edit name" />
 				<div className="name-change-container">

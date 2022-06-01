@@ -12,6 +12,9 @@
 		* Add Pagination.
 		* Make resultsPerPage Global.
 		* Return categories and total products when searching products.
+
+	Date: June 1, 2022
+		* Add Images to Cloudinary in createProduct function.
 */
 
 // Importing necessary files.
@@ -20,16 +23,42 @@ const ErrorHandler = require("../Utils/errorHandler");
 const asyncCatch = require("../MiddleWare/catchAsyncError");
 const apiFeature = require("../Utils/features");
 
-const resultsPerPage = 8;
+const cloudnary = require('cloudinary');
+
+const resultsPerPage = 6;
 
 // Creating a new Product in DB. -- ADMIN ONLY
 exports.createProduct = asyncCatch(async (req, res, next) => {
+	let productImages = [];
+
+	if (typeof req.body.productImages === "string") {
+		productImages.push(req.body.productImages);
+	}
+	else {
+		productImages = req.body.productImages;
+	}
+
+	let productImageURL = [];
+
+	for (let i = 0; i < productImages.length; i++) {
+		const result = await cloudnary.v2.uploader.upload(productImages[i],
+			{ folder: "PRODUCTS_IMAGE" }
+		);
+
+		productImageURL.push({
+			imagePublicId: result.public_id,
+			imageURL: result.secure_url
+		});
+	}
+
+	req.body.productImages = productImageURL;
 
 	req.body.userCreatedProduct = req.user.id;
 
+
 	const newProduct = await productModel.create(req.body);
 
-	res.status(200).json({ status: "Successfully Created New Product.", newProduct: newProduct });
+	res.status(200).json({ status: true });
 });
 
 // Update a Product in DB. -- ADMIN ONLY

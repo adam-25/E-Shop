@@ -34,7 +34,7 @@ const CreateNewProduct = () => {
 
 	// Getting user and products from store.
 	const { user, loading, isAuthenticateUser } = useSelector(state => state.user);
-	const { error, success, loading: loadingNewProduct } = useSelector(state => state.adminProducts);
+	const { error, status, loading: loadingNewProduct } = useSelector(state => state.adminCreateNewProduct);
 
 	// useState to set value of each input.
 	const [productName, setProductName] = useState();
@@ -88,6 +88,7 @@ const CreateNewProduct = () => {
 
 	useEffect(() => {
 
+		// Reload page when it is load.
 		if (!window.location.hash) {
 			window.location = window.location + '#loaded';
 			window.location.reload();
@@ -113,13 +114,12 @@ const CreateNewProduct = () => {
 		}
 
 		// If product creation is successful then toast success and redirect to dashboard.
-		if (success) {
-			toast(success);
+		if (status === true) {
 			dispatch({ type: ADMIN_NEW_PRODUCT_RESET });
 			history.push('/dashboard');
 		}
 
-	}, [loading, history, isAuthenticateUser, user, dispatch, error, success]);
+	}, [loading, history, isAuthenticateUser, user, dispatch, error, status]);
 
 	return (
 		<Fragment>
@@ -198,7 +198,8 @@ const CreateNewProduct = () => {
 								accept='image/*'
 								name='Product Image'
 								onChange={addImages}
-								multiple />
+								multiple
+								required />
 						</div>
 						{/* Product Image Preview Div */}
 						{/* Shows the added Images. */}

@@ -53,9 +53,8 @@ const SpecificOrder = ({ match }) => {
 	return (
 		<Fragment>
 			{/* Page Title */}
-			{console.log(specificOrder)}
-			<MetaData title="Order Detail..." />
 			{loadingOrder ? <Loading /> : specificOrder && <Fragment>
+				<MetaData title="Order Detail..." />
 				<div className='specific-order-container'>
 					{/* Contain the heading and Order Number */}
 					<div className='order-details-heading'>
@@ -101,7 +100,7 @@ const SpecificOrder = ({ match }) => {
 					</div>
 					{/* Div Containing Items Component. */}
 					<div className='specific-order-items'>
-					{specificOrder.orderInfo && specificOrder.orderInfo.map((orderItem) => <OrderItemInfoCard itemInfo={orderItem} />)}
+						{specificOrder.orderInfo && specificOrder.orderInfo.map((orderItem) => <OrderItemInfoCard itemInfo={orderItem} />)}
 					</div>
 				</div>
 			</Fragment>}

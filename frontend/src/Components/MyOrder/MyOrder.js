@@ -47,9 +47,9 @@ const MyOrder = () => {
 
 	return (
 		<Fragment>
-			{/* Page title. */}
-			{user && <MetaData title={user.userFirstName + "'s Orders..."} />}
 			{loadingOrder ? <Loading /> : <Fragment>
+				{/* Page title. */}
+				{user && <MetaData title={user.userFirstName + "'s Orders..."} />}
 				{myOrder && myOrder.length === 0 ? <Fragment>
 					<div className="order-container">
 						<h2>Your Orders</h2>
@@ -65,7 +65,7 @@ const MyOrder = () => {
 					{/* If there are orders. */}
 					<div className="order-container">
 						<h2>Your Orders</h2>
-						<hr/>
+						<hr />
 						{/* Every order Card map. */}
 						{myOrder && myOrder.reverse().map((orderItem) => <OrderItemCard orderItem={orderItem} />)}
 					</div>
