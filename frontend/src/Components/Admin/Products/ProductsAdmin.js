@@ -1,6 +1,6 @@
 /*
 	Date: May 31, 2022
-		* Created Action for admin to get All Products.
+		* Created Component for admin to get All Products.
 */
 
 // Importing necessary modules.
@@ -32,9 +32,15 @@ const ProductsAdmin = () => {
 
 	// Getting user and products from store.
 	const { user, loading, isAuthenticateUser } = useSelector(state => state.user);
-	const { error, products } = useSelector(state => state.adminProducts);
+	const { error, products, loading: loadingProduct } = useSelector(state => state.adminProducts);
 
 	useEffect(() => {
+
+		if (!window.location.hash) {
+			window.location = window.location + '#loaded';
+			window.location.reload();
+		}
+
 		// If admin is not logged in then redirect to login page.
 		if (!loading)
 			if (isAuthenticateUser === false)
@@ -125,7 +131,7 @@ const ProductsAdmin = () => {
 
 	return (
 		<Fragment>
-			{loading ? <Loading /> : <Fragment>
+			{loadingProduct ? <Loading /> : <Fragment>
 				{/* Giving title to the page. */}
 				<MetaData title="All Products -- ADMIN" />
 				{/* SideBar */}

@@ -52,6 +52,7 @@
 	
 	Date: May 31, 2022
 		* Add All Products Route for Admin.
+		* Add Route to Create a Product ADMIN.
 */
 
 // Importing CSS and Router, doms.
@@ -90,6 +91,7 @@ import SpecificOrder from './Components/SpecificOrder/SpecificOrder.js';
 // ADMIN Routes.
 import DashBoard from "./Components/Admin/Dashboard/DashBoard";
 import ProductsAdmin from './Components/Admin/Products/ProductsAdmin';
+import CreateNewProduct from './Components/Admin/CreateNewProduct/CreateNewProduct.js';
 
 function App() {
 
@@ -119,7 +121,7 @@ function App() {
 			<Header />
 
 			{/* If User is logged out and go to logout path then redirect to login */}
-			{(window.location.pathname !== "/" && isAuthenticateUser) ? <UserOptions /> : <div></div>}
+			{(window.location.pathname !== "/" && isAuthenticateUser === true) ? <UserOptions /> : <div></div>}
 			{(window.location.pathname === "/logout" && !isAuthenticateUser) ? <Redirect to="/login" /> : <div></div>}
 
 			{/* Path for different pages */}
@@ -148,6 +150,7 @@ function App() {
 			<Route exact path="/orderDetail/:id" component={SpecificOrder} />
 			<Route exact path="/dashboard" component={DashBoard} />
 			<Route exact path="/admin/products" component={ProductsAdmin} />
+			<Route exact path="/admin/newProduct" component={CreateNewProduct} />
 
 			{/* Footer of the website. */}
 			<Footer />

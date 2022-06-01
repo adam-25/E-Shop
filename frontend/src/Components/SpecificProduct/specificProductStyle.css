@@ -183,7 +183,7 @@
 }
 
 /* Popup window textarea */
-textarea {
+.text-area-and-button textarea {
 	font-family: "Comic Neue", cursive;
 	padding: 15px;
 	border-radius: 10px;

@@ -32,6 +32,7 @@
 			1). adminProducts.
 			2). adminOrders.
 			3). adminUsers.
+			4). adminCreateNewProduct
 */
 
 // Creating Store.
@@ -48,7 +49,7 @@ import { cartReducer } from "./Reducers/cartReducer";
 import { createOrderReducer, myOrderReducer, specificOrderReducer } from "./Reducers/orderReducer";
 import { adminAllOrderReducer } from "./Reducers/Admin/adminOrderReducer";
 import { adminAllUsersReducer } from "./Reducers/Admin/adminUsersReducer";
-import { adminAllProductsReducer } from "./Reducers/Admin/adminProductReducer";
+import { adminAllProductsReducer, adminCreateNewProductReducer } from "./Reducers/Admin/adminProductReducer";
 
 // Combining Reducers.
 const reducer = combineReducers({
@@ -64,7 +65,8 @@ const reducer = combineReducers({
 	addReview: AddOrUpdateReviewReducer,
 	adminOrders: adminAllOrderReducer,
 	adminUsers: adminAllUsersReducer,
-	adminProducts: adminAllProductsReducer
+	adminProducts: adminAllProductsReducer,
+	adminCreateNewProduct: adminCreateNewProductReducer
 });
 
 let initialState = {
