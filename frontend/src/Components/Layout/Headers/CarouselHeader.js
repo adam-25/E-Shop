@@ -1,11 +1,16 @@
 /*
 	Date: May 15, 2022
 		* Add Carousel Header.
+
+	Date: June 1, 2022
+		* Carousel Images of Products.
+		* Update Carousel Images to become Link.
 */
 
 // Importing CSS and Carousel.
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
+import { Link } from 'react-router-dom';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './headerCarousel.css';
 
@@ -29,12 +34,16 @@ const CarouselHeader = ({ products }) => {
 		<div className="header-carousel">
 			{/* Carousel Header  */}
 			<Carousel {...options}>
-				{products.map((item, index) => (
-					<img
-						key={index}
-						src={item}
-						alt={index}
-					/>
+				{products.map((product) => (
+					<Link to={"/product/" + product._id}>
+						<div>
+							<img
+								key={product._id}
+								src={product.productImages[0].imageURL}
+								alt={product.productName}
+							></img>
+						</div>
+					</Link>
 				))}
 
 			</Carousel>

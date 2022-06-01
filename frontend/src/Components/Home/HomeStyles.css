@@ -1,7 +1,7 @@
 /* Arrange featured Items in Home Page. */
 .product-container {
 	display: flex;
-	width: 80%;
+	width: 90%;
 	margin: auto;
 	margin-top: 3%;
 	flex-wrap: wrap;

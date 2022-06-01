@@ -9,6 +9,9 @@
 
 	Date: May 30, 2022
 		* Add Product Review Reducer.
+
+	Date: June 1, 2022
+		* Add Reducer to get random carousel products and home featured products.
 */
 
 // Importing Constants.
@@ -19,6 +22,12 @@ import {
 	PRODUCT_REQUEST,
 	PRODUCT_SUCCESS,
 	PRODUCT_FAIL,
+	CAROUSEL_PRODUCTS_REQUEST,
+	CAROUSEL_PRODUCTS_SUCCESS,
+	CAROUSEL_PRODUCTS_FAIL,
+	HOME_PRODUCTS_REQUEST,
+	HOME_PRODUCTS_SUCCESS,
+	HOME_PRODUCTS_FAIL,
 	REVIEW_REQUEST,
 	REVIEW_SUCCESS,
 	REVIEW_FAIL,
@@ -74,6 +83,64 @@ export const specificProductReducer = (state = { oneProduct: {} }, action) => {
 		case PRODUCT_FAIL:
 			return {
 				loadingOneProduct: false,
+				error: action.payload,
+			};
+
+		case CLEAR_ERRORS:
+			return {
+				...state,
+				error: null,
+			};
+		default:
+			return state;
+	}
+};
+
+// Carousel Reducer.
+export const carouselProductReducer = (state = { randomProducts: [] }, action) => {
+	switch (action.type) {
+		case CAROUSEL_PRODUCTS_REQUEST:
+			return {
+				loadingCarouselProduct: true,
+				...state,
+			};
+		case CAROUSEL_PRODUCTS_SUCCESS:
+			return {
+				loadingCarouselProduct: false,
+				randomProducts: action.payload.randomProducts,
+			};
+		case CAROUSEL_PRODUCTS_FAIL:
+			return {
+				loadingCarouselProduct: false,
+				error: action.payload,
+			};
+
+		case CLEAR_ERRORS:
+			return {
+				...state,
+				error: null,
+			};
+		default:
+			return state;
+	}
+};
+
+// Home Products Reducer.
+export const HomeProductReducer = (state = { highestSellingProducts: [] }, action) => {
+	switch (action.type) {
+		case HOME_PRODUCTS_REQUEST:
+			return {
+				loadingHomeProduct: true,
+				...state,
+			};
+		case HOME_PRODUCTS_SUCCESS:
+			return {
+				loadingHomeProduct: false,
+				highestSellingProducts: action.payload.highestSellingProducts,
+			};
+		case HOME_PRODUCTS_FAIL:
+			return {
+				loadingHomeProduct: false,
 				error: action.payload,
 			};
 

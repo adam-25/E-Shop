@@ -9,6 +9,9 @@
 	Date: May 18, 2022
 		* Add Filters to products.
 		* Adding product category and price sorting.
+
+	Date: June 1, 2022
+		* Add Action to get carousel and home featured products.
 */
 
 // Constants.
@@ -19,6 +22,12 @@ import {
 	PRODUCT_REQUEST,
 	PRODUCT_SUCCESS,
 	PRODUCT_FAIL,
+	CAROUSEL_PRODUCTS_REQUEST,
+	CAROUSEL_PRODUCTS_SUCCESS,
+	CAROUSEL_PRODUCTS_FAIL,
+	HOME_PRODUCTS_REQUEST,
+	HOME_PRODUCTS_SUCCESS,
+	HOME_PRODUCTS_FAIL,
 	REVIEW_REQUEST,
 	REVIEW_SUCCESS,
 	REVIEW_FAIL,
@@ -102,6 +111,48 @@ export const getSpecificProduct = (id) => async (dispatch) => {
 	} catch (error) {
 		dispatch({
 			type: PRODUCT_FAIL,
+			payload: error.response.data.message,
+		});
+	}
+};
+
+// Get Random Products for carousel.
+export const getRandomProduct = () => async (dispatch) => {
+	try {
+		dispatch({ type: CAROUSEL_PRODUCTS_REQUEST });
+
+		// Get specific product from backend.
+		const { data } = await axios.get(`/api/v1/randomProducts`);
+
+		// Dispatch product.
+		dispatch({
+			type: CAROUSEL_PRODUCTS_SUCCESS,
+			payload: data,
+		});
+	} catch (error) {
+		dispatch({
+			type: CAROUSEL_PRODUCTS_FAIL,
+			payload: error.response.data.message,
+		});
+	}
+};
+
+// Get Highest Selling Product for feature Products.
+export const getHighestSellingProducts = () => async (dispatch) => {
+	try {
+		dispatch({ type: HOME_PRODUCTS_REQUEST });
+
+		// Get specific product from backend.
+		const { data } = await axios.get(`/api/v1/homeProducts`);
+
+		// Dispatch product.
+		dispatch({
+			type: HOME_PRODUCTS_SUCCESS,
+			payload: data,
+		});
+	} catch (error) {
+		dispatch({
+			type: HOME_PRODUCTS_FAIL,
 			payload: error.response.data.message,
 		});
 	}

@@ -8,11 +8,15 @@
 
 	Date: May 20, 2022
 		* Add User options to home page when it logged in.
+
+	Date: June 1, 2022
+		* Add Carousel products which are random.
+		* Add Featured products which are top selling products.
 */
 
 // Importing necessary modules for getting items from backend.
 import React, { Fragment, useEffect } from 'react';
-import { clearErrors, getProduct } from "../../Actions/productAction";
+import { clearErrors, getHighestSellingProducts, getProduct, getRandomProduct } from "../../Actions/productAction";
 import { useSelector, useDispatch } from 'react-redux';
 import './HomeStyles.css';
 
@@ -25,18 +29,7 @@ import Heading from '../Layout/Heading/Heading';
 import ProductCard from "../Layout/ProductCard/ProductCard.js";
 import MetaData from "../Layout/MetaData";
 import UserOptions from "../Layout/UserOptions/UserOptions";
-
-// Carousel Images.
-import laptop from "../../Images/laptop.jpeg";
-import shoes from "../../Images/shoes.jpeg";
-import phone from "../../Images/phone.jpeg";
-import ring from "../../Images/ring.jpeg";
-import watch from "../../Images/watch.jpeg";
-import airpods from "../../Images/airpods.jpeg";
-import tv from "../../Images/tv.jpeg";
 import Loading from '../Loading/Loading';
-
-const carouselProducts = [laptop, shoes, phone, ring, watch, tv, airpods];
 
 const Home = () => {
 
@@ -44,8 +37,9 @@ const Home = () => {
 	const dispatch = useDispatch();
 	const { isAuthenticateUser } = useSelector(state => state.user);
 
-	const { loading, error, products } = useSelector(
-		(state) => state.products);
+	const { loading, error } = useSelector((state) => state.products);
+	const { randomProducts, loadingCarouselProduct } = useSelector((state) => state.carouselProducts);
+	const { loadingHomeProduct, highestSellingProducts } = useSelector((state) => state.homeProducts);
 
 	// Give Items from backend to Store. Call the function in Actions.
 	useEffect(() => {
@@ -57,19 +51,21 @@ const Home = () => {
 
 		// getProduct() function in Actions.
 		dispatch(getProduct());
+		dispatch(getRandomProduct());
+		dispatch(getHighestSellingProducts());
 	}, [dispatch, error]);
 
 	return (
 		<Fragment>
 			{/* Loading if something wrong. */}
-			{loading ? <Loading /> :
+			{loading || loadingCarouselProduct || loadingHomeProduct ? <Loading /> :
 				<Fragment>
 
 					{/* Give Page name */}
 					<MetaData title={"E-Shop"} />
 
 					{/* Carousel of the product */}
-					<CarouselHeader products={carouselProducts} />
+					<CarouselHeader products={randomProducts} />
 
 					{isAuthenticateUser && <UserOptions />}
 
@@ -80,7 +76,7 @@ const Home = () => {
 					{/* ProductCards */}
 					<div className="product-container">
 
-						{products && products.map(product => (
+						{highestSellingProducts && highestSellingProducts.map(product => (
 							<ProductCard product={product} />
 						))}
 					</div>

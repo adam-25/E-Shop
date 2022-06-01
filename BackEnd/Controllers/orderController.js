@@ -2,6 +2,9 @@
 	Date: May 12, 2022
 		* Created a controller for several features on orders.
 		* Getting orders, delete order or update and create a order.
+
+	Date: June 1, 2022
+		* Add function to update the total sell of the product.
 */
 
 // Importing necessary files.
@@ -106,6 +109,7 @@ exports.updateOrder = catchAsyncError(async (req, res, next) => {
 
 		order.orderInfo.forEach(async (orderItem) => {
 			await stockUpdate(orderItem.product, orderItem.itemQuantity);
+			await updateSell(orderItem.product, orderItem.itemQuantity);
 		});
 	}
 
@@ -139,7 +143,15 @@ async function stockUpdate(id, quantity) {
 	const product = await productModel.findById(id);
 
 	product.productStock = product.productStock - quantity;
-	console.log(product.productStock);
 
 	await product.save({validateBeforeSave: false});
 };
+
+// Update number of time product has been sold.
+async function updateSell (id, quantity) {
+	const product = await productModel.findById(id);
+
+	product.totalSell = product.totalSell + quantity;
+
+	await product.save({validateBeforeSave: false})
+}

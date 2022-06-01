@@ -13,9 +13,15 @@
 		* Make resultsPerPage Global.
 		* Return categories and total products when searching products.
 
+	Date: May 31, 2022
+		* Add function for admin to get all products.
+
 	Date: June 1, 2022
 		* Add Images to Cloudinary in createProduct function.
 		* Delete product image from cloudinary when product is deleted.
+		* Created a function to get random products for the carousel.
+		* Created a function to get top 8 products for home page.
+		* Create a function to get highest selling products.
 */
 
 // Importing necessary files.
@@ -56,8 +62,7 @@ exports.createProduct = asyncCatch(async (req, res, next) => {
 
 	req.body.userCreatedProduct = req.user.id;
 
-
-	const newProduct = await productModel.create(req.body);
+	await productModel.create(req.body);
 
 	res.status(200).json({ status: true });
 });
@@ -138,6 +143,25 @@ exports.getAllProducts = asyncCatch(async (req, res, next) => {
 	});
 });
 
+// Get Random Products for the carousel.
+exports.getRandomProductCarousel = asyncCatch(async (req, res, next) => {
+	const randomProducts = await productModel.aggregate([
+		{ $sample: { size: 6 } }
+	]);
+
+	res.status(200).json({ status: true, randomProducts: randomProducts });
+});
+
+// Get Top 8 Home Selling Products.
+exports.getHomeHighestSellingProducts = asyncCatch(async (req, res, next) => {
+	// Sort Products descending by number of times they are sold and limit to 8.
+	const highestSellingProducts = await productModel.find({}).sort({ 'totalSell': -1 }).limit(8);
+	console.log(highestSellingProducts.length);
+
+	res.status(200).json({ status: true, highestSellingProducts: highestSellingProducts });
+});
+
+// Admin Get all the products.
 exports.getAllProductsAdmin = asyncCatch(async (req, res, next) => {
 	const products = await productModel.find({});
 

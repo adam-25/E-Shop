@@ -2,6 +2,9 @@
 	File: Product Model.
 	Date: May 8, 2022.
 		* Schema of the product.
+	
+	Date: June 1, 2022.
+		* Add the total sell of the product to schema.
 */
 
 // Importing necessary files for route.
@@ -83,8 +86,11 @@ const productSchema = new mongoose.Schema({
 	CreatedTimeOfProduct: {
 		type: Date,
 		date: Date.now()
+	},
+	totalSell: {
+		type: Number,
+		default: 0
 	}
-
 });
 
 module.exports = mongoose.model('Product', productSchema);

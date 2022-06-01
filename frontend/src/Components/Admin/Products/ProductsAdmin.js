@@ -42,52 +42,17 @@ const ProductsAdmin = () => {
 	// Delete product by admin.
 	const deleteProductID = async (id) => {
 		// Popup window to show delete or not.
-		const result = await confirm(<div><h3>Are you sure? </h3> <br/> <p> You want to delete this Product? </p></div> );
+		const result = await confirm(<div><h3>Are you sure? </h3> <br /> <p> You want to delete this Product? </p></div>);
 
 		// If yes then dispatch the action to delete an ite and reload the page.
 		if (result) {
-			dispatch(adminDeleteProduct(id));
+			await dispatch(adminDeleteProduct(id));
 			window.location.reload();
 			return;
 		}
-		else 
+		else
 			return;
 	}
-
-	useEffect(() => {
-
-		if (!window.location.hash) {
-			window.location = window.location + '#loaded';
-			window.location.reload();
-		}
-
-		// If admin is not logged in then redirect to login page.
-		if (!loading)
-			if (isAuthenticateUser === false)
-				history.push('/login');
-
-		// If user is not admin then cannot access dashboard.
-		if (!loading)
-			if (isAuthenticateUser === true)
-				if (user.userRole !== 'admin') {
-					history.push('/');
-					toast("Error: Cannot Access this Resource...")
-				}
-
-		if (error) {
-			toast("Error: " + error);
-			dispatch(clearErrors());
-		}
-
-		if (status === true) {
-			dispatch({ type: ADMIN_DELETE_PRODUCT_RESET });
-		}
-
-
-		// Dispatching action to get all products.
-		dispatch(adminAllProducts());
-
-	}, [loading, history, isAuthenticateUser, user, dispatch, error, status,]);
 
 	// Columns of the table DataGrid.
 	const columns = [
@@ -153,6 +118,41 @@ const ProductsAdmin = () => {
 			Price: product.productPrice,
 		})
 	});
+
+	useEffect(() => {
+
+		if (!window.location.hash) {
+			window.location = window.location + '#loaded';
+			window.location.reload();
+		}
+
+		// If admin is not logged in then redirect to login page.
+		if (!loading)
+			if (isAuthenticateUser === false)
+				history.push('/login');
+
+		// If user is not admin then cannot access dashboard.
+		if (!loading)
+			if (isAuthenticateUser === true)
+				if (user.userRole !== 'admin') {
+					history.push('/');
+					toast("Error: Cannot Access this Resource...")
+				}
+
+		if (error) {
+			toast("Error: " + error);
+			dispatch(clearErrors());
+		}
+
+		if (status === true) {
+			dispatch({ type: ADMIN_DELETE_PRODUCT_RESET });
+		}
+
+
+		// Dispatching action to get all products.
+		dispatch(adminAllProducts());
+
+	}, [loading, history, isAuthenticateUser, user, dispatch, error, status]);
 
 	return (
 		<Fragment>

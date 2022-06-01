@@ -4,6 +4,9 @@
 
 	Date: May 11, 2022
 		* Add, get or delete a review of a product.
+
+	Date: June 1, 2022
+		* Add Route to Get Random, Home featured Product.
 */
 
 // Importing necessary files.
@@ -26,6 +29,9 @@ router.route("/product/:id")
 .put(isAuthenticateUser, isAdmin("admin"), product.updateProduct)
 .delete(isAuthenticateUser, isAdmin("admin"), product.deleteProduct)
 .get(product.getOneProduct);
+
+router.route('/randomProducts').get(product.getRandomProductCarousel);
+router.route('/homeProducts').get(product.getHomeHighestSellingProducts);
 
 // Add Review of a product.
 router.route("/reviews/addReview").put(isAuthenticateUser, product.updateOrCreateReview);

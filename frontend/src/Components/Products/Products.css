@@ -16,6 +16,7 @@
 .all-products {
 	padding-left: 13vmax;
 	padding-right: 13vmax;
+	width: 100%;
 }
 
 /* PaginationBox center and margin. */

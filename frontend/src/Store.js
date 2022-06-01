@@ -28,11 +28,14 @@
 		* Add Reducer for product review.
 
 	Date: May 31, 2022
-		* Add 3 Reducers for Admin: 
+		* Add 4 Reducers for Admin: 
 			1). adminProducts.
 			2). adminOrders.
 			3). adminUsers.
 			4). adminCreateNewProduct
+	
+	Date: June 1, 2022
+		* Add Reducer to get random carousel products and home featured products.
 */
 
 // Creating Store.
@@ -41,7 +44,7 @@ import thunk from "redux-thunk";
 
 // Connect with Redux Web Extension.
 import { composeWithDevTools } from "redux-devtools-extension";
-import { AddOrUpdateReviewReducer, productReducer, specificProductReducer,  } from './Reducers/productReducer';
+import { AddOrUpdateReviewReducer, productReducer, specificProductReducer, carouselProductReducer, HomeProductReducer } from './Reducers/productReducer';
 import { userReducer } from "./Reducers/userReducer";
 import { profileReducer } from "./Reducers/profileReducer";
 import { forgotPasswordReducer } from "./Reducers/forgotPasswordReducer";
@@ -54,6 +57,8 @@ import { adminAllProductsReducer, adminCreateNewProductReducer } from "./Reducer
 // Combining Reducers.
 const reducer = combineReducers({
 	products: productReducer,
+	carouselProducts: carouselProductReducer,
+	homeProducts: HomeProductReducer,
 	oneProduct: specificProductReducer,
 	user: userReducer,
 	profile: profileReducer,
