@@ -2,6 +2,9 @@
 	Date: May 31, 2022
 		* Created Action for admin to get All Products.
 		* Add Creating a new Product.
+
+	Date: June 1, 2022
+		* Created Action for admin to delete a product.
 */
 
 // Importing necessary constants.
@@ -12,6 +15,9 @@ import {
 	ADMIN_NEW_PRODUCT_REQUEST,
 	ADMIN_NEW_PRODUCT_SUCCESS,
 	ADMIN_NEW_PRODUCT_FAILURE,
+	ADMIN_DELETE_PRODUCT_REQUEST,
+	ADMIN_DELETE_PRODUCT_SUCCESS,
+	ADMIN_DELETE_PRODUCT_FAILURE,
 	CLEAR_ERRORS
 } from "../../Constants/Admin/adminProductsConstants";
 
@@ -64,6 +70,30 @@ export const adminCreateNewProduct = (productData) => async (dispatch) => {
 		// Dispatching failure action.
 		dispatch({
 			type: ADMIN_NEW_PRODUCT_FAILURE,
+			payload: error.response.data.error
+		});
+	}
+}
+
+export const adminDeleteProduct = (productId) => async (dispatch) => {
+	try {
+
+		// Request to delete product.
+		dispatch({ type: ADMIN_DELETE_PRODUCT_REQUEST });
+
+		// Delete product data.
+		const { data } = await axios.delete("/api/v1/product/" + productId);
+
+		// Dispatching success action.
+		dispatch({
+			type: ADMIN_DELETE_PRODUCT_SUCCESS,
+			payload: data
+		});
+
+	} catch (error) {
+		// Dispatching failure action.
+		dispatch({
+			type: ADMIN_DELETE_PRODUCT_FAILURE,
 			payload: error.response.data.error
 		});
 	}

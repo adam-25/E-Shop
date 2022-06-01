@@ -21,3 +21,92 @@
 	color: #636363;
 	transform: scale(1.5);
 }
+
+/* Box of confirmation position absolute with the center of the screen */
+.confirm-box {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	left: 0;
+	right: 0;
+	font-family: "Comic Neue", cursive;
+	z-index: 0;
+	top: 50%;
+}
+
+/* Heading of confirmation box. */
+.confirm-box h3 {
+	color: rgb(180, 30, 30);
+	margin-bottom: 0px;
+	font-weight: 600;
+	font-size: 2.5rem;
+}
+
+/* Confirmation box paragraph tag. */
+.confirm-box p {
+	font-size: 2vmax;
+}
+
+/* Box width of 50% and padding. */
+.confirm-box__content {
+	width: 50%;
+	max-width: 100%;
+	padding: 3%;
+}
+
+/* Button style */
+.confirm-box__actions button:first-child {
+	background-color: rgb(180, 30, 30);
+	color: white;
+	border: none;
+	font-size: 1.5vmax;
+	padding: 10px 20px ;
+	margin-right: 10px;
+	border-radius: 5px;
+	transition: 0.5s;
+}
+
+/* Button hover style. */
+.confirm-box__actions button:first-child:hover {
+	background-color: rgb(119, 18, 18);
+}
+
+/* Button style */
+.confirm-box__actions button:last-child {
+	background-color: rgb(73, 54, 162);
+	color: white;
+	border: none;
+	font-size: 1.5vmax;
+	padding: 10px 20px ;
+	margin-right: 10px;
+	border-radius: 5px;
+	transition: 0.5s;
+}
+
+/* Button hover style */
+.confirm-box__actions button:last-child:hover {
+	background-color: rgb(43, 18, 144);
+}
+
+@media all and (max-width: 700px) {
+	/* Heading of the box */
+	.confirm-box h3 {
+		font-size: 3vmax;
+	}
+
+	/* Paragraph of the box. */
+	.confirm-box p {
+		font-size: 2vmax;
+	}
+
+	/* Box width of 80%. */
+	.confirm-box__content {
+		width: 80%;
+	}
+
+	/* Button font-size */
+	.confirm-box__actions button:last-child,
+	.confirm-box__actions button:first-child {
+		font-size: 1.7vmax;
+	}
+}

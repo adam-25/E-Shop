@@ -1,6 +1,10 @@
 /*
 	Date: May 31, 2022
 		* Creating Reducer for admin for products.
+		* Created Reducer for admin to create new Products.
+
+	Date: June 1, 2022
+		* Created Reducer for admin to delete Products.
 */
 
 // Importing necessary constants.
@@ -12,6 +16,10 @@ import {
 	ADMIN_NEW_PRODUCT_SUCCESS,
 	ADMIN_NEW_PRODUCT_FAILURE,
 	ADMIN_NEW_PRODUCT_RESET,
+	ADMIN_DELETE_PRODUCT_REQUEST,
+	ADMIN_DELETE_PRODUCT_SUCCESS,
+	ADMIN_DELETE_PRODUCT_FAILURE,
+	ADMIN_DELETE_PRODUCT_RESET,
 	CLEAR_ERRORS
 
 } from "../../Constants/Admin/adminProductsConstants";
@@ -54,25 +62,28 @@ export const adminAllProductsReducer = (state = { products: [] }, action) => {
 export const adminCreateNewProductReducer = (state = { status: false }, action) => {
 
 	switch (action.type) {
-
+		case ADMIN_DELETE_PRODUCT_REQUEST:
 		case ADMIN_NEW_PRODUCT_REQUEST:
 			return { 
 				...state,
 				loading: true,
 			};
 
+		case ADMIN_DELETE_PRODUCT_SUCCESS:
 		case ADMIN_NEW_PRODUCT_SUCCESS:
 			return { 
 				loading: false, 
 				status: action.payload.status,
 			};
 
+		case ADMIN_DELETE_PRODUCT_FAILURE:
 		case ADMIN_NEW_PRODUCT_FAILURE:
 			return { 
 				loading: false, 
 				error: action.payload 
 			};
-
+		
+		case ADMIN_DELETE_PRODUCT_RESET:
 		case ADMIN_NEW_PRODUCT_RESET:
 			return {
 				status: false,

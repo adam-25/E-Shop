@@ -1,6 +1,9 @@
 /*
 	Date: May 31, 2022
 		* Created Component for admin to get All Products.
+	
+	Date: June 1, 2022
+		* ADMIN delete the product.
 */
 
 // Importing necessary modules.
@@ -15,13 +18,15 @@ import { Link } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button } from '@material-ui/core';
+import { confirm } from "react-confirm-box";
 
 // Importing necessary components.
 import SideBar from '../Layout/SideBar';
 import MetaData from '../../Layout/MetaData';
 import Loading from '../../Loading/Loading';
 import Heading from '../../Layout/Heading/Heading';
-import { adminAllProducts, clearErrors } from '../../../Actions/Admin/adminProductsAction';
+import { adminAllProducts, adminDeleteProduct, clearErrors } from '../../../Actions/Admin/adminProductsAction';
+import { ADMIN_DELETE_PRODUCT_RESET } from '../../../Constants/Admin/adminProductsConstants';
 import './ProductsAdmin.css';
 
 // All Products Admin Component.
@@ -32,7 +37,22 @@ const ProductsAdmin = () => {
 
 	// Getting user and products from store.
 	const { user, loading, isAuthenticateUser } = useSelector(state => state.user);
-	const { error, products, loading: loadingProduct } = useSelector(state => state.adminProducts);
+	const { error, products, loading: loadingProduct, status } = useSelector(state => state.adminProducts);
+
+	// Delete product by admin.
+	const deleteProductID = async (id) => {
+		// Popup window to show delete or not.
+		const result = await confirm(<div><h3>Are you sure? </h3> <br/> <p> You want to delete this Product? </p></div> );
+
+		// If yes then dispatch the action to delete an ite and reload the page.
+		if (result) {
+			dispatch(adminDeleteProduct(id));
+			window.location.reload();
+			return;
+		}
+		else 
+			return;
+	}
 
 	useEffect(() => {
 
@@ -59,10 +79,15 @@ const ProductsAdmin = () => {
 			dispatch(clearErrors());
 		}
 
+		if (status === true) {
+			dispatch({ type: ADMIN_DELETE_PRODUCT_RESET });
+		}
+
+
 		// Dispatching action to get all products.
 		dispatch(adminAllProducts());
 
-	}, [loading, history, isAuthenticateUser, user, dispatch, error]);
+	}, [loading, history, isAuthenticateUser, user, dispatch, error, status,]);
 
 	// Columns of the table DataGrid.
 	const columns = [
@@ -78,14 +103,14 @@ const ProductsAdmin = () => {
 			headerName: "Product Name",
 			minWidth: 250,
 			flex: 0.6
-		}, 
+		},
 		{
 			field: "Stock",
 			headerName: "Product Stock",
 			type: "number",
 			minWidth: 200,
 			flex: 0.4
-		}, 
+		},
 		{
 			field: "Price",
 			headerName: "Product Price",
@@ -109,7 +134,7 @@ const ProductsAdmin = () => {
 						</Link>
 						{/* Delete Button. */}
 						<Button>
-							<DeleteIcon />
+							<DeleteIcon onClick={(() => deleteProductID(params.getValue(params.id, "id")))} />
 						</Button>
 					</Fragment>
 				)
@@ -139,7 +164,7 @@ const ProductsAdmin = () => {
 				{/* Heading of the page. */}
 				<Heading props="All Products" />
 				{/* DataGrid Table. */}
-				<DataGrid 
+				<DataGrid
 					rows={rows}
 					columns={columns}
 					pageSize={10}

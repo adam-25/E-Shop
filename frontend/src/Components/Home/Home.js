@@ -74,7 +74,7 @@ const Home = () => {
 					{isAuthenticateUser && <UserOptions />}
 
 					{/* Heading */}
-					<div style={{ marginTop: "5%" }}></div>
+					<div style={{ marginTop: "3%" }}></div>
 					<Heading props={"Featured Products"} />
 
 					{/* ProductCards */}

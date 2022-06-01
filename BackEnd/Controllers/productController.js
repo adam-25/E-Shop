@@ -15,6 +15,7 @@
 
 	Date: June 1, 2022
 		* Add Images to Cloudinary in createProduct function.
+		* Delete product image from cloudinary when product is deleted.
 */
 
 // Importing necessary files.
@@ -87,10 +88,15 @@ exports.deleteProduct = asyncCatch(async (req, res, next) => {
 
 	if (!deleteProduct) {
 		return next(new ErrorHandler("Product Not Found", 404));
-	} else {
-		deleteProduct = await productModel.findByIdAndRemove(req.params.id);
-		res.status(200).json({ status: "Deleted Successfully" });
 	}
+
+	// Destroy the product image in cloudinary.
+	for (let i = 0; i < deleteProduct.productImages.length; i++) {
+		await cloudnary.v2.uploader.destroy(deleteProduct.productImages[i].imagePublicId);
+	}
+
+	deleteProduct = await productModel.findByIdAndRemove(req.params.id);
+	res.status(200).json({ status: true });
 });
 
 // Getting particular product from DB by ID.
