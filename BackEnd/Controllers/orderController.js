@@ -80,15 +80,15 @@ exports.updateOrder = catchAsyncError(async (req, res, next) => {
 	const order = await orderModel.findById(req.params.id);
 
 	if (!order) {
-		return next(new ErrorHandler('Order has not been found.', 404));
+		return next(new ErrorHandler('Order has not been found.', 400));
 	}
 
 	if (order.orderStatus === "Delivered") {
-		return next(new ErrorHandler("Order is already delivered", 404));
+		return next(new ErrorHandler("Order is already delivered", 400));
 	}
 
 	if (order.orderStatus === "Shipped" && req.body.orderStatus === "Shipped")	{
-		return next(new ErrorHandler("Order is already shipping", 404));
+		return next(new ErrorHandler("Order is already shipping", 400));
 	}
 
 	if (order.orderStatus === "Processing" && req.body.orderStatus === "Delivered")	{
@@ -96,11 +96,11 @@ exports.updateOrder = catchAsyncError(async (req, res, next) => {
 	}
 
 	if (order.orderStatus === "Shipped" && req.body.orderStatus === "Processing")	{
-		return next(new ErrorHandler("Order cannot be processed after Shipped", 404));
+		return next(new ErrorHandler("Order cannot be processed after Shipped", 400));
 	}
 
 	if (order.orderStatus === "Processing" && req.body.orderStatus === "Processing")	{
-		return next(new ErrorHandler("Order is already in Processing", 404));
+		return next(new ErrorHandler("Order is already in Processing", 400));
 	}
 
 	order.orderStatus = req.body.orderStatus;
@@ -108,8 +108,8 @@ exports.updateOrder = catchAsyncError(async (req, res, next) => {
 	if (req.body.orderStatus === "Shipped") {
 
 		order.orderInfo.forEach(async (orderItem) => {
-			await stockUpdate(orderItem.product, orderItem.itemQuantity);
-			await updateSell(orderItem.product, orderItem.itemQuantity);
+			await stockUpdate(orderItem.productID, orderItem.itemQuantity);
+			await updateSell(orderItem.productID, orderItem.itemQuantity);
 		});
 	}
 
@@ -118,7 +118,7 @@ exports.updateOrder = catchAsyncError(async (req, res, next) => {
 	};
 
 	await order.save();
-	res.status(200).json({ status: true, message: order.orderStatus });
+	res.status(200).json({ status: true });
 
 });
 
@@ -139,7 +139,6 @@ exports.deleteOrder = catchAsyncError(async (req, res, next) => {
 
 // Update a product stock depend on the order.s
 async function stockUpdate(id, quantity) {
-
 	const product = await productModel.findById(id);
 
 	product.productStock = product.productStock - quantity;

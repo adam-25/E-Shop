@@ -74,15 +74,15 @@ export const adminDeleteOrder = (id) => async (dispatch) => {
 }
 
 // Admin update Order Action
-export const adminUpdateOrder = (orderData, id) => async (dispatch) => {
+export const adminUpdateOrder = (orderStatus, id) => async (dispatch) => {
 	try {
-		
+
 		dispatch({ type: ADMIN_ORDER_UPDATE_REQUEST });
 
 		const config = {headers: {'Content-Type': 'application/json'}};
 
 		// Get all orders data.
-		const { data } = await axios.get("/api/v1/admin/order/" + id, orderData, config);
+		const { data } = await axios.put("/api/v1/admin/order/" + id, { orderStatus }, config);
 
 		// Dispatching success action.
 		dispatch({

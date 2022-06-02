@@ -106,7 +106,7 @@ const OrdersAdmin = () => {
 				return (
 					<Fragment>
 						{/* Edit Button with link to the id of the product. */}
-						<Link to={"/admin/order/edit/" + params.getValue(params.id, "id")}>
+						<Link to={"/admin/order/view/" + params.getValue(params.id, "id")}>
 							<EditIcon />
 						</Link>
 						{/* Delete Button. */}

@@ -97,7 +97,7 @@ const SpecificOrder = ({ match }) => {
 
 							{specificOrder.orderStatus && <div className='order-status-info'>
 								<p>ORDER STATUS</p>
-								<p>{specificOrder.orderStatus}</p>
+								<p className={specificOrder.orderStatus === "Delivered" ? "green-color" : "red-color"}>{specificOrder.orderStatus}</p>
 							</div>}
 
 							{/* Order Summery */}

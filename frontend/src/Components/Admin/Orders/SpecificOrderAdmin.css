@@ -1,0 +1,54 @@
+/* Contain div and button to change order status. 
+	Align Item Center and width 100%
+*/
+.orderStatus-update > div {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+/* Select input style width of 80% */
+.css-b62m3t-container {
+	width: 80%;
+	margin-top: 10px;
+}
+
+/* Update Status button style */
+.orderStatus-update button:last-child {
+	border-radius: 4px;
+	font-family: "Comic Neue", cursive;
+	outline: none;
+	padding: 0.5vmax 2vmax;
+	background-color: #983820;
+	color: white;
+	border: none;
+	cursor: pointer;
+	margin-top: 10px;
+	transition: 0.5s;
+}
+
+/* Update Button hover style */
+.orderStatus-update button:last-child:hover {
+	background-color: #b04b2b;
+}
+
+/* Update Button disabled style */
+.orderStatus-update button:disabled {
+	background-color: #6d4438;
+	color: white;
+	cursor: not-allowed;
+}
+
+@media all and (max-width: 992px) {
+	/* Contain div and button to change order status. */
+	.orderStatus-update > div {
+		margin-top: 12px;
+		width: 70%;
+	}
+
+	/* Update Status button style -- width and padding. */
+	.orderStatus-update button:last-child {
+		width: 70%;
+		padding: 0.8vmax 2vmax;
+	}
+}

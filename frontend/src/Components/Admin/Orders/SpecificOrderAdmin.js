@@ -3,17 +3,24 @@
 		* Specific Order Admin Component.
 */
 
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+// For Select Button.
+import Select from 'react-select';
+
 import MetaData from '../../Layout/MetaData';
 import OrderItemInfoCardAdmin from "./OrderItemInfoCardAdmin";
 import Loading from '../../Loading/Loading';
+import SideBar from '../Layout/SideBar';
+import { adminUpdateOrder, clearErrors as clearUpdateErrors } from '../../../Actions/Admin/adminOrderAction';
 import { getSpecificOrder, clearErrors } from '../../../Actions/orderAction';
 import { clearErrors as clearUserErrors } from '../../../Actions/userAction';
-import SideBar from '../Layout/SideBar';
+import { ADMIN_ORDER_DELETE_RESET } from '../../../Constants/Admin/adminOrderConstants';
+import './SpecificOrderAdmin.css';
+
 const SpecificOrder = ({ match }) => {
 
 	// Get order ID from URL.
@@ -24,6 +31,7 @@ const SpecificOrder = ({ match }) => {
 	// Getting User and it's order.
 	const { isAuthenticateUser, loading, error, user } = useSelector(state => state.user);
 	const { specificOrder, loadingOrder, error: orderError } = useSelector(state => state.specificOrder);
+	const { status, loading: updateLoading, error: updateError } = useSelector(state => state.adminUpdateOrder);
 
 	// Function which return the format of date.
 	const dateOfOrder = (paidAt) => {
@@ -36,6 +44,19 @@ const SpecificOrder = ({ match }) => {
 		if (mm < 10) mm = '0' + mm;
 
 		return today = mm + '/' + dd + '/' + yyyy;
+	}
+
+	const [orderCurrentStatus, setOrderCurrentStatus] = useState('');
+
+	const updateOrderStatus = (e) => {
+		e.preventDefault();
+
+		if (specificOrder.orderStatus === "Processing" && orderCurrentStatus.value === "Delivered") {
+			toast("Order Cannot be Delivered Directly from Processing...");
+			return;
+		}
+		
+		dispatch(adminUpdateOrder(orderCurrentStatus.value, match.params.id));
 	}
 
 	useEffect(() => {
@@ -67,14 +88,24 @@ const SpecificOrder = ({ match }) => {
 			dispatch(clearUserErrors());
 		}
 
+		if (updateError) {
+			toast("Error: " + updateError);
+			dispatch(clearUpdateErrors());
+		}
+
+		if (status === true) {
+			dispatch({ type: ADMIN_ORDER_DELETE_RESET });
+			history.push('/admin/orders');
+		}
+
 		// Dispatch an action of specific order and passing an ID of an order.
 		dispatch(getSpecificOrder(orderID));
 
-	}, [history, loading, isAuthenticateUser, dispatch, orderID, orderError, error, user]);
+	}, [history, loading, isAuthenticateUser, dispatch, orderID, orderError, error, user, status, updateError]);
 
 	return (
 		<Fragment>
-			{loadingOrder || loading ? <Loading /> : specificOrder && <Fragment>
+			{loadingOrder || loading || updateLoading ? <Loading /> : specificOrder && <Fragment>
 				{/* Page Title */}
 				<MetaData title="Order Detail -- ADMIN" />
 				<SideBar />
@@ -107,8 +138,20 @@ const SpecificOrder = ({ match }) => {
 							</div>}
 
 							{specificOrder.orderStatus && <div className='order-status-info'>
-								<p>ORDER STATUS</p>
-								<p>{specificOrder.orderStatus}</p>
+								<div>
+									<p>ORDER STATUS</p>
+									<p className={specificOrder.orderStatus === "Delivered" ? "green-color" : "red-color"}>{specificOrder.orderStatus}</p>
+								</div>
+								<div className='orderStatus-update'>
+									<div>
+										<Select
+											options={specificOrder.orderStatus === "Processing" ? [{ value: "Shipped", label: "Shipped" }, { value: "Delivered", label: "Delivered" }] : specificOrder.orderStatus === "Shipped" ? [{ value: "Delivered", label: "Delivered" }] : specificOrder.orderStatus === "Delivered" ? [{}] : [{}]}
+											defaultValue={orderCurrentStatus.value}
+											onChange={setOrderCurrentStatus}
+										/>
+									</div>
+									<button onClick={updateOrderStatus} disabled={updateLoading === true ? true : false || (orderCurrentStatus.value === 'Delivered' || orderCurrentStatus.value === 'Shipped') ? false : true} >Update Status</button>
+								</div>
 							</div>}
 
 							{/* Order Summery */}

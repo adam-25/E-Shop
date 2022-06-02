@@ -68,18 +68,21 @@ export const adminUpdateDeleteOrderReducer = (state = { status: false }, action)
 				...state,
 				loading: true,
 			};
+
 		case ADMIN_ORDER_DELETE_SUCCESS:
 		case ADMIN_ORDER_UPDATE_SUCCESS:
 			return {
 				loading: false,
 				status: action.payload.status
 			};
+
 		case ADMIN_ORDER_DELETE_FAILURE:
 		case ADMIN_ORDER_UPDATE_FAILURE:
 			return {
 				loading: false,
 				error: action.payload
 			};
+
 		case ADMIN_ORDER_DELETE_RESET:
 		case ADMIN_ORDER_UPDATE_RESET:
 			return {
