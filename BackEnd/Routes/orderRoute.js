@@ -22,7 +22,8 @@ router.route("/myOrder").get(isAuthenticateUser, order.myOrders);
 router.route("/admin/order").get(isAuthenticateUser, isAdmin("admin"), order.allOrders);
 
 // Update or Delete an existing order -- ADMIN
-router.route("/admin/order/:id").delete(isAuthenticateUser, isAdmin("admin"), order.deleteOrder)
-.put(isAuthenticateUser, isAdmin("admin"), order.updateOrder);
+router.route("/admin/order/:id")
+	.delete(isAuthenticateUser, isAdmin("admin"), order.deleteOrder)
+	.put(isAuthenticateUser, isAdmin("admin"), order.updateOrder);
 
 module.exports = router;

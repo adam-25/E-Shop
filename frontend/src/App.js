@@ -56,6 +56,7 @@
 
 	Date: June 1, 2022
 		* Add Route to Update a Product.
+		* Add Route where Admin can details of a particular order.
 */
 
 // Importing CSS and Router, doms.
@@ -97,6 +98,7 @@ import ProductsAdmin from './Components/Admin/Products/ProductsAdmin';
 import CreateNewProduct from './Components/Admin/CreateNewProduct/CreateNewProduct.js';
 import UpdateProduct from './Components/Admin/UpdateProduct/UpdateProduct.js';
 import OrdersAdmin from './Components/Admin/Orders/OrdersAdmin.js';
+import SpecificOrderAdmin from './Components/Admin/Orders/SpecificOrderAdmin.js';
 
 function App() {
 
@@ -158,6 +160,7 @@ function App() {
 			<Route exact path="/admin/newProduct" component={CreateNewProduct} />
 			<Route exact path="/admin/product/edit/:id" component={UpdateProduct} />
 			<Route exact path="/admin/orders" component={OrdersAdmin} />
+			<Route exact path="/admin/order/view/:id" component={SpecificOrderAdmin} />
 
 			{/* Footer of the website. */}
 			<Footer />

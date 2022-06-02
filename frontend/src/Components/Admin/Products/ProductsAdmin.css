@@ -1,3 +1,14 @@
+/* Give color to link of the orders which is id. */
+.MuiDataGrid-main a {
+	text-decoration: none;
+	color: rgba(0, 0, 0, 0.87);
+}
+
+.MuiDataGrid-main a:hover {
+	text-decoration: none;
+	color: #21448e
+}
+
 /* Giving margin and padding to Table. */
 .products-admin-grid {
 	margin: 50px 40px 0 40px;
@@ -108,5 +119,9 @@
 	.confirm-box__actions button:last-child,
 	.confirm-box__actions button:first-child {
 		font-size: 1.7vmax;
+	}
+
+	.MuiDataGrid-root *, .MuiDataGrid-root *::before, .MuiDataGrid-root *::after {
+		font-size: 1.5rem;
 	}
 }

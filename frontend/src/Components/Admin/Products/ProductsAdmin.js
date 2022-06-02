@@ -61,8 +61,8 @@ const ProductsAdmin = () => {
 		{
 			field: "id",
 			headerName: "ID",
-			minWidth: 250,
-			flex: 0.65
+			minWidth: 260,
+			flex: 0.7
 		},
 		{
 			field: "Name",

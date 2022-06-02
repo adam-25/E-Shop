@@ -36,7 +36,8 @@
 	
 	Date: June 1, 2022
 		* Add Reducer to get random carousel products and home featured products.
-		* Add Reducer to update a product.
+		* Add Reducer to update a order.
+		* Add Reducer to delete a order.
 */
 
 // Creating Store.
@@ -51,7 +52,7 @@ import { profileReducer } from "./Reducers/profileReducer";
 import { forgotPasswordReducer } from "./Reducers/forgotPasswordReducer";
 import { cartReducer } from "./Reducers/cartReducer";
 import { createOrderReducer, myOrderReducer, specificOrderReducer } from "./Reducers/orderReducer";
-import { adminAllOrderReducer } from "./Reducers/Admin/adminOrderReducer";
+import { adminAllOrderReducer, adminUpdateDeleteOrderReducer } from "./Reducers/Admin/adminOrderReducer";
 import { adminAllUsersReducer } from "./Reducers/Admin/adminUsersReducer";
 import { adminAllProductsReducer, adminCreateNewProductReducer, adminUpdateProductReducer } from "./Reducers/Admin/adminProductReducer";
 
@@ -73,7 +74,8 @@ const reducer = combineReducers({
 	adminUsers: adminAllUsersReducer,
 	adminProducts: adminAllProductsReducer,
 	adminCreateNewProduct: adminCreateNewProductReducer,
-	adminUpdateProduct: adminUpdateProductReducer
+	adminUpdateProduct: adminUpdateProductReducer,
+	adminUpdateOrder: adminUpdateDeleteOrderReducer
 });
 
 let initialState = {
