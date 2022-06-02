@@ -96,6 +96,7 @@ import DashBoard from "./Components/Admin/Dashboard/DashBoard";
 import ProductsAdmin from './Components/Admin/Products/ProductsAdmin';
 import CreateNewProduct from './Components/Admin/CreateNewProduct/CreateNewProduct.js';
 import UpdateProduct from './Components/Admin/UpdateProduct/UpdateProduct.js';
+import OrdersAdmin from './Components/Admin/Orders/OrdersAdmin.js';
 
 function App() {
 
@@ -156,6 +157,7 @@ function App() {
 			<Route exact path="/admin/products" component={ProductsAdmin} />
 			<Route exact path="/admin/newProduct" component={CreateNewProduct} />
 			<Route exact path="/admin/product/edit/:id" component={UpdateProduct} />
+			<Route exact path="/admin/orders" component={OrdersAdmin} />
 
 			{/* Footer of the website. */}
 			<Footer />

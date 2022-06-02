@@ -1,6 +1,6 @@
 /*
 	Date: May 31, 2022
-		* Created Component for admin to create new Products.
+		* Created Component for admin to update Products.
 */
 
 // Importing necessary modules.
@@ -26,18 +26,17 @@ import { adminUpdateProduct, clearErrors } from '../../../Actions/Admin/adminPro
 import { ADMIN_UPDATE_PRODUCT_RESET } from '../../../Constants/Admin/adminProductsConstants';
 import { getSpecificProduct, clearErrors as clearOneOrderError } from '../../../Actions/productAction';
 import { clearErrors as clearUserError } from '../../../Actions/userAction';
-import './UpdateProduct.css';
 
 // Creating new Product Component.
-const UpdateProduct = ( {match} ) => {
+const UpdateProduct = ({ match }) => {
 
 	const history = useHistory();
 	const dispatch = useDispatch();
 
 	// Getting user and products from store.
 	const { user, loading, isAuthenticateUser, error: userError } = useSelector(state => state.user);
-	const { error, status, loading: loadingCreateProduct } = useSelector(state => state.adminUpdateProduct);
-	const { oneProduct, loadingOneProduct, error: orderError } = useSelector(state => state.product);
+	const { error, status, loading: loadingUpdateProduct } = useSelector(state => state.adminUpdateProduct);
+	const { oneProduct, loadingOneProduct, error: orderError } = useSelector(state => state.oneProduct);
 
 	// useState to set value of each input.
 	const [productName, setProductName] = useState();
@@ -46,10 +45,11 @@ const UpdateProduct = ( {match} ) => {
 	const [productStock, setProductStock] = useState();
 	const [productCategory, setProductCategory] = useState();
 	const [productImages, setProductImages] = useState([]);
+	const [oldProductImages, setOldProductImages] = useState([]);
 	const [productImagePreview, setProductImagePreview] = useState([]);
 
 	// When Form is submitted.
-	const createProductSubmit = (e) => {
+	const updateProductSubmit = (e) => {
 		e.preventDefault();
 
 		// Data to send to backend.
@@ -62,8 +62,11 @@ const UpdateProduct = ( {match} ) => {
 			productImages
 		}
 
-		// dispatch action to create new product.
-		dispatch(adminUpdateProduct(productData));
+		setOldProductImages([]);
+
+		// dispatch action to update new product.
+		dispatch(adminUpdateProduct(productData, match.params.id));
+
 	}
 
 	// Adding images to productImage and productImagePreview array.
@@ -129,16 +132,27 @@ const UpdateProduct = ( {match} ) => {
 		// If product creation is successful then toast success and redirect to dashboard.
 		if (status === true) {
 			dispatch({ type: ADMIN_UPDATE_PRODUCT_RESET });
+			console.log("Hello");
 			history.push('/admin/products');
 		}
 
-		dispatch(getSpecificProduct(match.params.id));
+		if (oneProduct && oneProduct._id !== match.params.id)
+			dispatch(getSpecificProduct(match.params.id));
+		else {
+			console.log(oneProduct);
+			setProductName(oneProduct.productName);
+			setProductDescription(oneProduct.productDescription);
+			setProductPrice(oneProduct.productPrice);
+			setProductStock(oneProduct.productStock);
+			setProductCategory(oneProduct.productCategory);
+			setOldProductImages(oneProduct.productImages);
+		}
 
-	}, [loading, history, isAuthenticateUser, user, dispatch, error, status, match.params.id, orderError, userError]);
+	}, [loading, history, isAuthenticateUser, user, dispatch, error, status, match.params.id, orderError, userError, oneProduct]);
 
 	return (
 		<Fragment>
-			{loadingCreateProduct || loading || loadingOneProduct ? <Loading /> : <Fragment>
+			{loadingUpdateProduct || loading || loadingOneProduct ? <Loading /> : <Fragment>
 				{/* Title of the page */}
 				<MetaData title="Update Product -- ADMIN" />
 				{/* Side Bar */}
@@ -147,16 +161,16 @@ const UpdateProduct = ( {match} ) => {
 				<Heading props="New Product Info..." />
 				<div className='new-product-container'>
 					{/* Form of creating a product */}
-					<form className='product-create-form' onSubmit={createProductSubmit}>
+					<form className='product-create-form' onSubmit={updateProductSubmit}>
 						{/* Product Name Div */}
 						<div>
 							<h5> Product Name: </h5>
 							<AbcIcon />
 							<input
 								type="text"
-								placeholder='Product Name...'
-								required
+								placeholder={oneProduct.productName}
 								value={productName}
+								required
 								onChange={(e) => setProductName(e.target.value)} />
 						</div>
 						{/* Product Price Div */}
@@ -165,9 +179,9 @@ const UpdateProduct = ( {match} ) => {
 							<SellIcon />
 							<input
 								type="number"
-								placeholder='Product Price...'
-								required
+								placeholder={oneProduct.productPrice}
 								value={productPrice}
+								required
 								onChange={(e) => setProductPrice(e.target.value)} />
 						</div>
 						{/* Product Category Div */}
@@ -176,7 +190,7 @@ const UpdateProduct = ( {match} ) => {
 							<CategoryIcon />
 							<input
 								type="text"
-								placeholder='Product Category...'
+								placeholder={oneProduct.productCategory}
 								required
 								value={productCategory}
 								onChange={(e) => setProductCategory(e.target.value)} />
@@ -186,7 +200,7 @@ const UpdateProduct = ( {match} ) => {
 							<h5> Product Description: </h5>
 							<DescriptionIcon />
 							<textarea
-								placeholder='Product Description...'
+								placeholder={oneProduct.productDescription}
 								required
 								value={productDescription}
 								onChange={(e) => setProductDescription(e.target.value)}
@@ -199,7 +213,7 @@ const UpdateProduct = ( {match} ) => {
 							<StorageIcon />
 							<input
 								type="number"
-								placeholder='Product Stock...'
+								placeholder={oneProduct.productStock}
 								required
 								value={productStock}
 								onChange={(e) => setProductStock(e.target.value)} />
@@ -212,14 +226,27 @@ const UpdateProduct = ( {match} ) => {
 								type="file"
 								accept='image/*'
 								name='Product Image'
+								required
 								onChange={addImages}
 								multiple
-								required />
+							/>
 						</div>
 						{/* Product Image Preview Div */}
 						{/* Shows the added Images. */}
 						<div className='product-image-preview'>
-							<h5> Product Images Preview: </h5>
+							<h5> Old Product Images Preview: </h5>
+							<div>
+								{oldProductImages && oldProductImages.map((image, index) => {
+									return (
+										<img src={image.imageURL} alt={index} key={index} />
+									)
+								})}
+							</div>
+						</div>
+						{/* Product Image Preview Div */}
+						{/* Shows the added Images. */}
+						<div className='product-image-preview'>
+							<h5> New Product Images Preview: </h5>
 							<div>
 								{productImagePreview.map((image, index) => {
 									return (
@@ -228,8 +255,8 @@ const UpdateProduct = ( {match} ) => {
 								})}
 							</div>
 						</div>
-						{/* Button disable when loading to submit the created product. */}
-						<button disabled={loadingCreateProduct ? true : false} type="submit" className='create-product-button' >
+						{/* Button disable when loading to submit the updated product. */}
+						<button disabled={loadingUpdateProduct ? true : false} type="submit" className='create-product-button' >
 							Update Product
 						</button>
 					</form>

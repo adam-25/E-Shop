@@ -104,7 +104,7 @@ export const adminDeleteProduct = (productId) => async (dispatch) => {
 }
 
 // Admin update a product Action.
-export const adminUpdateProduct = (productData) => async (dispatch) => {
+export const adminUpdateProduct = (productData, id) => async (dispatch) => {
 	try {
 
 		// Request to update product.
@@ -113,7 +113,7 @@ export const adminUpdateProduct = (productData) => async (dispatch) => {
 		const config = {headers: {'Content-Type': 'application/json'}};
 
 		// Update product data.
-		const { data } = await axios.put("/api/v1/product/" + productData.productID, productData, config);
+		const { data } = await axios.put("/api/v1/product/" + id, productData, config);
 
 		// Dispatching success action.
 		dispatch({

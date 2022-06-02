@@ -22,6 +22,7 @@
 		* Created a function to get random products for the carousel.
 		* Created a function to get top 8 products for home page.
 		* Create a function to get highest selling products.
+		* Update Product with Images.
 */
 
 // Importing necessary files.
@@ -69,22 +70,52 @@ exports.createProduct = asyncCatch(async (req, res, next) => {
 
 // Update a Product in DB. -- ADMIN ONLY
 exports.updateProduct = asyncCatch(async (req, res, next) => {
+
 	let updateProduct = await productModel.findById(req.params.id);
+
 
 	if (!updateProduct) {
 		return next(new ErrorHandler("Product Not Found", 404));
-	} else {
-		updateProduct = await productModel.findByIdAndUpdate(
-			req.params.id,
-			req.body,
-			{
-				new: true,
-				runValidators: true,
-				useFindAndModify: false,
-			}
-		);
-		res.status(200).json({ status: true });
 	}
+
+	let productImages = [];
+
+	// Get all Images in productImages.
+	if (typeof req.body.productImages === "string") {
+		productImages.push(req.body.productImages);
+	}
+	else {
+		productImages = req.body.productImages;
+	}
+
+	// Destroy the product image in cloudinary.
+	for (let i = 0; i < updateProduct.productImages.length; i++) {
+		await cloudnary.v2.uploader.destroy(updateProduct.productImages[i].imagePublicId);
+	}
+
+	// All New Product images which we get from the front end to cloudinary.
+	let productImageURL = [];
+
+	for (let i = 0; i < productImages.length; i++) {
+		const result = await cloudnary.v2.uploader.upload(productImages[i],
+			{ folder: "PRODUCTS_IMAGE" }
+		);
+
+		productImageURL.push({
+			imagePublicId: result.public_id,
+			imageURL: result.secure_url
+		});
+	}
+
+	req.body.productImages = productImageURL;
+
+	// Update Model.
+	updateProduct = await productModel.findByIdAndUpdate(
+		req.params.id,
+		req.body
+	);
+
+	res.status(200).json({ status: true });
 });
 
 // Delete a product in DB. -- ADMIN ONLY
