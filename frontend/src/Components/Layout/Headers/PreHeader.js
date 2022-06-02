@@ -13,18 +13,16 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 
 // Importing to redirect for searching items.
 import { useHistory } from "react-router-dom";
 
 import logo from '../../../Images/logo.png';
 import './preHeaderStyles.css';
-import { clearErrors } from '../../../Actions/userAction';
 
 const PreHeader = () => {
 
-	const { user, isAuthenticateUser, error, loading } = useSelector(state => state.user);
+	const { user, isAuthenticateUser, loading } = useSelector(state => state.user);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -36,13 +34,8 @@ const PreHeader = () => {
 			}
 		}
 
-		if (error) {
-			toast.error("Error: " + error);
-			dispatch(clearErrors());
-		}
-
 		// eslint-disable-next-line
-	}, [isAuthenticateUser, error, dispatch, loading]);
+	}, [isAuthenticateUser, dispatch, loading]);
 
 
 	const [label, setLabel] = useState("");

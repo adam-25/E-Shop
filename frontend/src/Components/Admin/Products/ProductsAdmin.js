@@ -62,7 +62,10 @@ const ProductsAdmin = () => {
 			field: "id",
 			headerName: "ID",
 			minWidth: 260,
-			flex: 0.7
+			flex: 0.7,
+			renderCell: (params) => {
+				return <Link to={`/admin/product/edit/${params.value}`}>{params.value}</Link>
+			}
 		},
 		{
 			field: "Name",
@@ -140,7 +143,7 @@ const ProductsAdmin = () => {
 			if (isAuthenticateUser === false)
 				history.push('/login');
 
-		// If user is not admin then cannot access dashboard.
+		// If user is not admin then cannot access all Products.
 		if (!loading)
 			if (isAuthenticateUser === true)
 				if (user.userRole !== 'admin') {

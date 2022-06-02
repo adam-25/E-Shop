@@ -21,10 +21,13 @@ const crypto = require('crypto');
 
 exports.registerUser = catchError(async (req, res, next) => {
 
-	const { userFullName, userEmail, userPassword } = req.body;
+	let { userFullName, userEmail, userPassword } = req.body;
 
-	const userFirstName = userFullName.trim().split(" ")[0];
-	const userLastName = userFullName.trim().split(" ")[1];
+
+
+	userFullName = userFullName.trim().split(' ')[0].charAt(0).toUpperCase() + userFullName.trim().split(' ')[0].slice(1) + ' ' + userFullName.trim().split(' ')[1].charAt(0).toUpperCase() + userFullName.trim().split(' ')[1].slice(1);
+	const userFirstName = userFullName.trim().split(" ")[0].charAt(0).toUpperCase() + userFullName.trim().split(" ")[0].slice(1);
+	const userLastName = userFullName.trim().split(" ")[1].charAt(0).toUpperCase() + userFullName.trim().split(" ")[1].slice(1);
 
 	const user = await userModel.create({ userFullName, userFirstName, userLastName, userEmail, userPassword });
 
@@ -175,8 +178,8 @@ exports.updateName = catchError(async function (req, res, next) {
 
 	user.userFullName = req.body.newFullName;
 
-	user.userFirstName = req.body.newFullName.split(" ")[0];
-	user.userLastName = req.body.newFullName.split(" ")[1];
+	const userFirstName = user.userFullName.trim().split(" ")[0].charAt(0).toUpperCase() + user.userFullName.trim().split(" ")[0].slice(1);
+	const userLastName = user.userFullName.trim().split(" ")[1].charAt(0).toUpperCase() + user.userFullName.trim().split(" ")[1].slice(1);
 
 	await user.save();
 
@@ -221,19 +224,6 @@ exports.updateUserRole = catchError(async (req, res, next) => {
 
 	const user = await userModel.findById(req.params.id);
 
-	if (!user)
-		return next(new ErrorHandler("User not exist with id " + req.params.id));
-
-	if (!req.body.newFullName)
-		req.body.newFullName = user.userFullName;
-	else
-		user.userFullName = req.body.newFullName;
-
-	if (!req.body.newEmail)
-		req.body.newEmail = user.userEmail;
-	else
-		user.userEmail = req.body.newEmail;
-
 	if (!req.body.newRole)
 		req.body.newRole = user.userRole;
 	else
@@ -241,7 +231,7 @@ exports.updateUserRole = catchError(async (req, res, next) => {
 
 	await user.save();
 
-	res.status(200).json({ status: true, message: "User details has been updated successfully" });
+	res.status(200).json({ status: true });
 
 });
 
@@ -250,7 +240,7 @@ exports.deleteUser = catchError(async (req, res, next) => {
 
 	await userModel.deleteOne({ _id: req.user.id });
 
-	res.status(200).send({ success: true, message: "User has been deleted successfully." });
+	res.status(200).send({ status: true });
 });
 
 // Delete user -- ADMIN

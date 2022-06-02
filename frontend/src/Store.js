@@ -38,6 +38,9 @@
 		* Add Reducer to get random carousel products and home featured products.
 		* Add Reducer to update a order.
 		* Add Reducer to delete a order.
+
+	Date: June 2, 2022
+		* Add Reducer to delete or update a user.
 */
 
 // Creating Store.
@@ -47,13 +50,13 @@ import thunk from "redux-thunk";
 // Connect with Redux Web Extension.
 import { composeWithDevTools } from "redux-devtools-extension";
 import { AddOrUpdateReviewReducer, productReducer, specificProductReducer, carouselProductReducer, HomeProductReducer } from './Reducers/productReducer';
-import { userReducer } from "./Reducers/userReducer";
+import { deleteUserReducer, userReducer } from "./Reducers/userReducer";
 import { profileReducer } from "./Reducers/profileReducer";
 import { forgotPasswordReducer } from "./Reducers/forgotPasswordReducer";
 import { cartReducer } from "./Reducers/cartReducer";
 import { createOrderReducer, myOrderReducer, specificOrderReducer } from "./Reducers/orderReducer";
 import { adminAllOrderReducer, adminUpdateDeleteOrderReducer } from "./Reducers/Admin/adminOrderReducer";
-import { adminAllUsersReducer } from "./Reducers/Admin/adminUsersReducer";
+import { adminAllUsersReducer, adminDeleteUpdateUserReducer } from "./Reducers/Admin/adminUsersReducer";
 import { adminAllProductsReducer, adminCreateNewProductReducer, adminUpdateProductReducer } from "./Reducers/Admin/adminProductReducer";
 
 // Combining Reducers.
@@ -63,6 +66,7 @@ const reducer = combineReducers({
 	homeProducts: HomeProductReducer,
 	oneProduct: specificProductReducer,
 	user: userReducer,
+	userAccountDelete: deleteUserReducer,
 	profile: profileReducer,
 	forgotPassword: forgotPasswordReducer,
 	cart: cartReducer,
@@ -75,7 +79,8 @@ const reducer = combineReducers({
 	adminProducts: adminAllProductsReducer,
 	adminCreateNewProduct: adminCreateNewProductReducer,
 	adminUpdateProduct: adminUpdateProductReducer,
-	adminUpdateOrder: adminUpdateDeleteOrderReducer
+	adminUpdateOrder: adminUpdateDeleteOrderReducer,
+	adminUpdateUser: adminDeleteUpdateUserReducer
 });
 
 let initialState = {

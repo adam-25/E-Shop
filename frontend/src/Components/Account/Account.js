@@ -1,6 +1,9 @@
 /*	
 	Date: May 20, 2022
 		* Creating Account Component.
+
+	Date: June 2,2022
+		* User can delete their accounts.
 */
 
 // Importing necessary modules.
@@ -8,13 +11,15 @@ import React, { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { confirm } from 'react-confirm-box';
 
 // Importing necessary components.
 import MetaData from '../Layout/MetaData';
 import Heading from '../Layout/Heading/Heading';
 import Loading from '../Loading/Loading';
-import { clearErrors } from '../../Actions/userAction';
+import { clearErrors, deleteUser } from '../../Actions/userAction';
 import './account.css';
+import { DELETE_USER_RESET } from '../../Constants/userConstant';
 
 // Account Component.
 const Account = () => {
@@ -24,24 +29,49 @@ const Account = () => {
 
 	// Get Login User Information.
 	const { user, loading, isAuthenticateUser, error } = useSelector(state => state.user);
+	const { loading: loadingUserDelete, error: errorUserDelete, status } = useSelector(state => state.userAccountDelete);
+
+	const deleteUserAccount = async () => {
+		const result = await confirm(<div><h3>Are you sure? </h3> <br /> <p> You want to remove your Account? </p></div>);
+
+		// If yes then dispatch the action to delete an ite and reload the page.
+		if (result) {
+			await dispatch(deleteUser());
+		}
+		else
+			return;
+	}
 
 	useEffect(() => {
 
 		// If User is not logged in then redirect to the login page.
-		if (isAuthenticateUser === false) {
-			history.push("/login");
+		if (!loading) {
+			if (isAuthenticateUser === false) {
+				history.push("/login");
+			}
 		}
 
 		if (error) {
 			toast.error("Error: " + error);
 			dispatch(clearErrors());
 		}
+		
+		if (errorUserDelete) {
+			toast.error("Error: " + errorUserDelete);
+			dispatch(clearErrors());
+		}
 
-	}, [isAuthenticateUser, history, error, dispatch]);
+		if (status === true) {
+			dispatch(clearErrors());
+			dispatch( { type: DELETE_USER_RESET } )
+			history.push("/");
+		}
+
+	}, [isAuthenticateUser, history, error, dispatch, errorUserDelete, status, loading]);
 
 	return (
 		<Fragment>
-			{loading ? <Loading /> : ( isAuthenticateUser &&
+			{loading || loadingUserDelete ? <Loading /> : (isAuthenticateUser &&
 				<Fragment>
 					{/* Give Page name with User first name's Account */}
 					{user && <MetaData title={user.userFirstName + "'s Account..."} />}
@@ -83,6 +113,9 @@ const Account = () => {
 								</div>
 								<div>
 									<a href="/password/update" className="other-button">Change Password</a>
+								</div>
+								<div>
+									<button className="other-button delete-account-button" onClick={deleteUserAccount}>Delete Account</button>
 								</div>
 							</div>
 						</div>

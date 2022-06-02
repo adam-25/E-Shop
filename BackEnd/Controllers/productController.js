@@ -187,7 +187,6 @@ exports.getRandomProductCarousel = asyncCatch(async (req, res, next) => {
 exports.getHomeHighestSellingProducts = asyncCatch(async (req, res, next) => {
 	// Sort Products descending by number of times they are sold and limit to 8.
 	const highestSellingProducts = await productModel.find({}).sort({ 'totalSell': -1 }).limit(8);
-	console.log(highestSellingProducts.length);
 
 	res.status(200).json({ status: true, highestSellingProducts: highestSellingProducts });
 });

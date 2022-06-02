@@ -34,7 +34,6 @@ import Heading from "../Layout/Heading/Heading";
 import ReviewCard from './ReviewCard.js';
 import { addToCart } from '../../Actions/cartActions';
 import { addOrCreateReview, clearErrors, getSpecificProduct } from '../../Actions/productAction';
-import { clearErrors as clearUserErrors } from '../../Actions/userAction';
 import './specificProductStyle.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Rating } from '@mui/material';
@@ -79,7 +78,7 @@ const SpecificProduct = ({ match }) => {
 
 	// Getting Items from Store with useSelector.
 	const { oneProduct, loadingOneProduct, error } = useSelector(state => state.oneProduct);
-	const { isAuthenticateUser, loading, error: userError } = useSelector(state => state.user);
+	const { isAuthenticateUser, loading } = useSelector(state => state.user);
 	const { reviewError } = useSelector(state => state.addReview);
 
 	// Adds Item to the Cart of user.
@@ -146,16 +145,11 @@ const SpecificProduct = ({ match }) => {
 			dispatch(clearErrors());
 		}
 
-		if (userError) {
-			toast("Error: " + userError);
-			dispatch(clearUserErrors());
-		}
-
 		// Dispatch getSpecificProduct() function with ID in URL.
 		// Getting ID in URL with match.params.id.
 		dispatch(getSpecificProduct(match.params.id));
 
-	}, [dispatch, match.params.id, error, loading, isAuthenticateUser, oneProduct, reviewError, userError]);
+	}, [dispatch, match.params.id, error, loading, isAuthenticateUser, oneProduct, reviewError]);
 
 	// When user click submit on review popup.
 	const submitReview = () => {
@@ -184,8 +178,10 @@ const SpecificProduct = ({ match }) => {
 				<Fragment>
 					{/* Setting name of the page to the productName */}
 					<MetaData title={oneProduct.productName && oneProduct.productName} />
+					{ isAuthenticateUser === false ? <div style={{marginTop: "200px"}}></div> : <div></div> }
 					{/* Image Carousel */}
 					<div className="specific-product">
+
 						<div>
 							<Carousel {...optionsCarousel}>
 								{oneProduct.productImages && oneProduct.productImages.map((item, index) => (

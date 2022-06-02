@@ -5,6 +5,9 @@
 
 	Date: May 20, 2022
 		* Logout User Reducer.
+
+	Date: June 2, 2022
+		* Delete User Account Reducer.
 */
 
 // Importing all Constants required.
@@ -20,9 +23,13 @@ import {
 	LOADING_FAIL,
 	LOGOUT_SUCCESS,
 	LOGOUT_FAIL,
+	DELETE_USER_REQUEST,
+	DELETE_USER_SUCCESS,
+	DELETE_USER_FAIL,
+	DELETE_USER_RESET,
 	CLEAR_ERRORS
 }
-from "../Constants/userConstant";
+	from "../Constants/userConstant";
 
 // User Reducer.
 export const userReducer = (state = { user: {} }, action) => {
@@ -37,7 +44,7 @@ export const userReducer = (state = { user: {} }, action) => {
 				loading: true,
 				isAuthenticateUser: false
 			}
-		
+
 		// When LOGIN, REGISTER, LOADING request success.
 		case LOGIN_SUCCESS:
 		case REGISTER_SUCCESS:
@@ -48,7 +55,7 @@ export const userReducer = (state = { user: {} }, action) => {
 				isAuthenticateUser: true,
 				user: action.payload.user
 			}
-		
+
 		// When LOGIN, REGISTER request fail.
 		case LOGIN_FAIL:
 		case REGISTER_FAIL:
@@ -59,7 +66,7 @@ export const userReducer = (state = { user: {} }, action) => {
 				isAuthenticateUser: false,
 				user: null
 			}
-		
+
 		// When LOADING request fails.
 		case LOADING_FAIL:
 			return {
@@ -84,7 +91,7 @@ export const userReducer = (state = { user: {} }, action) => {
 				loading: false,
 				error: action.payload
 			}
-		
+
 		// Clearing errors.
 		case CLEAR_ERRORS:
 			return {
@@ -95,3 +102,38 @@ export const userReducer = (state = { user: {} }, action) => {
 			return state;
 	}
 };
+
+// Deleting User Account Reducer.
+export const deleteUserReducer = (state = { status: false }, action) => {
+
+	switch (action.type) {
+		case DELETE_USER_REQUEST:
+			return {
+				...state,
+				loading: true
+			}
+		case DELETE_USER_SUCCESS:
+			return {
+				loading: false,
+				status: action.payload.status
+			}
+		case DELETE_USER_FAIL:
+			return {
+				loading: false,
+				error: action.payload
+			}
+		case DELETE_USER_RESET:
+			return {
+				loading: false,
+				status: false
+			}
+		case CLEAR_ERRORS:
+			return {
+				...state,
+				error: null
+			}
+		default:
+			return state;
+
+	}
+}

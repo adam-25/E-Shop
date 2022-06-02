@@ -40,7 +40,7 @@ const OrdersAdmin = () => {
 	// Delete product by admin.
 	const deleteOrderID = async (id) => {
 		// Popup window to show delete or not.
-		const result = await confirm(<div><h3>Are you sure? </h3> <br /> <p> You want to delete this Product? </p></div>);
+		const result = await confirm(<div><h3>Are you sure? </h3> <br /> <p> You want to delete this Order? </p></div>);
 
 		// If yes then dispatch the action to delete an ite and reload the page.
 		if (result) {
@@ -159,7 +159,7 @@ const OrdersAdmin = () => {
 			if (isAuthenticateUser === false)
 				history.push('/login');
 
-		// If user is not admin then cannot access dashboard.
+		// If user is not admin then cannot access all Orders.
 		if (!loading)
 			if (isAuthenticateUser === true)
 				if (user.userRole !== 'admin') {

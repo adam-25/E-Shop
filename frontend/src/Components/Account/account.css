@@ -17,7 +17,7 @@
 
 /* User info and its button. */
 .info {
-	width: 100%;
+	width: 70%;
 	display: flex;
 	flex-direction: row;
 }
@@ -40,8 +40,12 @@ strong {
 
 /* Make edit button left. */
 .edit {
-	padding-left: 70px;
 	padding-top: 1vmax;
+}
+
+.info a {
+	float: right;
+	width: auto;
 }
 
 /* Edit button styling. */
@@ -80,6 +84,12 @@ strong {
 	font-size: 1vmax;
 }
 
+.delete-account-button {
+	margin-top: 3vmax;
+	font-size: 1.1vmax;
+	width: 40%;
+}
+
 /* Centering my order and change password button. */
 .user-information-container > div:last-child {
 	text-align: center;
@@ -101,6 +111,17 @@ strong {
 		padding: 2vmax;
 		font-size: 1.5vmax;
 	}
+
+	/* Delete Button width */
+	.delete-account-button {
+		margin-top: 30px;
+		width: 80%;
+	}
+
+	/* User info and its button. */
+	.info {
+		width: 100%;
+	}
 }
 
 @media screen and (max-width: 600px) {
@@ -119,5 +140,10 @@ strong {
 	.other-button {
 		padding: 2vmax;
 		font-size: 2.4vmax;
+	}
+
+	.delete-account-button {
+		margin-top: 30px;
+		width: 80%;
 	}
 }

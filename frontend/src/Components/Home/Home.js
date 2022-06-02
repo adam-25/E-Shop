@@ -30,14 +30,13 @@ import MetaData from "../Layout/MetaData";
 import UserOptions from "../Layout/UserOptions/UserOptions";
 import Loading from '../Loading/Loading';
 import { clearErrors, getHighestSellingProducts, getProduct, getRandomProduct } from "../../Actions/productAction";
-import { clearErrors as clearUserErrors } from "../../Actions/userAction";
 import { clearErrors as clearProductErrors, clearErrors as clearHomeErrors } from "../../Actions/productAction";
 
 const Home = () => {
 
 	// Getting Items from Store with useSelector.
 	const dispatch = useDispatch();
-	const { isAuthenticateUser, error: userError } = useSelector(state => state.user);
+	const { isAuthenticateUser } = useSelector(state => state.user);
 	const { loading, error } = useSelector((state) => state.products);
 	const { randomProducts, loadingCarouselProduct, error: productError } = useSelector((state) => state.carouselProducts);
 	const { loadingHomeProduct, highestSellingProducts, error: homeError } = useSelector((state) => state.homeProducts);
@@ -48,11 +47,6 @@ const Home = () => {
 		if (error) {
 			toast("Error: " + error);
 			dispatch(clearErrors());
-		}
-
-		if (userError) {
-			toast("Error: " + userError);
-			dispatch(clearUserErrors());
 		}
 
 		if (productError) {
@@ -69,7 +63,7 @@ const Home = () => {
 		dispatch(getProduct());
 		dispatch(getRandomProduct());
 		dispatch(getHighestSellingProducts());
-	}, [dispatch, error, userError, productError, homeError]);
+	}, [dispatch, error, productError, homeError]);
 
 	return (
 		<Fragment>

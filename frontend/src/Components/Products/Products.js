@@ -24,7 +24,6 @@ import Loading from '../Loading/Loading';
 import Heading from '../Layout/Heading/Heading';
 import ProductCard from '../Layout/ProductCard/ProductCard';
 import { clearErrors, getProduct } from '../../Actions/productAction';
-import { clearErrors as clearUserErrors } from '../../Actions/userAction';
 import './Products.css';
 
 // Module for error PopUp.
@@ -35,7 +34,7 @@ const Products = ({ match }) => {
 
 	// Getting Items from Store with useSelector.
 	const dispatch = useDispatch();
-	const { isAuthenticateUser, error: userError } = useSelector(state => state.user);
+	const { isAuthenticateUser } = useSelector(state => state.user);
 	const { loading, error, products, resultsPerPage, totalSearchProducts, categories } = useSelector((state) => state.products);
 
 	// Setting current Page useState.
@@ -67,14 +66,9 @@ const Products = ({ match }) => {
 			dispatch(clearErrors());
 		}
 
-		if (userError) {
-			toast("Error: " + userError);
-			dispatch(clearUserErrors());
-		}
-
 		// Passing Parameters to getProduct with particular criteria.
 		dispatch(getProduct(searchWords, currentPage, price, category, sort));
-	}, [dispatch, searchWords, error, currentPage, price, category, sort, userError]);
+	}, [dispatch, searchWords, error, currentPage, price, category, sort]);
 
 	return (
 		<Fragment>

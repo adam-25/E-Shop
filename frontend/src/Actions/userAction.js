@@ -8,10 +8,10 @@
 */
 
 // Importing all Constants required.
-import { 
-	LOGIN_REQUEST, 
-	LOGIN_SUCCESS, 
-	LOGIN_FAIL, 
+import {
+	LOGIN_REQUEST,
+	LOGIN_SUCCESS,
+	LOGIN_FAIL,
 	REGISTER_REQUEST,
 	REGISTER_SUCCESS,
 	REGISTER_FAIL,
@@ -20,7 +20,10 @@ import {
 	LOADING_FAIL,
 	LOGOUT_SUCCESS,
 	LOGOUT_FAIL,
-	CLEAR_ERRORS 
+	DELETE_USER_REQUEST,
+	DELETE_USER_SUCCESS,
+	DELETE_USER_FAIL,
+	CLEAR_ERRORS
 } from "../Constants/userConstant";
 
 // axios to get data from backend.
@@ -105,6 +108,23 @@ export const loadUser = () => async (dispatch) => {
 			type: LOADING_FAIL,
 			payload: error.response.data.message,
 		});
+	}
+};
+
+export const deleteUser = () => async (dispatch) => {
+	try {
+		dispatch({ type: DELETE_USER_REQUEST })
+
+		// Delete User.
+		const { data } = await axios.delete("/api/v1/deleteUser");
+
+		dispatch({ type: DELETE_USER_SUCCESS, payload: data });
+	}
+	catch (error) {
+		dispatch({
+			type: DELETE_USER_FAIL,
+			payload: error.response.data.message,
+		})
 	}
 };
 

@@ -24,7 +24,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 // Other imports of methods and errors toast.
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser, clearErrors } from '../../../Actions/userAction';
+import { logoutUser } from '../../../Actions/userAction';
 import { toast } from 'react-toastify';
 
 // Style of the UserOption.
@@ -47,7 +47,7 @@ const UserOptions = () => {
 	const history = useHistory();
 
 	// Getting User to check it's role.
-	const { error, user } = useSelector(state => state.user);
+	const { user } = useSelector(state => state.user);
 	// Get cart Items Array to show how many items in cart.
 	const { cartItems } = useSelector(state => state.cart);
 
@@ -82,10 +82,6 @@ const UserOptions = () => {
 	function logout() {
 		// Dispatch logout user.
 		dispatch(logoutUser());
-		if (error) {
-			toast("Error", error);
-			dispatch(clearErrors());
-		}
 
 		toast("Log out Successfully");
 	}

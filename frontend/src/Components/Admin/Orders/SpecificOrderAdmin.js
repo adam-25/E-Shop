@@ -70,7 +70,7 @@ const SpecificOrder = ({ match }) => {
 			if (isAuthenticateUser === false)
 				history.push('/login');
 
-		// If user is not admin then cannot access dashboard.
+		// If user is not admin then cannot access specific order.
 		if (!loading)
 			if (isAuthenticateUser === true)
 				if (user.userRole !== 'admin') {
@@ -142,7 +142,7 @@ const SpecificOrder = ({ match }) => {
 									<p>ORDER STATUS</p>
 									<p className={specificOrder.orderStatus === "Delivered" ? "green-color" : "red-color"}>{specificOrder.orderStatus}</p>
 								</div>
-								<div className='orderStatus-update'>
+								<div className='orderStatus-update' style={specificOrder.orderStatus === "Delivered" ? {display: "none"} : {display: "block"}}>
 									<div>
 										<Select
 											options={specificOrder.orderStatus === "Processing" ? [{ value: "Shipped", label: "Shipped" }, { value: "Delivered", label: "Delivered" }] : specificOrder.orderStatus === "Shipped" ? [{ value: "Delivered", label: "Delivered" }] : specificOrder.orderStatus === "Delivered" ? [{}] : [{}]}

@@ -105,7 +105,7 @@ const UpdateProduct = ({ match }) => {
 			if (isAuthenticateUser === false)
 				history.push('/login');
 
-		// If user is not admin then cannot access dashboard.
+		// If user is not admin then cannot access update product.
 		if (!loading)
 			if (isAuthenticateUser === true)
 				if (user.userRole !== 'admin') {
@@ -132,14 +132,12 @@ const UpdateProduct = ({ match }) => {
 		// If product creation is successful then toast success and redirect to dashboard.
 		if (status === true) {
 			dispatch({ type: ADMIN_UPDATE_PRODUCT_RESET });
-			console.log("Hello");
 			history.push('/admin/products');
 		}
 
 		if (oneProduct && oneProduct._id !== match.params.id)
 			dispatch(getSpecificProduct(match.params.id));
 		else {
-			console.log(oneProduct);
 			setProductName(oneProduct.productName);
 			setProductDescription(oneProduct.productDescription);
 			setProductPrice(oneProduct.productPrice);
@@ -158,7 +156,7 @@ const UpdateProduct = ({ match }) => {
 				{/* Side Bar */}
 				<SideBar />
 				{/* heading of the page */}
-				<Heading props="New Product Info..." />
+				<Heading props="Update Product Info..." />
 				<div className='new-product-container'>
 					{/* Form of creating a product */}
 					<form className='product-create-form' onSubmit={updateProductSubmit}>
