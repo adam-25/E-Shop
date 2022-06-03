@@ -22,6 +22,12 @@ import {
 	ADMIN_UPDATE_PRODUCT_REQUEST,
 	ADMIN_UPDATE_PRODUCT_SUCCESS,
 	ADMIN_UPDATE_PRODUCT_FAILURE,
+	ADMIN_ALL_REVIEWS_REQUEST,
+	ADMIN_ALL_REVIEWS_SUCCESS,
+	ADMIN_ALL_REVIEWS_FAILURE,
+	ADMIN_DELETE_REVIEW_REQUEST,
+	ADMIN_DELETE_REVIEW_SUCCESS,
+	ADMIN_DELETE_REVIEW_FAILURE,
 	CLEAR_ERRORS
 } from "../../Constants/Admin/adminProductsConstants";
 
@@ -125,6 +131,55 @@ export const adminUpdateProduct = (productData, id) => async (dispatch) => {
 		// Dispatching failure action.
 		dispatch({
 			type: ADMIN_UPDATE_PRODUCT_FAILURE,
+			payload: error.response.data.error
+		});
+	}
+}
+
+// Action for ADMIN to get all reviews.
+export const adminAllReviews = (id) => async (dispatch) => {
+	try {
+
+		// Request to get all reviews.
+		dispatch({ type: ADMIN_ALL_REVIEWS_REQUEST });
+
+		// Get all reviews data.
+		const { data } = await axios.get("/api/v1/admin/reviews?id=" + id);
+
+		// Dispatching success action.
+		dispatch({
+			type: ADMIN_ALL_REVIEWS_SUCCESS,
+			payload: data
+		});
+	} catch (error) {
+		// Dispatching failure action.
+		dispatch({
+			type: ADMIN_ALL_REVIEWS_FAILURE,
+			payload: error.response.data.error
+		});
+	}
+}
+
+// ADMIN to delete a review of the product.
+export const adminDeleteReview = (id, productID) => async (dispatch) => {
+	try {
+
+		// Request to delete review.
+		dispatch({ type: ADMIN_DELETE_REVIEW_REQUEST });
+
+		// Delete review data.
+		const { data } = await axios.delete("/api/v1/admin/reviews?id=" + id + "&productID=" + productID);
+
+		// Dispatching success action.
+		dispatch({
+			type: ADMIN_DELETE_REVIEW_SUCCESS,
+			payload: data
+		});
+
+	} catch (error) {
+		// Dispatching failure action.
+		dispatch({
+			type: ADMIN_DELETE_REVIEW_FAILURE,
 			payload: error.response.data.error
 		});
 	}

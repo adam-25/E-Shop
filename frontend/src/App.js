@@ -63,6 +63,7 @@
 		* Add Route to update orders by ADMIN.
 		* Add Route to view all Users ADMIN.
 		* Add Route to update Users by ADMIN.
+		* Add Routes to get All reviews and update or delete reviews by ADMIN.
 
 */
 
@@ -110,6 +111,7 @@ import UsersAdmin from './Components/Admin/Users/UsersAdmin.js';
 import SpecificUserAdmin from './Components/Admin/Users/SpecificUserAdmin.js';
 import UpdateUserNameAdmin from './Components/Admin/Users/UpdateDetails/UpdateUserNameAdmin.js';
 import UpdateUserEmailAdmin from './Components/Admin/Users/UpdateDetails/UpdateUserEmailAdmin.js';
+import ReviewsAdmin from './Components/Admin/Reviews/ReviewsAdmin.js';
 
 function App() {
 
@@ -176,6 +178,7 @@ function App() {
 			<Route exact path="/admin/user/view/:id" component={SpecificUserAdmin} />
 			<Route exact path="/admin/updateUserName/:id" component={UpdateUserNameAdmin} />
 			<Route exact path="/admin/updateUserEmail/:id" component={UpdateUserEmailAdmin} />
+			<Route exact path="/admin/reviews" component={ReviewsAdmin} />
 
 			{/* Footer of the website. */}
 			<Footer />

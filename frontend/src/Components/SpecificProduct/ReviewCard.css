@@ -3,7 +3,7 @@
 /* Review Card  */
 .review-card {
 	flex: none;
-	width: 100%;
+	width: 97%;
 	display: flex;
 	align-items: center;
 	margin: 1vmax;
@@ -13,27 +13,33 @@
 	padding-right: 9vmax;
 }
 
+/* Image width of user. */
 .review-card img {
 	width: 5vmax;
 }
 
+/* Container of each review. */
 .row-review {
 	width: 100%;
 	transition: all 0.5s;
 }
 
+/* Hover on review */
 .row-review:hover {
 	transform: scale(1.1);
 }
 
+/* width of the column */
 .row-review > div:last-child {
 	width: 68%;
 }
 
+/* margin of information from left. */
 .column-review {
 	margin-left: 3vmax;
 }
 
+/* Reviewer name */
 .column-review p {
 	margin-top: 0.3vmax;
 	margin-bottom: 0px;
@@ -41,6 +47,7 @@
 	font-weight: 700;
 }
 
+/* Comment */
 .column-review > span {
 	font-family: 'Comic Neue', cursive;
 	font-weight: 300;
@@ -48,6 +55,7 @@
 	word-wrap: break-word;
 }
 
+/* When there is no review of the product then text. */
 .product-no-review {
 	text-align: center;
 	font-family: 'Comic Neue', cursive;

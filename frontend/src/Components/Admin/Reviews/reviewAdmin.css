@@ -1,0 +1,86 @@
+/* Container of information */
+.product-review-info-id {
+	width: 30%;
+	justify-content: center;
+	border: 1px solid #d0d0d0;
+	margin: auto;
+	border-radius: 10px;
+	background-color: #ebf1f0;
+	padding: 30px;
+	font-family: 'Comic Neue', cursive;
+	margin-top: 40px;
+}
+
+/* Input of product id style. */
+.product-review-info-id input {
+	padding: 0.7vmax 1.3vmax;
+	padding-right: 2vmax;
+	box-sizing: border-box;
+	border-radius: 4px;
+	outline: none;
+	border: 1px solid rgba(95, 113, 97, 0.4);
+	transition: 0.5s;
+	font-family: 'Comic Neue', cursive;
+	width: 100%;
+	font-size: 1.5vmax;
+}
+
+/* Heading style */
+.product-review-info-id h2 {
+	margin: 20px 0px;
+}
+
+/* Button style */
+.product-review-info-id button {
+	border: none;
+	font-family: 'Comic Neue', cursive;
+	color: white;
+	background-color: rgb(180, 101, 45);
+	width: 100%;
+	text-align: center;
+	padding: 0.5vmax;
+	text-decoration: none;
+	border-radius: 5px;
+	transition: all 0.3s;
+	margin-top: 40px;
+	font-size: 2vmax;
+	margin-bottom: 30px;
+}
+
+@media all and (max-width: 992px) {
+
+	/* Container of information width */
+	.product-review-info-id {
+		width: 60%;
+	}
+
+	/* Heading style */
+	.product-review-info-id h2 {
+		margin: 10px 0px;
+		font-size: 30px;
+	}
+
+	/* Input of product id style. */
+	.product-review-info-id input {
+		padding: 5px 20px;
+		font-size: 20px;
+	}
+
+	/* Button margin */
+	.product-review-info-id button {
+		margin-bottom: 5px;
+		margin-top: 20px;
+		font-size: 20px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+
+}
+
+@media all and (max-width: 600px) {
+
+	/* Container of information width */
+	.product-review-info-id {
+		width: 80%;
+	}
+}

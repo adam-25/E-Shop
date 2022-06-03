@@ -159,7 +159,6 @@ const SpecificProduct = ({ match }) => {
 		// If User rating is 0, then let them know 0 is not possible.
 		if (rating === 0) {
 			toast("Rating cannot be zero...");
-			setOpen(false);
 			return;
 		}
 

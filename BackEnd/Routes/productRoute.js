@@ -37,6 +37,6 @@ router.route('/homeProducts').get(product.getHomeHighestSellingProducts);
 router.route("/reviews/addReview").put(isAuthenticateUser, product.updateOrCreateReview);
 
 // Get add the reviews, delete a specific review.
-router.route("/reviews").get(product.getAllReviews).delete(product.deleteReview);
+router.route("/admin/reviews").get(product.getAllReviews).delete(product.deleteReview);
 
 module.exports = router;

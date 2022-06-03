@@ -114,35 +114,58 @@ const SpecificUserAdmin = ({ match }) => {
 				{/* Heading of the page. */}
 				<Heading props="Update User..." />
 
+				{/* Contain information and reviews seperate */}
 				<div className='update-user-container'>
+					{/* Full Name */}
 					<div>
-						<div className='info-label'>
-							<h4>Full Name: </h4>
+						{/* Information */}
+						<div className='user-information-admin-container'>
+							<div>
+								<h4>Full Name: </h4>
+							</div>
+							<div>
+								<p>{adminOneUser.userFullName}</p>
+							</div>
 						</div>
-						<div className='user-info-for-admin admin-role'>
-							<p>{adminOneUser.userFullName}</p>
+						{/* Edit */}
+						<div>
+							<button className='edit-user-role-button' onClick={updateNameAdmin}>Edit</button>
 						</div>
-						<button className='edit-user-role-button' onClick={updateNameAdmin}>Edit</button>
 					</div>
+					{/* Email */}
 					<div>
-						<div className='info-label'>
-							<h4>Email: </h4>
+						{/* Information */}
+						<div className='user-information-admin-container'>
+							<div>
+								<h4>Email: </h4>
+							</div>
+							<div>
+								<p>{adminOneUser.userEmail}</p>
+							</div>
 						</div>
-						<div className='admin-role'>
-							<p>{adminOneUser.userEmail}</p>
+						{/* Button */}
+						<div>
+							<button className='edit-user-role-button' onClick={updateEmailAdmin}>Edit</button>
 						</div>
-						<button className='edit-user-role-button' onClick={updateEmailAdmin}>Edit</button>
 					</div>
+					{/* Role */}
 					<div>
-						<div className='info-label'>
-							<h4>Role: </h4>
+						{/* Information */}
+						<div className='user-information-admin-container'>
+							<div>
+								<h4>Role: </h4>
+							</div>
+							<div>
+								<p className={adminOneUser.userRole === "admin" ? "green-color" : "red-color"}>{adminOneUser.userRole}</p>
+							</div>
 						</div>
-						<div className='admin-role'>
-							<p className={adminOneUser.userRole === "admin" ? "green-color" : "red-color"}>{adminOneUser.userRole}</p>
+						{/* Button */}
+						<div>
+							<button className='edit-user-role-button' onClick={handleClickOpen}>Edit</button>
 						</div>
-						<button className='edit-user-role-button' onClick={handleClickOpen}>Edit</button>
 					</div>
 				</div>
+				{/* Dialog to change the role. */}
 				<div>
 					{/* When Dialog box opens. */}
 					<Dialog

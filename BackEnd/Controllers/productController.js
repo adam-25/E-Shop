@@ -252,7 +252,7 @@ exports.getAllReviews = asyncCatch(async (req, res, next) => {
 		return next(new ErrorHandler("Product Not Found", 404));
 	};
 
-	res.status(200).json({ status: true, message: product.productReview });
+	res.status(200).json({ status: true, reviews: product.productReview });
 });
 
 // Deleting specific review of a product.
@@ -268,7 +268,7 @@ exports.deleteReview = asyncCatch(async (req, res, next) => {
 	let index = 0;
 
 	for (let i = 0; i < product.productReview.length; i++) {
-		if (req.query.id === product.productReview[i].id) {
+		if (req.query.id === product.productReview[i]._id) {
 			index = i;
 			break;
 		}
@@ -280,7 +280,7 @@ exports.deleteReview = asyncCatch(async (req, res, next) => {
 	product.productRating = updateOverallReview(product);
 	await product.save();
 
-	res.status(200).json({ status: true, message: "Product Review has been deleted successfully." });
+	res.status(200).json({ status: true });
 
 });
 
@@ -294,7 +294,12 @@ function updateOverallReview(product) {
 		totalRating += review.ratingOfTheProduct;
 	});
 
-	avg = totalRating / product.productReview.length;
-
+	if (product.productReview.length > 0) {
+		avg = totalRating / product.productReview.length;
+	}
+	else {
+		avg = 0;
+	}
+	
 	return avg;
 }

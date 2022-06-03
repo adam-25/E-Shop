@@ -17,12 +17,25 @@
 	margin-bottom: 0px;
 }
 
-/* Data in the div in the same. */
-.update-user-container>div {
+/* Everything is flex. */
+.update-user-container > div {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+/* Data in the div which is label and info in the same line. */
+.user-information-admin-container {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-bottom: 10px;
+	margin-bottom: 10px;;
+	width: 80%;
+}
+
+/* Width of the label */
+.user-information-admin-container > div {
+	width: 38%;
 }
 
 /* User information font size and if font is more than width then break it down. */
@@ -30,17 +43,8 @@
 	margin-bottom: 8px;
 	font-size: 20px;
 	word-wrap: break-word;
-}
-
-/* Label div width and margin-bottom. */
-.info-label {
-	width: 35%;
-	margin-bottom: 0px;
-}
-
-/* User information class div width. */
-.admin-role {
-	width: 45%;
+	align-items: center;
+	margin-top: 1vmax;
 }
 
 /* button style. */
@@ -49,12 +53,13 @@
 	font-family: 'Comic Neue', cursive;
 	color: white;
 	background-color: rgb(180, 101, 45);
-	width: 10%;
+	width: 100%;
 	text-align: center;
 	padding: 0.5vmax;
 	text-decoration: none;
 	border-radius: 5px;
 	transition: all 0.3s;
+	margin-top: 0.7vmax;
 }
 
 /* Width and height of popup. */
@@ -64,16 +69,22 @@
 	min-height: 300px;
 }
 
-@media all and (max-width: 900px) {
+@media all and (max-width: 1000px) {
 
 	/* Container of the all information on update user page. */
 	.update-user-container {
 		width: 80%;
 		padding: 25px;
+		margin-bottom: 40px;
+	}
+
+	/* Width of the label */
+	.user-information-admin-container > div {
+		width: 100%;
 	}
 
 	/* Data in the div next lines */
-	.update-user-container>div {
+	.user-information-admin-container {
 		display: block;
 		margin-bottom: 15px;
 	}
@@ -88,21 +99,10 @@
 		font-size: 2.5vmax;
 	}
 
-	/* Label div width and margin-bottom. */
-	.info-label {
-		margin-bottom: 0px;
-		width: 100%;
-	}
-
 	/* button width and font-size. */
 	.update-user-container button {
-		width: 30%;
+		width: 100%;
 		padding: 7px;
 		font-size: 2.5vmax;
-	}
-	
-	/* User information class div width. */
-	.admin-role {
-		width: 100%;
 	}
 }
