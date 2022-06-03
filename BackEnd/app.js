@@ -16,7 +16,7 @@
 
 	Date: June 1, 2022
 		* Add Limit to overcome payload too large limit.
-*/ 
+*/
 
 // Importing necessary files.
 const errorMiddleWare = require("./MiddleWare/errors");
@@ -24,16 +24,16 @@ const express = require('express');
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
-const dotenv = require('dotenv');
 const app = express();
 
 // Configuration of env file.
-dotenv.config({ path: "BackEnd/Config/config.env" });
-
+if (process.env.NODE_ENV !== 'PRODUCTION') {
+	require('dotenv').config({ path: "BackEnd/Config/config.env" });
+}
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.json({limit: '25mb'}));
-app.use(express.urlencoded({extended: true, limit: '25mb'}));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json({ limit: '25mb' }));
+app.use(express.urlencoded({ extended: true, limit: '25mb' }));
 app.use(fileUpload());
 
 // Importing all Routes

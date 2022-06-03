@@ -9,7 +9,6 @@
 
 // Importing necessary files.
 const app = require('./app');
-const dotenv = require('dotenv');
 const mongoConnection = require('./Database/connectDB');
 const cloudinary = require('cloudinary');
 
@@ -24,8 +23,10 @@ process.on('uncaughtException', (err) => {
 });
 
 // Configuration of env file.
-dotenv.config({ path: "BackEnd/Config/config.env" });
 
+if (process.env.NODE_ENV !== 'PRODUCTION') {
+	require('dotenv').config({ path: "BackEnd/Config/config.env" });
+}
 // Connect to Cloudinary
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_NAME,
