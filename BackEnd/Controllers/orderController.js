@@ -5,6 +5,9 @@
 
 	Date: June 1, 2022
 		* Add function to update the total sell of the product.
+
+	Date: June 3, 2022
+		* Update stock and total sell of product in Admin DB when item is shipped.
 */
 
 // Importing necessary files.
@@ -13,9 +16,15 @@ const productModel = require('../Models/productModel');
 const ErrorHandler = require('../Utils/errorHandler');
 const catchAsyncError = require('../MiddleWare/catchAsyncError');
 const userModel = require('../Models/userModel');
+const productModelAdmin = require("../Models/adminProductModel");
 
 // Create a new Order.
 exports.createOrder = catchAsyncError(async (req, res, next) => {
+
+	req.body.orderInfo.forEach(async (orderItem) => {
+		await stockUpdate(orderItem.productID, orderItem.orderQuantity);
+		await updateSell(orderItem.productID, orderItem.orderQuantity);
+	});
 
 	const order = await orderModel.create({
 		customer: req.user._id,
@@ -105,11 +114,12 @@ exports.updateOrder = catchAsyncError(async (req, res, next) => {
 
 	order.orderStatus = req.body.orderStatus;
 
+	// When product is shipped then stock in admin view decrease and total sell increase.
 	if (order.orderStatus === "Shipped") {
 
 		order.orderInfo.forEach(async (orderItem) => {
-			await stockUpdate(orderItem.productID, orderItem.orderQuantity);
-			await updateSell(orderItem.productID, orderItem.orderQuantity);
+			await stockUpdateAdmin(orderItem.productID, orderItem.orderQuantity);
+			await updateSellAdmin(orderItem.productID, orderItem.orderQuantity);
 		});
 	}
 
@@ -153,4 +163,24 @@ async function updateSell (id, quantity) {
 	product.totalSell = product.totalSell + quantity;
 
 	await product.save({validateBeforeSave: false})
+}
+
+// Update a product stock depend on the order in admin db.
+async function stockUpdateAdmin(id, quantity) {
+	const product = await productModelAdmin.find({productID: id});
+	const productAdmin = await productModelAdmin.findById(product[0]._id);
+
+	productAdmin.productStock = productAdmin.productStock - quantity;
+
+	await productAdmin.save({validateBeforeSave: false});
+};
+
+// Update number of time product has been sold in admin db.
+async function updateSellAdmin (id, quantity) {
+	const product = await productModelAdmin.find({productID: id});
+	const productAdmin = await productModelAdmin.findById(product[0]._id);
+
+	productAdmin.totalSell = productAdmin.totalSell + quantity;
+
+	await productAdmin.save({validateBeforeSave: false})
 }

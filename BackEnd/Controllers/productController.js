@@ -23,6 +23,9 @@
 		* Created a function to get top 8 products for home page.
 		* Create a function to get highest selling products.
 		* Update Product with Images.
+
+	Date: June 3, 2022
+		* Every product operation on both of the db admin and user.
 */
 
 // Importing necessary files.
@@ -30,6 +33,7 @@ const productModel = require("../Models/productModel");
 const ErrorHandler = require("../Utils/errorHandler");
 const asyncCatch = require("../MiddleWare/catchAsyncError");
 const apiFeature = require("../Utils/features");
+const productModelAdmin = require("../Models/adminProductModel");
 
 const cloudnary = require('cloudinary');
 
@@ -63,7 +67,11 @@ exports.createProduct = asyncCatch(async (req, res, next) => {
 
 	req.body.userCreatedProduct = req.user.id;
 
-	await productModel.create(req.body);
+	const productCreated = await productModel.create(req.body);
+
+	req.body.productID = productCreated._id;
+
+	await productModelAdmin.create(req.body);
 
 	res.status(200).json({ status: true });
 });
@@ -72,9 +80,10 @@ exports.createProduct = asyncCatch(async (req, res, next) => {
 exports.updateProduct = asyncCatch(async (req, res, next) => {
 
 	let updateProduct = await productModel.findById(req.params.id);
+	let updateProductAdmin = await productModelAdmin.find({ productID: updateProduct._id });
 
 
-	if (!updateProduct) {
+	if (!updateProduct || !updateProductAdmin) {
 		return next(new ErrorHandler("Product Not Found", 404));
 	}
 
@@ -115,14 +124,23 @@ exports.updateProduct = asyncCatch(async (req, res, next) => {
 		req.body
 	);
 
+	req.body.productID = updateProduct._id;
+
+	updateProductAdmin = await productModelAdmin.findOneAndUpdate(
+		{productID: req.params.id},
+		req.body
+	);
+
 	res.status(200).json({ status: true });
 });
 
 // Delete a product in DB. -- ADMIN ONLY
 exports.deleteProduct = asyncCatch(async (req, res, next) => {
-	let deleteProduct = await productModel.findById(req.params.id);
 
-	if (!deleteProduct) {
+	let deleteProduct = await productModel.findById(req.params.id);
+	let deleteProductAdmin = await productModelAdmin.find( { productID: req.params.id });
+
+	if (!deleteProduct || !deleteProductAdmin) {
 		return next(new ErrorHandler("Product Not Found", 404));
 	}
 
@@ -132,6 +150,7 @@ exports.deleteProduct = asyncCatch(async (req, res, next) => {
 	}
 
 	deleteProduct = await productModel.findByIdAndRemove(req.params.id);
+	deleteProductAdmin = await productModelAdmin.findOneAndRemove({ productID: req.params.id });
 	res.status(200).json({ status: true });
 });
 
@@ -193,7 +212,7 @@ exports.getHomeHighestSellingProducts = asyncCatch(async (req, res, next) => {
 
 // Admin Get all the products.
 exports.getAllProductsAdmin = asyncCatch(async (req, res, next) => {
-	const products = await productModel.find({});
+	const products = await productModelAdmin.find({});
 
 	res.status(200).json({ status: true, products: products });
 });

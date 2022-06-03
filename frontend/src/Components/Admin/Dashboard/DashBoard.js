@@ -34,7 +34,7 @@ const DashBoard = () => {
 
 	// Creating array of products in stock and out of stock.
 	const productsInStock = products.filter(product => product.productStock > 0);
-	const productsOutOfStock = products.filter(product => product.productStock === 0);
+	const productsOutOfStock = products.filter(product => product.productStock <= 0);
 
 	// Line graph
 	const lineState = {

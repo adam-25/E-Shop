@@ -10,6 +10,8 @@
 	padding-bottom: 1vmax;
 	background-color: #e0f4ef;
 	border-radius: 15px;
+	min-height: 35vmax;
+	max-height: 35vmax;
 }
 
 /* Image Style */
@@ -61,6 +63,8 @@
 	.productCard {
 		width: 20vmax;
 		margin-bottom: 5vmax;
+		min-height: 41vmax;
+		max-height: 41vmax;
 	}
 
 	/* Image */
@@ -139,6 +143,8 @@
 		width: 35vmax;
 		margin: 2.5vmax;
 		margin-bottom: 5vmax;
+		min-height: 50vmax;
+		max-height: 50vmax;
 	}
 
 	.productCard img {

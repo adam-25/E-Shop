@@ -123,7 +123,7 @@ const ProductsAdmin = () => {
 	// Products adding to rows array.
 	products && products.forEach(product => {
 		rows.push({
-			id: product._id,
+			id: product.productID,
 			Name: product.productName,
 			Sell: product.totalSell,
 			Stock: product.productStock,

@@ -143,15 +143,16 @@ function App() {
 		<Router>
 			{/* Navbar Header */}
 			<Header />
+
+			{/* If User is logged out and go to logout path then redirect to login */}
+			{(window.location.pathname !== "/" && isAuthenticateUser === true) ? <UserOptions /> : null}
+			{(window.location.pathname === "/logout" && !isAuthenticateUser) ? <Redirect to="/login" /> : null}
+
 			{paymentAPIKey &&
 				<Elements stripe={loadStripe(paymentAPIKey)}>
 					<Route exact path="/payment" component={Payment} />
 				</Elements>
 			}
-
-			{/* If User is logged out and go to logout path then redirect to login */}
-			{(window.location.pathname !== "/" && isAuthenticateUser === true) ? <UserOptions /> : null}
-			{(window.location.pathname === "/logout" && !isAuthenticateUser) ? <Redirect to="/login" /> : null}
 
 			{/* Path for different pages */}
 			<Switch>

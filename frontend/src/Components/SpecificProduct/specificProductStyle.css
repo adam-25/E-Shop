@@ -25,9 +25,6 @@
 	box-sizing: border-box;
 }
 
-/* First DIV */
-
-
 /* Carousel Width make 50% */
 .product-carousel-image {
 	width: 50%;
@@ -35,12 +32,15 @@
 	border-radius: 20px;
 }
 
+.carousel-product-image1 img {
+	max-height: 500px;
+	min-height: 500px;
+}
+
 /* Not display small carousel images */
 .carousel .thumb {
 	display: none;
 }
-
-/* Details */
 
 /* Start everything from start. */
 .specific-product>div:last-child {
@@ -349,5 +349,11 @@
 	/* Buttons of submit and cancel popup review */
 	#review-popup-button {
 		font-size: 15px;
+	}
+
+	.carousel-product-image1 img {
+		width: 100%;
+		min-height: 300px;
+		max-height: 300px;
 	}
 }

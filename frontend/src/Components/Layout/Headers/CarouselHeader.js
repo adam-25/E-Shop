@@ -34,7 +34,7 @@ const CarouselHeader = ({ products }) => {
 		<div className="header-carousel">
 			{/* Carousel Header  */}
 			<Carousel {...options}>
-				{products.map((product) => (
+				{products && products.map((product) => (
 					<Link to={"/product/" + product._id}>
 						<div>
 							<img

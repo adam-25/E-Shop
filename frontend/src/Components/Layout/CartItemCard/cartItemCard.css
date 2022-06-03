@@ -11,6 +11,7 @@
 /* Image of product in Cart */
 .cart-item-card-container img {
 	width: 20vmax;
+	height: 18vmax;
 	border-radius: 5px;
 }
 
@@ -49,5 +50,9 @@
 	/* Container of the cartItem. */
 	.cart-item-card-container {
 		margin-bottom: 3vmax;
+	}
+
+	.cart-item-card-container img {
+		height: 23vmax;
 	}
 }

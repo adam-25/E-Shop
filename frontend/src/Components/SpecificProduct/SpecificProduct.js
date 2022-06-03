@@ -181,7 +181,7 @@ const SpecificProduct = ({ match }) => {
 					{/* Image Carousel */}
 					<div className="specific-product">
 
-						<div>
+						<div className='carousel-product-image1'>
 							<Carousel {...optionsCarousel}>
 								{oneProduct.productImages && oneProduct.productImages.map((item, index) => (
 									<img
