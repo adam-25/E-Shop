@@ -80,7 +80,7 @@ const Home = () => {
 					{isAuthenticateUser && <UserOptions />}
 
 					{/* Heading */}
-					<div style={{ marginTop: "3%" }}></div>
+					{isAuthenticateUser === false ? <div style={{ marginTop: "10%" }}></div> : <div></div>}
 					<Heading props={"Featured Products"} />
 
 					{/* ProductCards */}
