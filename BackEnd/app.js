@@ -41,12 +41,18 @@ const productRoute = require('./Routes/productRoute');
 const userRoute = require('./Routes/userRoutes');
 const orderRoute = require('./Routes/orderRoute');
 const paymentRoute = require('./Routes/paymentRoute');
+const path = require('path');
 
 // Using Routes.
 app.use("/api/v1/", productRoute);
 app.use("/api/v1/", userRoute);
 app.use("/api/v1/", orderRoute);
 app.use("/api/v1/", paymentRoute);
+
+app.use(express.static(path.join(__dirname + "/../frontend/build")));
+app.get("*", (req, res) => {
+	res.sendFile(path.resolve(__dirname + "/../frontend/build/index.html"));
+});
 
 // Using MiddleWare
 app.use(errorMiddleWare);

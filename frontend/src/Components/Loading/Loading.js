@@ -1,5 +1,5 @@
 /*	
-	Date: May 16, 2022
+	Date: June 3, 2022
 		* Loading Component.
 */
 import React from 'react'
@@ -10,46 +10,8 @@ const Loading = () => {
 	return (
 		<div className="loading">
 			<MetaData title="Loading..." />
-			<div class="preloader">
-				<div class="box">
-					<div class="box__inner">
-						<div class="box__back-flap"></div>
-						<div class="box__right-flap"></div>
-						<div class="box__front-flap"></div>
-						<div class="box__left-flap"></div>
-						<div class="box__front"></div>
-					</div>
-				</div>
-				<div class="box">
-					<div class="box__inner">
-						<div class="box__back-flap"></div>
-						<div class="box__right-flap"></div>
-						<div class="box__front-flap"></div>
-						<div class="box__left-flap"></div>
-						<div class="box__front"></div>
-					</div>
-				</div>
-				<div class="line">
-					<div class="line__inner"></div>
-				</div>
-				<div class="line">
-					<div class="line__inner"></div>
-				</div>
-				<div class="line">
-					<div class="line__inner"></div>
-				</div>
-				<div class="line">
-					<div class="line__inner"></div>
-				</div>
-				<div class="line">
-					<div class="line__inner"></div>
-				</div>
-				<div class="line">
-					<div class="line__inner"></div>
-				</div>
-				<div class="line">
-					<div class="line__inner"></div>
-				</div>
+			<div class="drawing" id="loading">
+				<div class="loading-dot"></div>
 			</div>
 		</div>
 	)
