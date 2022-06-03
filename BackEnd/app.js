@@ -28,7 +28,7 @@ const app = express();
 
 // Configuration of env file.
 if (process.env.NODE_ENV !== 'PRODUCTION') {
-	require('dotenv').config({ path: "BackEnd/Config/config.env" });
+	require('dotenv').config({ path: "backEnd/Config/config.env" });
 }
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));

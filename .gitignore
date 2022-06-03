@@ -1,7 +1,7 @@
 /node_modules/
-/BackEnd/Config/
-/BackEnd/Config/config.env
-/BackEnd/.DS_Store
+/backEnd/Config/
+/backEnd/Config/config.env
+/backEnd/.DS_Store
 
 /frontend/node_modules
 /frontend/.pnp
