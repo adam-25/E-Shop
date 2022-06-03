@@ -4,6 +4,7 @@
 
 	Date: June 2, 2022
 		* Created Action for admin to delete or update users.
+		* Created Action for admin to get particular user details.
 */
 
 // Importing necessary constants.
@@ -17,6 +18,9 @@ import {
 	ADMIN_UPDATE_USER_REQUEST,
 	ADMIN_UPDATE_USER_SUCCESS,
 	ADMIN_UPDATE_USER_FAILURE,
+	ADMIN_ONE_USER_REQUEST,
+	ADMIN_ONE_USER_SUCCESS,
+	ADMIN_ONE_USER_FAILURE,
 	CLEAR_ERRORS
 } from "../../Constants/Admin/adminUsersConstants";
 
@@ -78,7 +82,7 @@ export const adminUpdateUser = (userId, userData) => async (dispatch) => {
 		const config = {headers : {"Content-Type" : "application/json"}};
 
 		// Update a user.
-		const { data } = await axios.put(`/api/v1/admin/singleUser/${userId}`, userData, config);
+		const { data } = await axios.put(`/api/v1/admin/singleUser/${userId}`, userData , config);
 
 		// Dispatching success action.
 		dispatch({
@@ -89,6 +93,29 @@ export const adminUpdateUser = (userId, userData) => async (dispatch) => {
 		// Dispatching failure action.
 		dispatch({
 			type: ADMIN_UPDATE_USER_FAILURE,
+			payload: error.response.data.error
+		});
+	}
+}
+
+// Get one user by admin action.
+export const adminGetOneUser = (userId) => async (dispatch) => {
+	try {
+		// Request to get a user.
+		dispatch({ type: ADMIN_ONE_USER_REQUEST });
+
+		// Get a user.
+		const { data } = await axios.get(`/api/v1/admin/singleUser/${userId}`);
+
+		// Dispatching success action.
+		dispatch({
+			type: ADMIN_ONE_USER_SUCCESS,
+			payload: data
+		});
+	} catch (error) {
+		// Dispatching failure action.
+		dispatch({
+			type: ADMIN_ONE_USER_FAILURE,
 			payload: error.response.data.error
 		});
 	}

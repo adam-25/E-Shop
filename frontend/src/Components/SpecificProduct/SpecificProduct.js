@@ -259,7 +259,7 @@ const SpecificProduct = ({ match }) => {
 					aria-labelledby="responsive-dialog-title"
 				>
 					{/* Title of the popup */}
-					<DialogTitle id="responsive-dialog-title" style={{ fontFamily: "Comic Neue, cursive", fontSize: "3vmax" }} >
+					<DialogTitle id="responsive-dialog-title" style={{ fontFamily: "Comic Neue, cursive", fontSize: "2.5rem" }} >
 						{oneProduct.productName + " Review Submit"}
 					</DialogTitle>
 					<DialogContent>

@@ -128,11 +128,6 @@ const UsersAdmin = () => {
 
 	useEffect(() => {
 
-		if (!window.location.hash) {
-			window.location = window.location + '#loaded';
-			window.location.reload();
-		}
-
 		// If admin is not logged in then redirect to login page.
 		if (!loading)
 			if (isAuthenticateUser === false)

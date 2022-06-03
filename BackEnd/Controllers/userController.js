@@ -224,6 +224,19 @@ exports.updateUserRole = catchError(async (req, res, next) => {
 
 	const user = await userModel.findById(req.params.id);
 
+	if (!user)
+		return next(new ErrorHandler("User not exist with id " + req.params.id));
+
+	if (!req.body.newFullName)
+		req.body.newFullName = user.userFullName;
+	else
+		user.userFullName = req.body.newFullName;
+
+	if (!req.body.newEmail)
+		req.body.newEmail = user.userEmail;
+	else
+		user.userEmail = req.body.newEmail;
+		
 	if (!req.body.newRole)
 		req.body.newRole = user.userRole;
 	else

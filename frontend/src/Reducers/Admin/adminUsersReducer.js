@@ -4,6 +4,7 @@
 
 	Date: June 2, 2022
 		* Creating Reducer for admin to delete or update a user.
+		* Created Reducer for admin to get particular user details.
 */
 
 // Importing necessary constants.
@@ -19,6 +20,9 @@ import {
 	ADMIN_UPDATE_USER_SUCCESS,
 	ADMIN_UPDATE_USER_FAILURE,
 	ADMIN_UPDATE_USER_RESET,
+	ADMIN_ONE_USER_REQUEST,
+	ADMIN_ONE_USER_SUCCESS,
+	ADMIN_ONE_USER_FAILURE,
 	CLEAR_ERRORS
 
 } from "../../Constants/Admin/adminUsersConstants";
@@ -82,6 +86,34 @@ export const adminDeleteUpdateUserReducer = (state = { status: false }, action) 
 			return {
 				loading: false,
 				status: false,
+			};
+		case CLEAR_ERRORS:
+			return {
+				...state,
+				error: null
+			};
+		default:
+			return state;
+	}
+}
+
+// Admin to get particular user details.
+export const adminOneUserReducer = (state = { user: {} }, action) => {
+	switch (action.type) {
+		case ADMIN_ONE_USER_REQUEST:
+			return {
+				...state,
+				loading: true
+			};
+		case ADMIN_ONE_USER_SUCCESS:
+			return {
+				loading: false,
+				user: action.payload.user
+			};
+		case ADMIN_ONE_USER_FAILURE:
+			return {
+				loading: false,
+				error: action.payload
 			};
 		case CLEAR_ERRORS:
 			return {
