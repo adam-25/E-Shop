@@ -64,12 +64,15 @@
 		* Add Route to view all Users ADMIN.
 		* Add Route to update Users by ADMIN.
 		* Add Routes to get All reviews and update or delete reviews by ADMIN.
+	
+	Date: June 3, 2022
+		* Add Route to Not Found Page.
 
 */
 
 // Importing CSS and Router, doms.
 import './App.css';
-import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -99,6 +102,7 @@ import Payment from "./Components/Checkout/Payment.js";
 import OrderPlaceSuccess from "./Components/Checkout/OrderPlaceSuccess.js";
 import MyOrder from './Components/MyOrder/MyOrder.js';
 import SpecificOrder from './Components/SpecificOrder/SpecificOrder.js';
+import NotFound from './Components/NotFound/NotFound.js';
 
 // ADMIN Routes.
 import DashBoard from "./Components/Admin/Dashboard/DashBoard";
@@ -139,46 +143,49 @@ function App() {
 		<Router>
 			{/* Navbar Header */}
 			<Header />
-
-			{/* If User is logged out and go to logout path then redirect to login */}
-			{(window.location.pathname !== "/" && isAuthenticateUser === true) ? <UserOptions /> : <div></div>}
-			{(window.location.pathname === "/logout" && !isAuthenticateUser) ? <Redirect to="/login" /> : <div></div>}
-
-			{/* Path for different pages */}
-			<Route exact path="/" component={Home} />
-			<Route exact path="/product/:id" component={SpecificProduct} />
-			<Route exact path="/products" component={Products} />
-			<Route path="/products/:searchWords" component={Products} />
-			<Route exact path="/login" component={LoginRegister} />
-			<Route exact path="/account" component={Account} />
-			<Route exact path="/updateName" component={UpdateName} />
-			<Route exact path="/updateEmail" component={UpdateEmail} />
-			<Route exact path="/logout" component={Logout} />
-			<Route exact path="/password/update" component={UpdatePassword} />
-			<Route exact path="/password/forgotPassword" component={ForgotPassword} />
-			<Route exact path="/password/reset/:resetToken" component={ResetPassword} />
-			<Route exact path="/cart" component={Cart} />
-			<Route exact path="/order/shippingInfo" component={ShippingInformation} />
-			<Route exact path="/order/reviewAndConfirm" component={OrderReviewAndConfirm} />
-			{paymentAPIKey && 
+			{paymentAPIKey &&
 				<Elements stripe={loadStripe(paymentAPIKey)}>
 					<Route exact path="/payment" component={Payment} />
 				</Elements>
 			}
-			<Route exact path="/success" component={OrderPlaceSuccess} />
-			<Route exact path="/myOrders" component={MyOrder} />
-			<Route exact path="/orderDetail/:id" component={SpecificOrder} />
-			<Route exact path="/dashboard" component={DashBoard} />
-			<Route exact path="/admin/products" component={ProductsAdmin} />
-			<Route exact path="/admin/newProduct" component={CreateNewProduct} />
-			<Route exact path="/admin/product/edit/:id" component={UpdateProduct} />
-			<Route exact path="/admin/orders" component={OrdersAdmin} />
-			<Route exact path="/admin/order/view/:id" component={SpecificOrderAdmin} />
-			<Route exact path="/admin/users" component={UsersAdmin} />
-			<Route exact path="/admin/user/view/:id" component={SpecificUserAdmin} />
-			<Route exact path="/admin/updateUserName/:id" component={UpdateUserNameAdmin} />
-			<Route exact path="/admin/updateUserEmail/:id" component={UpdateUserEmailAdmin} />
-			<Route exact path="/admin/reviews" component={ReviewsAdmin} />
+
+			{/* If User is logged out and go to logout path then redirect to login */}
+			{(window.location.pathname !== "/" && isAuthenticateUser === true) ? <UserOptions /> : null}
+			{(window.location.pathname === "/logout" && !isAuthenticateUser) ? <Redirect to="/login" /> : null}
+
+			{/* Path for different pages */}
+			<Switch>
+				<Route exact path="/" component={Home} />
+				<Route exact path="/product/:id" component={SpecificProduct} />
+				<Route exact path="/products" component={Products} />
+				<Route path="/products/:searchWords" component={Products} />
+				<Route exact path="/login" component={LoginRegister} />
+				<Route exact path="/account" component={Account} />
+				<Route exact path="/updateName" component={UpdateName} />
+				<Route exact path="/updateEmail" component={UpdateEmail} />
+				<Route exact path="/logout" component={Logout} />
+				<Route exact path="/password/update" component={UpdatePassword} />
+				<Route exact path="/password/forgotPassword" component={ForgotPassword} />
+				<Route exact path="/password/reset/:resetToken" component={ResetPassword} />
+				<Route exact path="/cart" component={Cart} />
+				<Route exact path="/order/shippingInfo" component={ShippingInformation} />
+				<Route exact path="/order/reviewAndConfirm" component={OrderReviewAndConfirm} />
+				<Route exact path="/success" component={OrderPlaceSuccess} />
+				<Route exact path="/myOrders" component={MyOrder} />
+				<Route exact path="/orderDetail/:id" component={SpecificOrder} />
+				<Route exact path="/dashboard" component={DashBoard} />
+				<Route exact path="/admin/products" component={ProductsAdmin} />
+				<Route exact path="/admin/newProduct" component={CreateNewProduct} />
+				<Route exact path="/admin/product/edit/:id" component={UpdateProduct} />
+				<Route exact path="/admin/orders" component={OrdersAdmin} />
+				<Route exact path="/admin/order/view/:id" component={SpecificOrderAdmin} />
+				<Route exact path="/admin/users" component={UsersAdmin} />
+				<Route exact path="/admin/user/view/:id" component={SpecificUserAdmin} />
+				<Route exact path="/admin/updateUserName/:id" component={UpdateUserNameAdmin} />
+				<Route exact path="/admin/updateUserEmail/:id" component={UpdateUserEmailAdmin} />
+				<Route exact path="/admin/reviews" component={ReviewsAdmin} />
+				<Route component={window.location.pathname === '/payment' ? null : NotFound} />
+			</Switch>
 
 			{/* Footer of the website. */}
 			<Footer />
