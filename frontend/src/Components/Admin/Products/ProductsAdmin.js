@@ -38,7 +38,8 @@ const ProductsAdmin = () => {
 
 	// Getting user and products from store.
 	const { user, loading, isAuthenticateUser, error } = useSelector(state => state.user);
-	const { error: productError, products, loading: loadingProduct, status } = useSelector(state => state.adminProducts);
+	const { error: productError, products, loading: loadingProduct } = useSelector(state => state.adminProducts);
+	const { error: productUpdateError, loading: loadingUpdateProduct, status } = useSelector(state => state.adminUpdateProduct);
 
 	// Delete product by admin.
 	const deleteProductID = async (id) => {
@@ -156,6 +157,11 @@ const ProductsAdmin = () => {
 			dispatch(userClearError());
 		}
 
+		if (productUpdateError) {
+			toast("Error: " + productUpdateError);
+			dispatch(clearErrors());
+		}
+
 		if (status === true) {
 			dispatch({ type: ADMIN_DELETE_PRODUCT_RESET });
 		}
@@ -164,11 +170,11 @@ const ProductsAdmin = () => {
 		// Dispatching action to get all products.
 		dispatch(adminAllProducts());
 
-	}, [loading, history, isAuthenticateUser, user, dispatch, productError, status, error]);
+	}, [loading, history, isAuthenticateUser, user, dispatch, productError, status, error, productUpdateError]);
 
 	return (
 		<Fragment>
-			{loadingProduct || loading ? <Loading /> : <Fragment>
+			{loadingProduct || loading || loadingUpdateProduct ? <Loading /> : <Fragment>
 				{/* Giving title to the page. */}
 				<MetaData title="All Products -- ADMIN" />
 				{/* SideBar */}

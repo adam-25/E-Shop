@@ -96,8 +96,6 @@ export const adminCreateNewProductReducer = (state = { status: false }, action) 
 				loading: false,
 				error: action.payload
 			};
-
-
 		case ADMIN_NEW_PRODUCT_RESET:
 			return {
 				status: false,
