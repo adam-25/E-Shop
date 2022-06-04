@@ -49,21 +49,21 @@ export const adminAllProductsReducer = (state = { products: [] }, action) => {
 	switch (action.type) {
 
 		case ADMIN_ALL_PRODUCTS_REQUEST:
-			return { 
+			return {
 				...state,
 				loading: true,
 			};
 
 		case ADMIN_ALL_PRODUCTS_SUCCESS:
-			return { 
-				loading: false, 
+			return {
+				loading: false,
 				products: action.payload.products,
 			};
 
 		case ADMIN_ALL_PRODUCTS_FAILURE:
-			return { 
-				loading: false, 
-				error: action.payload 
+			return {
+				loading: false,
+				error: action.payload
 			};
 
 		case CLEAR_ERRORS:
@@ -81,28 +81,23 @@ export const adminAllProductsReducer = (state = { products: [] }, action) => {
 export const adminCreateNewProductReducer = (state = { status: false }, action) => {
 
 	switch (action.type) {
-		case ADMIN_DELETE_PRODUCT_REQUEST:
 		case ADMIN_NEW_PRODUCT_REQUEST:
-			return { 
+			return {
 				...state,
 				loading: true,
 			};
-
-		case ADMIN_DELETE_PRODUCT_SUCCESS:
 		case ADMIN_NEW_PRODUCT_SUCCESS:
-			return { 
-				loading: false, 
+			return {
+				loading: false,
 				status: action.payload.status,
 			};
-
-		case ADMIN_DELETE_PRODUCT_FAILURE:
 		case ADMIN_NEW_PRODUCT_FAILURE:
-			return { 
-				loading: false, 
-				error: action.payload 
+			return {
+				loading: false,
+				error: action.payload
 			};
-		
-		case ADMIN_DELETE_PRODUCT_RESET:
+
+
 		case ADMIN_NEW_PRODUCT_RESET:
 			return {
 				status: false,
@@ -123,24 +118,25 @@ export const adminCreateNewProductReducer = (state = { status: false }, action) 
 // Admin to update product reducer.
 export const adminUpdateProductReducer = (state = { status: false }, action) => {
 	switch (action.type) {
+		case ADMIN_DELETE_PRODUCT_REQUEST:
 		case ADMIN_UPDATE_PRODUCT_REQUEST:
-			return { 
+			return {
 				...state,
 				loading: true,
 			};
-
+		case ADMIN_DELETE_PRODUCT_SUCCESS:
 		case ADMIN_UPDATE_PRODUCT_SUCCESS:
-			return { 
-				loading: false, 
+			return {
+				loading: false,
 				status: action.payload.status,
 			};
-
+		case ADMIN_DELETE_PRODUCT_FAILURE:
 		case ADMIN_UPDATE_PRODUCT_FAILURE:
-			return { 
-				loading: false, 
-				error: action.payload 
+			return {
+				loading: false,
+				error: action.payload
 			};
-
+		case ADMIN_DELETE_PRODUCT_RESET:
 		case ADMIN_UPDATE_PRODUCT_RESET:
 			return {
 				status: false,
@@ -162,21 +158,21 @@ export const adminUpdateProductReducer = (state = { status: false }, action) => 
 export const adminAllReviewsReducer = (state = { reviews: [] }, action) => {
 	switch (action.type) {
 		case ADMIN_ALL_REVIEWS_REQUEST:
-			return { 
+			return {
 				...state,
 				loading: true,
 			};
 
 		case ADMIN_ALL_REVIEWS_SUCCESS:
-			return { 
-				loading: false, 
+			return {
+				loading: false,
 				reviews: action.payload.reviews,
 			};
 
 		case ADMIN_ALL_REVIEWS_FAILURE:
-			return { 
-				loading: false, 
-				error: action.payload 
+			return {
+				loading: false,
+				error: action.payload
 			};
 
 		case CLEAR_ERRORS:
@@ -194,21 +190,21 @@ export const adminAllReviewsReducer = (state = { reviews: [] }, action) => {
 export const adminDeleteReviewReducer = (state = { status: false }, action) => {
 	switch (action.type) {
 		case ADMIN_DELETE_REVIEW_REQUEST:
-			return { 
+			return {
 				...state,
 				loading: true,
 			};
 
 		case ADMIN_DELETE_REVIEW_SUCCESS:
-			return { 
-				loading: false, 
+			return {
+				loading: false,
 				status: action.payload.status,
 			};
 
 		case ADMIN_DELETE_REVIEW_FAILURE:
-			return { 
-				loading: false, 
-				error: action.payload 
+			return {
+				loading: false,
+				error: action.payload
 			};
 
 		case ADMIN_DELETE_REVIEW_RESET:
@@ -231,21 +227,21 @@ export const adminDeleteReviewReducer = (state = { status: false }, action) => {
 export const adminGetOneProductReducer = (state = { oneAdminProduct: {} }, action) => {
 	switch (action.type) {
 		case ADMIN_ONE_PRODUCT_REQUEST:
-			return { 
+			return {
 				...state,
 				loading: true,
 			};
 
 		case ADMIN_ONE_PRODUCT_SUCCESS:
-			return { 
-				loading: false, 
+			return {
+				loading: false,
 				oneAdminProduct: action.payload.oneAdminProduct,
 			};
 
 		case ADMIN_ONE_PRODUCT_FAILURE:
-			return { 
-				loading: false, 
-				error: action.payload 
+			return {
+				loading: false,
+				error: action.payload
 			};
 
 		case CLEAR_ERRORS:
