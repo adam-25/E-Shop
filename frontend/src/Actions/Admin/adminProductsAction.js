@@ -28,6 +28,9 @@ import {
 	ADMIN_DELETE_REVIEW_REQUEST,
 	ADMIN_DELETE_REVIEW_SUCCESS,
 	ADMIN_DELETE_REVIEW_FAILURE,
+	ADMIN_ONE_PRODUCT_REQUEST,
+	ADMIN_ONE_PRODUCT_SUCCESS,
+	ADMIN_ONE_PRODUCT_FAILURE,
 	CLEAR_ERRORS
 } from "../../Constants/Admin/adminProductsConstants";
 
@@ -180,6 +183,31 @@ export const adminDeleteReview = (id, productID) => async (dispatch) => {
 		// Dispatching failure action.
 		dispatch({
 			type: ADMIN_DELETE_REVIEW_FAILURE,
+			payload: error.response.data.error
+		});
+	}
+}
+
+export const getAdminOneProduct = (id) => async (dispatch) => {
+	try {
+		// Request to get one product.
+		dispatch({ type: ADMIN_ONE_PRODUCT_REQUEST });
+
+		// Get one product data.
+		const { data } = await axios.get("/api/v1/adminProduct/" + id);
+
+		console.log(data);
+
+		// Dispatching success action.
+		dispatch({
+			type: ADMIN_ONE_PRODUCT_SUCCESS,
+			payload: data
+		});
+
+	} catch (error) {
+		// Dispatching failure action.
+		dispatch({
+			type: ADMIN_ONE_PRODUCT_FAILURE,
 			payload: error.response.data.error
 		});
 	}

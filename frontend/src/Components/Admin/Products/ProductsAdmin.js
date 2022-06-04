@@ -61,8 +61,8 @@ const ProductsAdmin = () => {
 		{
 			field: "id",
 			headerName: "ID",
-			minWidth: 260,
-			flex: 0.7,
+			minWidth: 310,
+			maxWidth: 310,
 			renderCell: (params) => {
 				return <Link to={`/admin/product/edit/${params.value}`}>{params.value}</Link>
 			}
@@ -70,34 +70,34 @@ const ProductsAdmin = () => {
 		{
 			field: "Name",
 			headerName: "Name",
-			minWidth: 250,
-			flex: 0.53
+			minWidth: 280,
+			maxWidth: 280
 		},
 		{
 			field: "Sell",
 			headerName: "Total Sell",
 			type: "number",
-			minWidth: 155,
-			flex: 0.4
+			minWidth: 190,
+			maxWidth: 190
 		},
 		{
 			field: "Stock",
 			headerName: "Stock",
 			type: "number",
-			minWidth: 150,
-			flex: 0.28
+			minWidth: 175,
+			maxWidth: 175
 		},
 		{
 			field: "Price",
 			headerName: "Price",
-			minWidth: 150,
+			minWidth: 175,
 			type: "number",
-			flex: 0.29
+			maxWidth: 175
 		}, {
 			field: "Actions",
 			headerName: "Actions",
-			minWidth: 150,
-			flex: 0.3,
+			minWidth: 175,
+			maxWidth: 175,
 			type: "number",
 			sortable: false,
 			// Buttons

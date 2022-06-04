@@ -24,7 +24,7 @@ process.on('uncaughtException', (err) => {
 
 // Configuration of env file.
 
-if (process.env.NODE_ENV !== 'PRODUCTION') {
+if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').config({ path: "BackEnd/Config/config.env" });
 }
 // Connect to Cloudinary

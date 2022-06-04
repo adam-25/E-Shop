@@ -32,7 +32,7 @@ const Account = () => {
 	const { loading: loadingUserDelete, error: errorUserDelete, status } = useSelector(state => state.userAccountDelete);
 
 	const deleteUserAccount = async () => {
-		const result = await confirm(<div><h3>Are you sure? </h3> <br /> <p> You want to remove your Account? </p></div>);
+		const result = await confirm(<div><h3>Are you sure? </h3> <br /> <p> You want to delete your Account? </p></div>);
 
 		// If yes then dispatch the action to delete an ite and reload the page.
 		if (result) {

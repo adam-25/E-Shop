@@ -35,7 +35,7 @@
 
 /* Box of confirmation position absolute with the center of the screen */
 .confirm-box {
-	position: absolute;
+	position: fixed;
 	display: flex;
 	justify-content: center;
 	left: 0;

@@ -23,7 +23,8 @@ exports.registerUser = catchError(async (req, res, next) => {
 
 	let { userFullName, userEmail, userPassword } = req.body;
 
-
+	if (userFullName.trim().split(' ').length !== 2)
+		return next(new ErrorHandler("Please enter name with two words: 'FirstName LastName'", 500))
 
 	userFullName = userFullName.trim().split(' ')[0].charAt(0).toUpperCase() + userFullName.trim().split(' ')[0].slice(1) + ' ' + userFullName.trim().split(' ')[1].charAt(0).toUpperCase() + userFullName.trim().split(' ')[1].slice(1);
 	const userFirstName = userFullName.trim().split(" ")[0].charAt(0).toUpperCase() + userFullName.trim().split(" ")[0].slice(1);
@@ -176,10 +177,13 @@ exports.updateName = catchError(async function (req, res, next) {
 
 	const user = await userModel.findById(req.user.id);
 
+	if (req.body.newFullName.trim().split(' ').length !== 2)
+		return next(new ErrorHandler("Please enter name with two words: 'FirstName LastName'", 500))
+
 	user.userFullName = req.body.newFullName;
 
-	const userFirstName = user.userFullName.trim().split(" ")[0].charAt(0).toUpperCase() + user.userFullName.trim().split(" ")[0].slice(1);
-	const userLastName = user.userFullName.trim().split(" ")[1].charAt(0).toUpperCase() + user.userFullName.trim().split(" ")[1].slice(1);
+	user.userFirstName = user.userFullName.trim().split(" ")[0].charAt(0).toUpperCase() + user.userFullName.trim().split(" ")[0].slice(1);
+	user.userLastName = user.userFullName.trim().split(" ")[1].charAt(0).toUpperCase() + user.userFullName.trim().split(" ")[1].slice(1);
 
 	await user.save();
 
@@ -236,7 +240,7 @@ exports.updateUserRole = catchError(async (req, res, next) => {
 		req.body.newEmail = user.userEmail;
 	else
 		user.userEmail = req.body.newEmail;
-		
+
 	if (!req.body.newRole)
 		req.body.newRole = user.userRole;
 	else

@@ -22,9 +22,8 @@ import MetaData from '../../Layout/MetaData';
 import Heading from '../../Layout/Heading/Heading';
 import Loading from '../../Loading/Loading';
 import SideBar from '../Layout/SideBar';
-import { adminUpdateProduct, clearErrors } from '../../../Actions/Admin/adminProductsAction';
+import { adminUpdateProduct, clearErrors, getAdminOneProduct } from '../../../Actions/Admin/adminProductsAction';
 import { ADMIN_UPDATE_PRODUCT_RESET } from '../../../Constants/Admin/adminProductsConstants';
-import { getSpecificProduct, clearErrors as clearOneOrderError } from '../../../Actions/productAction';
 import { clearErrors as clearUserError } from '../../../Actions/userAction';
 
 // Creating new Product Component.
@@ -36,7 +35,7 @@ const UpdateProduct = ({ match }) => {
 	// Getting user and products from store.
 	const { user, loading, isAuthenticateUser, error: userError } = useSelector(state => state.user);
 	const { error, status, loading: loadingUpdateProduct } = useSelector(state => state.adminUpdateProduct);
-	const { oneProduct, loadingOneProduct, error: orderError } = useSelector(state => state.oneProduct);
+	const { oneAdminProduct, loading: loadingOneProduct, error: orderError } = useSelector(state => state.adminGetOneProduct);
 
 	// useState to set value of each input.
 	const [productName, setProductName] = useState();
@@ -115,7 +114,7 @@ const UpdateProduct = ({ match }) => {
 
 		if (orderError) {
 			toast("Error: " + orderError);
-			dispatch(clearOneOrderError());
+			dispatch(clearErrors());
 		}
 
 		if (userError) {
@@ -129,18 +128,18 @@ const UpdateProduct = ({ match }) => {
 			history.push('/admin/products');
 		}
 
-		if (oneProduct && oneProduct._id !== match.params.id)
-			dispatch(getSpecificProduct(match.params.id));
+		if (oneAdminProduct && oneAdminProduct.productID !== match.params.id)
+			dispatch(getAdminOneProduct(match.params.id));
 		else {
-			setProductName(oneProduct.productName);
-			setProductDescription(oneProduct.productDescription);
-			setProductPrice(oneProduct.productPrice);
-			setProductStock(oneProduct.productStock);
-			setProductCategory(oneProduct.productCategory);
-			setOldProductImages(oneProduct.productImages);
+			setProductName(oneAdminProduct.productName);
+			setProductDescription(oneAdminProduct.productDescription);
+			setProductPrice(oneAdminProduct.productPrice);
+			setProductStock(oneAdminProduct.productStock);
+			setProductCategory(oneAdminProduct.productCategory);
+			setOldProductImages(oneAdminProduct.productImages);
 		}
 
-	}, [loading, history, isAuthenticateUser, user, dispatch, error, status, match.params.id, orderError, userError, oneProduct]);
+	}, [loading, history, isAuthenticateUser, user, dispatch, error, status, match.params.id, orderError, userError, oneAdminProduct]);
 
 	return (
 		<Fragment>
@@ -160,7 +159,7 @@ const UpdateProduct = ({ match }) => {
 							<AbcIcon />
 							<input
 								type="text"
-								placeholder={oneProduct.productName}
+								placeholder={oneAdminProduct.productName}
 								value={productName}
 								required
 								onChange={(e) => setProductName(e.target.value)} />
@@ -171,7 +170,7 @@ const UpdateProduct = ({ match }) => {
 							<SellIcon />
 							<input
 								type="number"
-								placeholder={oneProduct.productPrice}
+								placeholder={oneAdminProduct.productPrice}
 								value={productPrice}
 								required
 								onChange={(e) => setProductPrice(e.target.value)} />
@@ -182,7 +181,7 @@ const UpdateProduct = ({ match }) => {
 							<CategoryIcon />
 							<input
 								type="text"
-								placeholder={oneProduct.productCategory}
+								placeholder={oneAdminProduct.productCategory}
 								required
 								value={productCategory}
 								onChange={(e) => setProductCategory(e.target.value)} />
@@ -192,7 +191,7 @@ const UpdateProduct = ({ match }) => {
 							<h5> Product Description: </h5>
 							<DescriptionIcon />
 							<textarea
-								placeholder={oneProduct.productDescription}
+								placeholder={oneAdminProduct.productDescription}
 								required
 								value={productDescription}
 								onChange={(e) => setProductDescription(e.target.value)}
@@ -205,7 +204,7 @@ const UpdateProduct = ({ match }) => {
 							<StorageIcon />
 							<input
 								type="number"
-								placeholder={oneProduct.productStock}
+								placeholder={oneAdminProduct.productStock}
 								required
 								value={productStock}
 								onChange={(e) => setProductStock(e.target.value)} />

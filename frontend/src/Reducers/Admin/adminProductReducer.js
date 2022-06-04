@@ -36,6 +36,9 @@ import {
 	ADMIN_DELETE_REVIEW_SUCCESS,
 	ADMIN_DELETE_REVIEW_FAILURE,
 	ADMIN_DELETE_REVIEW_RESET,
+	ADMIN_ONE_PRODUCT_REQUEST,
+	ADMIN_ONE_PRODUCT_SUCCESS,
+	ADMIN_ONE_PRODUCT_FAILURE,
 	CLEAR_ERRORS
 
 } from "../../Constants/Admin/adminProductsConstants";
@@ -213,6 +216,37 @@ export const adminDeleteReviewReducer = (state = { status: false }, action) => {
 				status: false,
 				loading: false,
 			}
+
+		case CLEAR_ERRORS:
+			return {
+				...state,
+				error: null
+			};
+
+		default:
+			return state;
+	}
+};
+
+export const adminGetOneProductReducer = (state = { oneAdminProduct: {} }, action) => {
+	switch (action.type) {
+		case ADMIN_ONE_PRODUCT_REQUEST:
+			return { 
+				...state,
+				loading: true,
+			};
+
+		case ADMIN_ONE_PRODUCT_SUCCESS:
+			return { 
+				loading: false, 
+				oneAdminProduct: action.payload.oneAdminProduct,
+			};
+
+		case ADMIN_ONE_PRODUCT_FAILURE:
+			return { 
+				loading: false, 
+				error: action.payload 
+			};
 
 		case CLEAR_ERRORS:
 			return {

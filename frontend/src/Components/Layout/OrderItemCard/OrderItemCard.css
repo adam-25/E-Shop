@@ -17,10 +17,15 @@
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	border: none;
+	height: auto;
 }
 
 /* Display flex of order first three div and order # div */
 .order-information {
+	display: flex;
+}
+
+.order-information>div:first-child {
 	display: flex;
 }
 
@@ -130,6 +135,24 @@
 
 @media all and (max-width: 1120px) {
 
+	/* Order Number position relative to make it below headings */
+	.order-number {
+		position: relative;
+		margin-left: 20px;
+		margin-top: 10px;
+		top: 0;
+		right: 0;
+	}
+
+	/* Display flex of order first three div and order # div */
+	.order-information {
+		display: block;
+	}
+
+	.order-information > div:first-child {
+		width: 100%;
+	}
+
 	/* Show order info after image. */
 	.order-container-info {
 		position: relative;
@@ -137,19 +160,17 @@
 
 	/* Separate order top and bottom part with different background. */
 	.order-detail-container {
-		height: 110px;
+		padding-bottom: 20px;
+	}
+
+	.order-info {
+		margin-top: 10px;
+		margin-right: 5px;
 	}
 
 	/* Contain information of header. */
 	.order-info p:last-child {
 		margin-bottom: 0px;
-	}
-
-	/* Order Number position relative to make it below headings */
-	.order-number {
-		position: relative;
-		margin-left: 40px;
-		margin-top: 0px;
 	}
 
 	/* OrderItemInfoCard.js CSS */
@@ -182,11 +203,5 @@
 
 	.order-product-info img {
 		height: 24vmax;
-	}
-}
-
-@media all and (max-width: 450px) {
-	.order-detail-container {
-		height: 125px;
 	}
 }

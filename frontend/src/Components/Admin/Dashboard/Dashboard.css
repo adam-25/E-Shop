@@ -40,8 +40,14 @@
 
 /* All three div which contains information */
 .dashboard-info div {
-	padding: 0px 5vmax 0px 5vmax;
 	font-family: "Comic Neue", cursive;
+	justify-content: center;
+	width: 25%;
+	margin: 0px 3px 0px 3px;
+}
+
+.dashboard-info div:first-child {
+	margin-left: 10vmax;
 }
 
 /* Heading of all three div. */
@@ -75,6 +81,20 @@
 }
 
 @media all and (max-width: 992px) {
+
+	.summery-dashboard {
+		width: 90%;
+	}
+
+	.dashboard-info>div {
+		align-items: center;
+		width: 25%;
+		margin: 0px 3px 0px 3px;
+	}
+
+	.dashboard-info div:first-child {
+		margin-left: 0vmax;
+	}	
 
 	/* Display block in smaller width */
 	.chart {

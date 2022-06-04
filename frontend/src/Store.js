@@ -57,7 +57,7 @@ import { cartReducer } from "./Reducers/cartReducer";
 import { createOrderReducer, myOrderReducer, specificOrderReducer } from "./Reducers/orderReducer";
 import { adminAllOrderReducer, adminUpdateDeleteOrderReducer } from "./Reducers/Admin/adminOrderReducer";
 import { adminAllUsersReducer, adminDeleteUpdateUserReducer, adminOneUserReducer } from "./Reducers/Admin/adminUsersReducer";
-import { adminAllProductsReducer, adminAllReviewsReducer, adminCreateNewProductReducer, adminDeleteReviewReducer, adminUpdateProductReducer } from "./Reducers/Admin/adminProductReducer";
+import { adminAllProductsReducer, adminAllReviewsReducer, adminCreateNewProductReducer, adminDeleteReviewReducer, adminGetOneProductReducer, adminUpdateProductReducer } from "./Reducers/Admin/adminProductReducer";
 
 // Combining Reducers.
 const reducer = combineReducers({
@@ -83,7 +83,8 @@ const reducer = combineReducers({
 	adminUpdateUser: adminDeleteUpdateUserReducer,
 	adminOneUser: adminOneUserReducer,
 	adminReview: adminAllReviewsReducer,
-	adminDeleteReview: adminDeleteReviewReducer
+	adminDeleteReview: adminDeleteReviewReducer,
+	adminGetOneProduct: adminGetOneProductReducer
 });
 
 let initialState = {

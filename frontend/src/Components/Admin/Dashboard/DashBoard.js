@@ -64,48 +64,46 @@ const DashBoard = () => {
 
 	useEffect(() => {
 
-		if (!window.location.hash) {
-			window.location = window.location + '#loaded';
-			window.location.reload();
-		}
-
 		// If admin is not logged in then redirect to login page.
 		if (!loading)
 			if (isAuthenticateUser === false)
 				history.push('/login');
 
-		// If user is not admin then cannot access dashboard.
+		// If user is not admin then cannot access all Products.
 		if (!loading)
-			if (isAuthenticateUser === true)
+			if (isAuthenticateUser === true) {
 				if (user.userRole !== 'admin') {
 					history.push('/');
 					toast("Error: Cannot Access this Resource...")
 				}
+				else {
+					if (orderError) {
+						toast("Error: " + orderError);
+						dispatch(orderClearError());
+					}
+					if (productError) {
+						toast("Error: " + productError);
+						dispatch(productClearError());
+					}
+					if (userError) {
+						toast("Error: " + userError);
+						dispatch(usersClearError());
+					}
+
+					// Dispatching action to get all orders, products, users.
+					dispatch(adminAllOrder());
+					dispatch(adminAllProducts());
+					dispatch(adminAllUsers());
+				}
+			}
+
 
 		if (error) {
 			toast("Error: " + error);
 			dispatch(clearErrors());
 		}
 
-		if (orderError) {
-			toast("Error: " + orderError);
-			dispatch(orderClearError());
-		}
-		if (productError) {
-			toast("Error: " + productError);
-			dispatch(productClearError());
-		}
-		if (userError) {
-			toast("Error: " + userError);
-			dispatch(usersClearError());
-		}
-
-		// Dispatching action to get all orders, products, users.
-		dispatch(adminAllOrder());
-		dispatch(adminAllProducts());
-		dispatch(adminAllUsers());
-
-	}, [loading, history, isAuthenticateUser, user, dispatch, orderError, productError, userError, error]);
+	}, [loading, history, isAuthenticateUser, user, dispatch, productError, error, userError, orderError]);
 
 	return (
 		<Fragment>

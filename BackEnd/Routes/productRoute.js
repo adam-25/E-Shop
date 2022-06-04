@@ -21,6 +21,7 @@ router.route("/products").get(product.getAllProducts);
 // Creating a route where a all product count can be displayed.
 router.route("/admin/products/getAll").get(isAuthenticateUser, isAdmin("admin"), product.getAllProductsAdmin);
 
+router.route("/adminProduct/:id").get(isAuthenticateUser, isAdmin("admin"), product.getOneAdminProduct);
 // Creating a route to create a new product.
 router.route("/products/newProduct").post(isAuthenticateUser, isAdmin("admin"), product.createProduct);
 

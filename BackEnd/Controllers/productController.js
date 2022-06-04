@@ -154,6 +154,18 @@ exports.deleteProduct = asyncCatch(async (req, res, next) => {
 	res.status(200).json({ status: true });
 });
 
+exports.getOneAdminProduct = asyncCatch(async (req, res, next) => {
+	let oneAdminProduct = await productModelAdmin.find({ productID: req.params.id });
+
+	if (!oneAdminProduct) {
+		return next(new ErrorHandler("Product Not Found", 404));
+	}
+
+	oneAdminProduct = oneAdminProduct[0];
+
+	res.status(200).json({ status: true, oneAdminProduct });
+});
+
 // Getting particular product from DB by ID.
 exports.getOneProduct = asyncCatch(async (req, res, next) => {
 	const oneProduct = await productModel.findById(req.params.id);
