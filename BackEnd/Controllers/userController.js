@@ -233,8 +233,14 @@ exports.updateUserRole = catchError(async (req, res, next) => {
 
 	if (!req.body.newFullName)
 		req.body.newFullName = user.userFullName;
-	else
+	else {
+		if (req.body.newFullName.trim().split(' ').length !== 2)
+			return next(new ErrorHandler("User not exist with id " + req.params.id));
+		
 		user.userFullName = req.body.newFullName;
+		user.userFirstName = req.body.newFullName.trim().split(" ")[0].charAt(0).toUpperCase() + req.body.newFullName.trim().split(" ")[0].slice(1);
+		user.userLastName = req.body.newFullName.trim().split(" ")[1].charAt(0).toUpperCase() + req.body.newFullName.trim().split(" ")[1].slice(1);
+	}
 
 	if (!req.body.newEmail)
 		req.body.newEmail = user.userEmail;

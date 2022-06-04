@@ -47,8 +47,7 @@ const CreateNewProduct = () => {
 	const [productImagePreview, setProductImagePreview] = useState([]);
 
 	// When Form is submitted.
-	const createProductSubmit = (e) => {
-		e.preventDefault();
+	const createProductSubmit = () => {
 
 		// Data to send to backend.
 		const productData = {

@@ -17,7 +17,7 @@
 
 /* User info and its button. */
 .info {
-	width: 70%;
+	width: 100%;
 	display: flex;
 	flex-direction: row;
 }

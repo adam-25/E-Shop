@@ -46,7 +46,7 @@ const ProductsAdmin = () => {
 		const result = await confirm(<div><h3>Are you sure? </h3> <br /> <p> You want to delete this Product? </p></div>);
 
 		// If yes then dispatch the action to delete an ite and reload the page.
-		if (result) {
+		if (result === true) {
 			await dispatch(adminDeleteProduct(id));
 			window.location.reload();
 			return;
