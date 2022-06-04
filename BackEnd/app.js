@@ -27,9 +27,10 @@ const fileUpload = require("express-fileupload");
 const app = express();
 
 // Configuration of env file.
-if (process.env.NODE_ENV !== 'PRODUCTION') {
-	require('dotenv').config({ path: "backEnd/Config/config.env" });
+if (process.env.NODE_ENV !== "PRODUCTION") {
+	require("dotenv").config({ path: "backEnd/Config/config.env" });
 }
+
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json({ limit: '25mb' }));
@@ -49,9 +50,10 @@ app.use("/api/v1/", userRoute);
 app.use("/api/v1/", orderRoute);
 app.use("/api/v1/", paymentRoute);
 
-app.use(express.static(path.join(__dirname + "/../frontend/build")));
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+
 app.get("*", (req, res) => {
-	res.sendFile(path.resolve(__dirname + "/../frontend/build/index.html"));
+	res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
 });
 
 // Using MiddleWare
