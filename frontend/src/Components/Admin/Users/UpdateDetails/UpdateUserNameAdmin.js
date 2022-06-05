@@ -31,6 +31,8 @@ const UpdateUserNameAdmin = ({ match }) => {
 
 	// When changing email has been submit.
 	const changeNameSubmitAdmin = (e) => {
+		e.preventDefault();
+		
 		if (newFullName === '' || newFullName === adminOneUser.userFullName) {
 			toast("Please enter an appropriate user name...");
 			return;

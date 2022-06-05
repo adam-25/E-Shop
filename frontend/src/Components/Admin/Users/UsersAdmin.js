@@ -4,25 +4,30 @@
 */
 
 // Importing necessary modules.
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { DataGrid } from '@material-ui/data-grid';
 import { Link } from 'react-router-dom';
 
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+
 // Importing Icons.
 import { Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { confirm } from 'react-confirm-box';
 
 // Importing necessary components.
 import MetaData from '../../Layout/MetaData';
 import Heading from '../../Layout/Heading/Heading';
 import Loading from '../../Loading/Loading';
-import { clearErrors as userClearError } from '../../../Actions/userAction';
 import SideBar from '../Layout/SideBar';
+import { clearErrors as userClearError } from '../../../Actions/userAction';
 import { adminAllUsers, adminDeleteUser, clearErrors } from '../../../Actions/Admin/adminUsersAction';
 
 const UsersAdmin = () => {
@@ -33,19 +38,30 @@ const UsersAdmin = () => {
 	const { user, isAuthenticateUser, loading, error } = useSelector(state => state.user);
 	const { users, loading: allUserLoading, error: allUserError } = useSelector(state => state.adminUsers);
 
-	// Delete User by admin.
-	const deleteUserID = async (id) => {
-		// Popup window to show delete or not.
-		const result = await confirm(<div><h3>Are you sure? </h3> <br /> <p> You want to delete this User? </p></div>);
+	const [open, setOpen] = useState(false);
+	const [deleteID, setDeleteID] = useState();
+	const theme = useTheme();
+	const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-		// If yes then dispatch the action to delete an ite and reload the page.
-		if (result) {
-			await dispatch(adminDeleteUser(id));
-			window.location.reload();
-			return;
-		}
-		else
-			return;
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	// When popup closed.
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	const settingDeleteID = (id) => {
+		setDeleteID(id);
+		handleClickOpen();
+	}
+
+	// Delete User by admin.
+	const deleteUserID = async () => {
+		await dispatch(adminDeleteUser(deleteID));
+		handleClose();
+		window.location.reload();
 	}
 
 	// Columns of the table DataGrid.
@@ -107,7 +123,7 @@ const UsersAdmin = () => {
 						</Link>
 						{/* Delete Button. */}
 						<Button>
-							<DeleteIcon onClick={(() => deleteUserID(params.getValue(params.id, "id")))} />
+							<DeleteIcon onClick={() => settingDeleteID(params.getValue(params.id, "id"))} />
 						</Button>
 					</Fragment>
 				)
@@ -174,6 +190,41 @@ const UsersAdmin = () => {
 					className='products-admin-grid'
 				/>
 			</Fragment>}
+			<div className='popup-review'>
+				{/* When Dialog box opens when close. */}
+				<Dialog
+					fullScreen={fullScreen}
+					open={open}
+					onClose={handleClose}
+					aria-labelledby="responsive-dialog-title"
+				>
+					{/* Title of the popup */}
+					<DialogTitle id="responsive-dialog-title" style={{ fontFamily: "Comic Neue, cursive", fontSize: "2.5rem" }} >
+						Are you sure?
+					</DialogTitle>
+					<DialogContent>
+						{/* rating to set */}
+						<div>
+						</div>
+						{/* TextArea where comment is written */}
+						<div className='paragraph-tag-pop-up'>
+							<div>
+								<p>You want to delete this user?</p>
+							</div>
+							<div>
+								{/* Submit Button. */}
+								<button id="review-popup-button" onClick={deleteUserID}>
+									Delete
+								</button>
+								{/* Cancel Button */}
+								<button id="review-popup-button" onClick={handleClose}>
+									Cancel
+								</button>
+							</div>
+						</div>
+					</DialogContent>
+				</Dialog>
+			</div>
 		</Fragment>
 	)
 }

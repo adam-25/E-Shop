@@ -31,6 +31,8 @@ const UpdateUserEmailAdmin = ({ match }) => {
 
 	// When changing email has been submit.
 	const changeEmailSubmitAdmin = (e) => {
+		e.preventDefault();
+		
 		if (newEmail === '' || newEmail === adminOneUser.userEmail) {
 			toast("Please enter an appropriate user email...");
 			return;

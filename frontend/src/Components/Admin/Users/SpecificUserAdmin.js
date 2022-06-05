@@ -106,7 +106,6 @@ const SpecificUserAdmin = ({ match }) => {
 	return (
 		<Fragment>
 			{loading || loadingOneUser ? <Loading /> : adminOneUser && <Fragment>
-				{console.log(adminOneUser)}
 				{/* Title of the page */}
 				<MetaData title="Update User -- ADMIN" />
 				{/* Side bar */}

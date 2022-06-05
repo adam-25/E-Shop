@@ -7,6 +7,11 @@
 	padding: 3vmax;
 }
 
+.paragraph-tag-pop-up {
+	font-size: 25px;
+	font-family: "Comic Neue", cursive;
+}
+
 /* Container to give proper width. and align. */
 .user-information-container {
 	width: 70%;

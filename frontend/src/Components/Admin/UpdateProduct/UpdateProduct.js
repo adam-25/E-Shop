@@ -49,6 +49,7 @@ const UpdateProduct = ({ match }) => {
 
 	// When Form is submitted.
 	const updateProductSubmit = (e) => {
+		e.preventDefault();
 
 		// Data to send to backend.
 		const productData = {

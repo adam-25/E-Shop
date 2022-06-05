@@ -120,7 +120,7 @@ import ReviewsAdmin from './Components/Admin/Reviews/ReviewsAdmin.js';
 function App() {
 
 	const dispatch = useDispatch();
-	const { isAuthenticateUser } = useSelector(state => state.user);
+	const { isAuthenticateUser, loading } = useSelector(state => state.user);
 
 	// Getting payment stripe key from the backend and store in paymentAPIKey.
 	const [paymentAPIKey, setPaymentAPIKey] = useState();
@@ -145,7 +145,7 @@ function App() {
 			<Header />
 
 			{/* If User is logged out and go to logout path then redirect to login */}
-			{(window.location.pathname !== "/" && isAuthenticateUser === true) ? <UserOptions /> : null}
+			{(window.location.pathname !== "/" && !loading && isAuthenticateUser === true) ? <UserOptions /> : null}
 			{(window.location.pathname === "/logout" && !isAuthenticateUser) ? <Redirect to="/login" /> : null}
 
 			{paymentAPIKey &&

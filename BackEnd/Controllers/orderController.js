@@ -24,7 +24,6 @@ exports.createOrder = catchAsyncError(async (req, res, next) => {
 	req.body.orderInfo.forEach(async (orderItem) => {
 		await stockUpdate(orderItem.productID, orderItem.orderQuantity);
 		await updateSell(orderItem.productID, orderItem.orderQuantity);
-		await updateSellAdmin(orderItem.productID, orderItem.orderQuantity);
 	});
 
 	const order = await orderModel.create({
@@ -120,6 +119,7 @@ exports.updateOrder = catchAsyncError(async (req, res, next) => {
 
 		order.orderInfo.forEach(async (orderItem) => {
 			await stockUpdateAdmin(orderItem.productID, orderItem.orderQuantity);
+			await updateSellAdmin(orderItem.productID, orderItem.orderQuantity);
 		});
 	}
 

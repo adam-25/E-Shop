@@ -196,8 +196,6 @@ export const getAdminOneProduct = (id) => async (dispatch) => {
 		// Get one product data.
 		const { data } = await axios.get("/api/v1/adminProduct/" + id);
 
-		console.log(data);
-
 		// Dispatching success action.
 		dispatch({
 			type: ADMIN_ONE_PRODUCT_SUCCESS,

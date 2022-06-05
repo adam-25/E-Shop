@@ -161,7 +161,7 @@ exports.updatePassword = catchError(async function (req, res, next) {
 	}
 
 	if (req.body.newPassword !== req.body.confirmPassword) {
-		return next(new ErrorHandler("New password does not match with the old password.", 400));
+		return next(new ErrorHandler("Password does not match...", 400));
 	}
 
 	user.userPassword = req.body.newPassword;

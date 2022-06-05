@@ -7,11 +7,17 @@
 */
 
 // Importing necessary modules.
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { confirm } from 'react-confirm-box';
+
+// For Submit Review PopUp.
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 // Importing necessary components.
 import MetaData from '../Layout/MetaData';
@@ -27,19 +33,26 @@ const Account = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 
+	const [open, setOpen] = useState(false);
+	const theme = useTheme();
+	const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	// When popup closed.
+	const handleClose = () => {
+		setOpen(false);
+	};
+
 	// Get Login User Information.
 	const { user, loading, isAuthenticateUser, error } = useSelector(state => state.user);
 	const { loading: loadingUserDelete, error: errorUserDelete, status } = useSelector(state => state.userAccountDelete);
 
 	const deleteUserAccount = async () => {
-		const result = await confirm(<div><h3>Are you sure? </h3> <br /> <p> You want to delete your Account? </p></div>);
-
-		// If yes then dispatch the action to delete an ite and reload the page.
-		if (result) {
-			await dispatch(deleteUser());
-		}
-		else
-			return;
+		dispatch(deleteUser());
+		history.push('/login');
 	}
 
 	useEffect(() => {
@@ -55,7 +68,7 @@ const Account = () => {
 			toast.error("Error: " + error);
 			dispatch(clearErrors());
 		}
-		
+
 		if (errorUserDelete) {
 			toast.error("Error: " + errorUserDelete);
 			dispatch(clearErrors());
@@ -63,7 +76,7 @@ const Account = () => {
 
 		if (status === true) {
 			dispatch(clearErrors());
-			dispatch( { type: DELETE_USER_RESET } )
+			dispatch({ type: DELETE_USER_RESET })
 			history.push("/");
 		}
 
@@ -115,10 +128,45 @@ const Account = () => {
 									<a href="/password/update" className="other-button">Change Password</a>
 								</div>
 								<div>
-									<button className="other-button delete-account-button" onClick={deleteUserAccount}>Delete Account</button>
+									<button className="other-button delete-account-button" onClick={handleClickOpen}>Delete Account</button>
 								</div>
 							</div>
 						</div>
+					</div>
+					<div className='popup-review'>
+						{/* When Dialog box opens when close. */}
+						<Dialog
+							fullScreen={fullScreen}
+							open={open}
+							onClose={handleClose}
+							aria-labelledby="responsive-dialog-title"
+						>
+							{/* Title of the popup */}
+							<DialogTitle id="responsive-dialog-title" style={{ fontFamily: "Comic Neue, cursive", fontSize: "2.5rem" }} >
+								Are you sure?
+							</DialogTitle>
+							<DialogContent>
+								{/* rating to set */}
+								<div>
+								</div>
+								{/* TextArea where comment is written */}
+								<div className='paragraph-tag-pop-up'>
+									<div>
+										<p>You want to delete your Account?</p>
+									</div>
+									<div>
+										{/* Submit Button. */}
+										<button id="review-popup-button" onClick={deleteUserAccount}>
+											Delete
+										</button>
+										{/* Cancel Button */}
+										<button id="review-popup-button" onClick={handleClose}>
+											Cancel
+										</button>
+									</div>
+								</div>
+							</DialogContent>
+						</Dialog>
 					</div>
 				</Fragment>
 			)}
