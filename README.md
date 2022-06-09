@@ -50,7 +50,7 @@ Go to config.env file and write below variables.
   &emsp; 3). Run `yarn run build` in the frontend folder which will create a build directory with a production build of the app. <br />
   &emsp; 4). Run `npm start` in the root directory of the project. <br />
   &emsp; 5). Go to <a href="http://localhost:4000/">Link</a> <br />
-  &emsp; 6). In order to become an admin, you need to change your role in `userinfos` collection in MongoDb database in userRole field from 'user' to 'admin'.
+  &emsp; 6). In order to become an admin, you need to change your role in `userinfos` collection in MongoDB database in `userRole` field from `user` to `admin`.
   
 ## Note
   
