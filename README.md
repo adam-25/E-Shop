@@ -7,7 +7,7 @@ I have created a MERN stack ECommerece App which may help small business to go o
 
 ## Download node and npm
 
- &emsp; 1).<a href="https://nodejs.org/en/download/"> Download Node</a> <br />
+ &emsp; 1).<a href="https://nodejs.org/en/download/" target="_blank"> Download Node</a> <br />
  &emsp; 2). Download Node JS according to your OS. <br />
  &emsp; 3). Follow the instructions and it will download Node and npm to your system. <br />
   
@@ -18,10 +18,10 @@ I have created a MERN stack ECommerece App which may help small business to go o
 
 ## Setting up MongoDB database, Cloudinary and Stripe
 
-  &emsp; 1). You need to setup mongodb Atlas account for project to run smoothly. Go through   this video to set MongoDB Atlas at <a href="https://www.youtube.com/watch?v=OuCrHynro0w&list=PLurIMwd6GdCj_VlnKVceR66Sxfcb37VU8&index=5">4:50</a> <br />
+  &emsp; 1). You need to setup mongodb Atlas account for project to run smoothly. Go through   this video to set MongoDB Atlas at <a href="https://www.youtube.com/watch?v=OuCrHynro0w&list=PLurIMwd6GdCj_VlnKVceR66Sxfcb37VU8&index=5" target="_blank">4:50</a> <br />
   &emsp; 2). Copy the link that you see in the video at 8:15 and store it. <br /> 
-  &emsp; 3). Create Account on <a href="https://cloudinary.com/">Cloudinary</a> <br />
- &emsp;  4). Create an Account on <a href="https://stripe.com/en-gb-ca">Stripe</a> <br />
+  &emsp; 3). Create Account on <a href="https://cloudinary.com/" target="_blank">Cloudinary</a> <br />
+ &emsp;  4). Create an Account on <a href="https://stripe.com/en-gb-ca" target="_blank">Stripe</a> <br />
   
 ## Write config variables
 
@@ -49,9 +49,9 @@ Go to config.env file and write below variables.
   &emsp; 2). Run `yarn install` in the frontend folder which install all require modules for React. <br />
   &emsp; 3). Run `yarn run build` in the frontend folder which will create a build directory with a production build of the app. <br />
   &emsp; 4). Run `npm start` in the root directory of the project. <br />
-  &emsp; 5). Go to <a href="http://localhost:4000/">Link</a> <br />
+  &emsp; 5). Go to <a href="http://localhost:4000/" target="_blank">Link</a> <br />
   &emsp; 6). In order to become an admin, you need to change your role in `userinfos` collection in MongoDB database in `userRole` field from `user` to `admin`.
   
 ## Note
   
-  You can check the website <a href="https://e-commerce-e-shop.herokuapp.com/">here</a>.
+  You can check the website <a href="https://e-commerce-e-shop.herokuapp.com/" target="_blank">here</a>.
