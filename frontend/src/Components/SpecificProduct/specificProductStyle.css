@@ -55,6 +55,7 @@
 	font-size: 1.9vmax;
 	margin-bottom: 0;
 	font-weight: lighter;
+	word-break: break-word;
 }
 
 /* ID */
@@ -62,6 +63,7 @@
 	color: #5F7161;
 	font-size: 0.8vmax;
 	font-weight: lighter;
+	word-wrap: break-word;
 }
 
 /* Product Review Below Name */
@@ -161,6 +163,7 @@
 /* Description Inline */
 .specific-product-description p {
 	display: inline;
+	word-break: break-word;
 }
 
 /* Description */

@@ -109,6 +109,7 @@
 .order-item-info h4 {
 	color: black;
 	text-decoration: none;
+	word-break: break-word;
 }
 
 /* When hover over name and image. */
