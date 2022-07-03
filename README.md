@@ -16,7 +16,7 @@ I have created a MERN stack ECommerece App which may help small business to go o
  &emsp; 1). Go to BackEnd folder and Create Folder name Config. <br />
  &emsp; 2). Create config.env file inside this folder. <br />
 
-## Setting up MongoDB database, Cloudinary and Stripe
+## Setup MongoDB database, Cloudinary and Stripe
 
   &emsp; 1). You need to setup mongodb Atlas account for project to run smoothly. Go through this video to set MongoDB Atlas at <a href="https://www.youtube.com/watch?v=OuCrHynro0w&list=PLurIMwd6GdCj_VlnKVceR66Sxfcb37VU8&index=5" target="_blank">4:50</a> <br />
   &emsp; 2). Copy the link that you see in the video at 8:15 and store it. <br /> 
