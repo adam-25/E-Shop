@@ -1,6 +1,6 @@
 # ECommerce-Full-Stack-Website
 
-I have created a MERN stack ECommerece App which may help small business to go online and provide efficient service to their customers. Small businesses can start this app in an hour and can use to run their own business. This app integrates several API's for payments or to store images online. There is two main parts of this app.
+> I have created a MERN stack ECommerece App which may help small business to go online and provide efficient service to their customers. Small businesses can start this app in an hour and can use to run their own business. This app integrates several API's for payments or to store images online. There is two main parts of this app.
 ```
  1). User: Users can create their accounts, place order, can check their order status.
  2). Admin: Admin can do all the user stuff as well as they can view total orders, total sales, total users, total products, create, update, delete products, users and reviews of the product.
